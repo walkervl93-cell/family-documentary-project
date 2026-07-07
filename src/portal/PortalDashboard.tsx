@@ -38,6 +38,100 @@ function StatusTracker({ status }: { status: string }) {
   )
 }
 
+const DELIVERABLE_SIGNED_URL_TTL_SECONDS = 60 * 60 * 24 // 24h — long enough for a TV cast session
+
+interface Deliverable {
+  id: string
+  file_url: string
+  version: number
+  revision_requested: boolean
+}
+
+function DeliverableViewer({ bookingId }: { bookingId: string }) {
+  const [deliverable, setDeliverable] = useState<Deliverable | null>(null)
+  const [videoUrl, setVideoUrl] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [requestingRevision, setRequestingRevision] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+
+    async function load() {
+      const { data } = await supabase
+        .from('deliverables')
+        .select('id, file_url, version, revision_requested')
+        .eq('booking_id', bookingId)
+        .order('version', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+
+      if (cancelled) return
+      setDeliverable(data ?? null)
+
+      if (data?.file_url) {
+        const { data: signed } = await supabase.storage
+          .from('deliverables')
+          .createSignedUrl(data.file_url, DELIVERABLE_SIGNED_URL_TTL_SECONDS)
+        if (!cancelled) setVideoUrl(signed?.signedUrl ?? null)
+      }
+      if (!cancelled) setLoading(false)
+    }
+    load()
+
+    return () => {
+      cancelled = true
+    }
+  }, [bookingId])
+
+  async function requestRevision() {
+    if (!deliverable) return
+    setRequestingRevision(true)
+    await supabase
+      .from('deliverables')
+      .update({ revision_requested: true })
+      .eq('id', deliverable.id)
+    setDeliverable({ ...deliverable, revision_requested: true })
+    setRequestingRevision(false)
+  }
+
+  if (loading) return <p className="mt-6 text-sm text-ink/50">Checking for your finished film…</p>
+
+  if (!deliverable || !videoUrl) {
+    return (
+      <div className="mt-6 rounded-xl border border-dashed border-ink/20 p-4 text-sm text-ink/60">
+        Your finished film will appear here once it's ready.
+      </div>
+    )
+  }
+
+  return (
+    <div className="mt-6 rounded-xl border border-ink/10 bg-ink/5 p-4">
+      <p className="mb-3 text-sm font-medium uppercase tracking-wide text-ink/60">
+        Your Film — v{deliverable.version}
+      </p>
+      {/* A plain <video> with a direct signed URL lets the browser's native
+          AirPlay / Chromecast controls fetch it straight from Storage. */}
+      <video className="w-full rounded-lg" src={videoUrl} controls playsInline />
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <a href={videoUrl} download className="btn-secondary">
+          Download
+        </a>
+        {deliverable.revision_requested ? (
+          <span className="text-sm text-moss">Revision requested — we'll follow up.</span>
+        ) : (
+          <button
+            className="text-sm text-clay underline disabled:opacity-50"
+            disabled={requestingRevision}
+            onClick={requestRevision}
+          >
+            {requestingRevision ? 'Sending…' : 'Request a revision'}
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function RescheduleForm({ bookingId }: { bookingId: string }) {
   const [open, setOpen] = useState(false)
   const [requestedTime, setRequestedTime] = useState('')
@@ -152,10 +246,14 @@ export default function PortalDashboard() {
 
             <RescheduleForm bookingId={b.id} />
 
-            <div className="mt-6 rounded-xl border border-dashed border-ink/20 p-4 text-sm text-ink/60">
-              Footage upload and mail-in tracking are coming to the portal in a follow-up build.
-              For now, reach out to 804-432-4773 to coordinate sending your raw footage.
-            </div>
+            {b.status === 'ready_for_review' || b.status === 'delivered' ? (
+              <DeliverableViewer bookingId={b.id} />
+            ) : (
+              <div className="mt-6 rounded-xl border border-dashed border-ink/20 p-4 text-sm text-ink/60">
+                Footage upload and mail-in tracking are coming to the portal in a follow-up build.
+                For now, reach out to 804-432-4773 to coordinate sending your raw footage.
+              </div>
+            )}
           </div>
         ))}
       </div>

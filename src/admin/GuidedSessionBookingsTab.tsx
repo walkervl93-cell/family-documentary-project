@@ -29,6 +29,8 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
   const [callLink, setCallLink] = useState(booking.call_link ?? '')
   const [status, setStatus] = useState(booking.status as BookingStatus)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
 
   async function loadIntake() {
     if (intake) return
@@ -45,6 +47,38 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
     await supabase.from('bookings').update({ status, call_link: callLink || null }).eq('id', booking.id)
     setSaving(false)
     onUpdated()
+  }
+
+  async function uploadDeliverable(file: File) {
+    setUploading(true)
+    setUploadError(null)
+    try {
+      const path = `${booking.id}/${Date.now()}-${file.name}`
+      const { error: uploadErr } = await supabase.storage.from('deliverables').upload(path, file)
+      if (uploadErr) throw uploadErr
+
+      const { data: existing } = await supabase
+        .from('deliverables')
+        .select('version')
+        .eq('booking_id', booking.id)
+        .order('version', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+
+      const { error: insertErr } = await supabase.from('deliverables').insert({
+        booking_id: booking.id,
+        file_url: path,
+        version: (existing?.version ?? 0) + 1,
+        revision_requested: false,
+      })
+      if (insertErr) throw insertErr
+
+      onUpdated()
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : 'Upload failed')
+    } finally {
+      setUploading(false)
+    }
   }
 
   return (
@@ -111,6 +145,23 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
           <button className="btn-primary w-fit" disabled={saving} onClick={save}>
             {saving ? 'Saving…' : 'Save Changes'}
           </button>
+
+          <label className="text-sm">
+            Upload finished film (creates the next version, viewable in the client's portal)
+            <input
+              className="input mt-1"
+              type="file"
+              accept="video/mp4,video/quicktime,video/x-m4v"
+              disabled={uploading}
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                if (file) uploadDeliverable(file)
+                e.target.value = ''
+              }}
+            />
+          </label>
+          {uploading && <p className="text-sm text-ink/50">Uploading…</p>}
+          {uploadError && <p className="text-sm text-clay">{uploadError}</p>}
 
           <p className="text-xs text-ink/40">
             Status-change emails are sent manually from here in a follow-up build — no automatic
