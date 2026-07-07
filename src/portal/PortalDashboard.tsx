@@ -1,0 +1,164 @@
+import { useEffect, useState } from 'react'
+import { supabase } from '../lib/supabase'
+import { GUIDED_SESSION_STATUSES } from '../data/content'
+
+interface Booking {
+  id: string
+  package_type: string
+  addons: string[]
+  status: string
+  scheduled_at: string
+  call_link: string | null
+}
+
+const STATUS_LABELS: Record<string, string> = {
+  booked: 'Booked',
+  interview_completed: 'Interview Completed',
+  media_received: 'Media Received',
+  in_editing: 'In Editing',
+  ready_for_review: 'Ready for Review',
+  delivered: 'Delivered',
+}
+
+function StatusTracker({ status }: { status: string }) {
+  const currentIndex = GUIDED_SESSION_STATUSES.indexOf(status as (typeof GUIDED_SESSION_STATUSES)[number])
+  return (
+    <ol className="flex flex-wrap gap-2">
+      {GUIDED_SESSION_STATUSES.map((s, i) => (
+        <li
+          key={s}
+          className={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide ${
+            i <= currentIndex ? 'border-clay bg-clay text-cream' : 'border-ink/15 text-ink/40'
+          }`}
+        >
+          {STATUS_LABELS[s]}
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+function RescheduleForm({ bookingId }: { bookingId: string }) {
+  const [open, setOpen] = useState(false)
+  const [requestedTime, setRequestedTime] = useState('')
+  const [reason, setReason] = useState('')
+  const [sent, setSent] = useState(false)
+
+  async function submit() {
+    await supabase.from('reschedule_requests').insert({
+      booking_id: bookingId,
+      requested_time: requestedTime || null,
+      reason,
+    })
+    setSent(true)
+  }
+
+  if (sent) {
+    return <p className="mt-3 text-sm text-moss">Reschedule request sent — we'll follow up by email.</p>
+  }
+
+  return open ? (
+    <div className="mt-3 grid gap-2">
+      <input
+        type="datetime-local"
+        className="input"
+        value={requestedTime}
+        onChange={(e) => setRequestedTime(e.target.value)}
+      />
+      <textarea
+        className="input"
+        rows={2}
+        placeholder="Reason / preferred alternative"
+        value={reason}
+        onChange={(e) => setReason(e.target.value)}
+      />
+      <button className="btn-secondary w-fit" onClick={submit}>
+        Submit Reschedule Request
+      </button>
+    </div>
+  ) : (
+    <button className="mt-3 text-sm text-clay underline" onClick={() => setOpen(true)}>
+      Request a reschedule
+    </button>
+  )
+}
+
+export default function PortalDashboard() {
+  const [bookings, setBookings] = useState<Booking[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function load() {
+      await supabase.rpc('claim_bookings')
+      const { data } = await supabase
+        .from('bookings')
+        .select('id, package_type, addons, status, scheduled_at, call_link')
+        .order('scheduled_at', { ascending: false })
+      setBookings(data ?? [])
+      setLoading(false)
+    }
+    load()
+  }, [])
+
+  async function signOut() {
+    await supabase.auth.signOut()
+  }
+
+  if (loading) return <p className="px-6 py-24 text-center text-ink/60">Loading your bookings…</p>
+
+  return (
+    <div className="mx-auto max-w-3xl px-6 py-16">
+      <div className="mb-10 flex items-center justify-between">
+        <h1 className="text-3xl">Your Portal</h1>
+        <button onClick={signOut} className="text-sm text-ink/60 underline">
+          Sign out
+        </button>
+      </div>
+
+      {bookings.length === 0 && (
+        <p className="rounded-lg bg-ink/5 p-6 text-ink/70">
+          No Guided Session bookings found for your account yet.
+        </p>
+      )}
+
+      <div className="grid gap-6">
+        {bookings.map((b) => (
+          <div key={b.id} className="rounded-2xl border border-ink/10 bg-white/50 p-6">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <h2 className="text-lg">Guided Session</h2>
+              <span className="text-sm text-ink/60">
+                {new Date(b.scheduled_at).toLocaleString(undefined, {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                })}
+              </span>
+            </div>
+
+            <div className="mt-4">
+              <StatusTracker status={b.status} />
+            </div>
+
+            {b.status !== 'pending_payment' && (
+              <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
+                {b.call_link ? (
+                  <a href={b.call_link} target="_blank" rel="noreferrer" className="btn-secondary">
+                    Join Call
+                  </a>
+                ) : (
+                  <span className="text-ink/50">Call link will appear here closer to your session.</span>
+                )}
+              </div>
+            )}
+
+            <RescheduleForm bookingId={b.id} />
+
+            <div className="mt-6 rounded-xl border border-dashed border-ink/20 p-4 text-sm text-ink/60">
+              Footage upload and mail-in tracking are coming to the portal in a follow-up build.
+              For now, reach out to 804-432-4773 to coordinate sending your raw footage.
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
