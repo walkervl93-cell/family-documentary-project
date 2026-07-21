@@ -42,16 +42,22 @@ for `checkout.session.completed`.
 
 ## Site map
 
+Live routes (site is inquiry-only right now — no online booking or payment anywhere):
+
 - `/` — Home
 - `/documentaries` — full production tier, inquiry-only
 - `/digitizing-services` — pickup-based digitizing, no geographic restriction
-- `/guided-session` — new remote tier marketing page
-- `/guided-session/book` — booking wizard (package → schedule → intake → Stripe Checkout)
-- `/guided-session/success` — post-checkout confirmation (polls booking status; webhook is
-  the source of truth, not this page)
+- `/guided-session` — remote tier marketing page + inquiry form
 - `/giving-back` — existing community program page
-- `/portal` — magic-link client portal (Guided Session clients)
-- `/admin` — admin dashboard (inquiries, pickup requests, Guided Session bookings)
+
+Built but not routed — ready to re-enable in `src/App.tsx` when online booking/payment/
+virtual interviews are ready to launch:
+
+- `src/pages/GuidedSessionBook.tsx` / `GuidedSessionSuccess.tsx` — booking wizard, Stripe
+  Checkout, webhook-confirmed booking
+- `src/pages/Portal.tsx` — magic-link client portal
+- `src/pages/Admin.tsx` — admin dashboard (inquiries, pickup requests, Guided Session
+  bookings)
 
 ## What's stubbed for a follow-up session
 
@@ -61,3 +67,23 @@ for `checkout.session.completed`.
   in Supabase or via a script)
 - Automated confirmation/status emails via Resend (currently manual, triggered by the
   business owner per the product requirement that email timing stay human-controlled)
+
+## Deploying to Hostinger (static build)
+
+This is a static single-page app once built — no Node server needed on Hostinger.
+
+```bash
+npm install
+npm run build
+```
+
+This produces a `dist/` folder. In Hostinger's File Manager, upload the **contents** of
+`dist/` (not the `dist` folder itself) into `public_html` — you should end up with
+`public_html/index.html`, `public_html/assets/...`, etc.
+
+`dist/` already includes a `.htaccess` file (copied from `public/.htaccess`) that rewrites
+unknown paths to `index.html`, so React Router's client-side routes (e.g. `/documentaries`)
+work on direct visit and on page refresh under Apache.
+
+Note: values in `.env` (Supabase URL/keys, Stripe publishable key) are baked into the built
+JS at build time — rebuild and re-upload whenever those change.
