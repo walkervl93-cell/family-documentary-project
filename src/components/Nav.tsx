@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { BRAND } from '../data/content'
+import logo from '../assets/logo.png'
 
 const links = [
   { to: '/documentaries', label: 'Documentaries' },
@@ -12,8 +13,8 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-cream/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <NavLink to="/" className="font-serif text-lg tracking-tight lowercase">
-          {BRAND.name}
+        <NavLink to="/" aria-label={BRAND.name}>
+          <img src={logo} alt={BRAND.name} className="h-9 w-auto md:h-11" />
         </NavLink>
         <nav className="hidden items-center gap-6 text-sm uppercase tracking-wide md:flex">
           {links.map((l) => (

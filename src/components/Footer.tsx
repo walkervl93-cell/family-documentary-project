@@ -1,4 +1,5 @@
 import { BRAND, CLOSING_CTA } from '../data/content'
+import logo from '../assets/logo.png'
 
 export default function Footer() {
   return (
@@ -6,7 +7,10 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-14">
         <p className="max-w-2xl font-serif text-xl leading-relaxed">{CLOSING_CTA}</p>
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-sm text-cream/70">
-          <div className="lowercase">{BRAND.name} — {BRAND.tagline}</div>
+          <div className="flex items-center gap-3">
+            <img src={logo} alt={BRAND.name} className="h-7 w-auto invert" />
+            <span>{BRAND.tagline}</span>
+          </div>
           <div className="flex flex-wrap gap-4">
             <a href={`mailto:${BRAND.email}`} className="hover:text-cream">
               {BRAND.email}
