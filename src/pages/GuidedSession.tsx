@@ -1,15 +1,19 @@
-import PageHero from '../components/PageHero'
 import InquiryForm from '../components/InquiryForm'
 import { GUIDED_SESSION_PACKAGES, GUIDED_SESSION_ADDONS } from '../data/content'
 
 export default function GuidedSession() {
   return (
     <>
-      <PageHero
-        eyebrow="New · Remote · $400 – $900"
-        title="Guided Session"
-        subtitle="A live video-call interview from anywhere. A trained TFDP interviewer guides your family member through their story in real time, while you film on your own device."
-      />
+      <section className="mx-auto max-w-4xl px-6 py-20 text-center">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">
+          New · Remote · $400 – $900
+        </p>
+        <h1 className="text-4xl leading-tight sm:text-5xl">Guided Session</h1>
+        <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/70">
+          A live video-call interview from anywhere. A trained TFDP interviewer guides your
+          family member through their story in real time, while you film on your own device.
+        </p>
+      </section>
 
       <section className="mx-auto max-w-4xl px-6 py-20">
         <h2 className="text-center text-3xl">How It Works</h2>

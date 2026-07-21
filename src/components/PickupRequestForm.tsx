@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
-import { supabase } from '../lib/supabase'
+import { supabase, isSupabaseConfigured } from '../lib/supabase'
+import { BRAND } from '../data/content'
 
 const MEDIA_TYPE_OPTIONS = ['Photos', 'Slides', 'Film reels', 'VHS / home video', 'Audio recordings']
 
@@ -15,7 +16,7 @@ export default function PickupRequestForm() {
     e.preventDefault()
     setStatus('submitting')
     const form = new FormData(e.currentTarget)
-    const { error } = await supabase.from('pickup_requests').insert({
+    const fields = {
       name: String(form.get('name') || ''),
       email: String(form.get('email') || ''),
       phone: String(form.get('phone') || '') || null,
@@ -23,7 +24,26 @@ export default function PickupRequestForm() {
       media_types: mediaTypes.length ? mediaTypes : null,
       media_count: String(form.get('media_count') || '') || null,
       preferred_time_slot: String(form.get('preferred_time_slot') || '') || null,
-    })
+    }
+
+    if (!isSupabaseConfigured) {
+      const body = [
+        `Name: ${fields.name}`,
+        `Email: ${fields.email}`,
+        `Phone: ${fields.phone || '—'}`,
+        `Location: ${fields.location || '—'}`,
+        `Media types: ${fields.media_types?.join(', ') || '—'}`,
+        `Roughly how much media: ${fields.media_count || '—'}`,
+        `Preferred pickup time: ${fields.preferred_time_slot || '—'}`,
+      ].join('\n')
+      window.location.href = `mailto:${BRAND.email}?subject=${encodeURIComponent(
+        `New pickup request from ${fields.name}`,
+      )}&body=${encodeURIComponent(body)}`
+      setStatus('done')
+      return
+    }
+
+    const { error } = await supabase.from('pickup_requests').insert(fields)
     setStatus(error ? 'error' : 'done')
   }
 

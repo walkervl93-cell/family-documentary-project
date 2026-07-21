@@ -1,4 +1,3 @@
-import PageHero from '../components/PageHero'
 import Gallery from '../components/Gallery'
 import InquiryForm from '../components/InquiryForm'
 import { DOCUMENTARY_PROCESS, MEDIA } from '../data/content'
@@ -6,12 +5,20 @@ import { DOCUMENTARY_PROCESS, MEDIA } from '../data/content'
 export default function Documentaries() {
   return (
     <>
-      <PageHero
-        eyebrow="Full Production · $4,000 – $8,000"
-        title="Documentaries"
-        subtitle="An in-home, multi-hour production with our full crew — resulting in a complete documentary of your family's story."
-        videoSrc={MEDIA.documentariesHeroVideo}
-      />
+      <section className="mx-auto max-w-4xl px-6 py-20 text-center">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">
+          Full Production · $4,000 – $8,000
+        </p>
+        <h1 className="text-4xl leading-tight sm:text-5xl">Documentaries</h1>
+        <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/70">
+          An in-home, multi-hour production with our full crew — resulting in a complete
+          documentary of your family's story.
+        </p>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-10">
+        <video className="w-full rounded-2xl" src={MEDIA.documentariesHeroVideo} controls playsInline />
+      </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-center text-3xl">Our Process</h2>

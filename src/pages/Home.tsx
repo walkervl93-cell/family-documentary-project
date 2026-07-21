@@ -30,7 +30,7 @@ export default function Home() {
     <>
       <PageHero
         eyebrow={BRAND.mission}
-        title={`${BRAND.name} — ${BRAND.tagline}`}
+        title={BRAND.tagline}
         subtitle={BRAND.description}
         videoSrc={MEDIA.homeHeroVideo}
       >
@@ -45,7 +45,17 @@ export default function Home() {
       </PageHero>
 
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
-        <p className="font-serif text-2xl leading-relaxed sm:text-3xl">{HOME_INTRO}</p>
+        <h2 className="text-center text-3xl">Let's Connect</h2>
+        <p className="mt-3 text-center text-ink/70">
+          Have a question, or ready to start telling your family's story?
+        </p>
+        <div className="mt-8">
+          <InquiryForm />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6 py-20 text-center">
+        <p className="font-serif text-lg leading-relaxed sm:text-xl">{HOME_INTRO}</p>
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">
@@ -73,17 +83,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <Gallery images={MEDIA.homeGallery} />
-      </section>
-
-      <section className="mx-auto max-w-3xl px-6 pb-24">
-        <h2 className="text-center text-3xl">Let's Connect</h2>
-        <p className="mt-3 text-center text-ink/70">
-          Have a question, or ready to start telling your family's story?
-        </p>
-        <div className="mt-8">
-          <InquiryForm />
+      <section className="mx-auto max-w-6xl px-6 py-20 pb-24">
+        <h2 className="text-center text-3xl lowercase">generational storytelling</h2>
+        <div className="mt-12">
+          <Gallery images={MEDIA.homeGallery} />
         </div>
       </section>
     </>

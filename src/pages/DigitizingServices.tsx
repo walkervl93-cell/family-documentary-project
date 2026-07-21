@@ -1,4 +1,3 @@
-import PageHero from '../components/PageHero'
 import Gallery from '../components/Gallery'
 import PickupRequestForm from '../components/PickupRequestForm'
 import { DIGITIZING_INTRO, DIGITIZING_DIFFERENTIATOR, DIGITIZING_SERVICES, MEDIA } from '../data/content'
@@ -6,12 +5,17 @@ import { DIGITIZING_INTRO, DIGITIZING_DIFFERENTIATOR, DIGITIZING_SERVICES, MEDIA
 export default function DigitizingServices() {
   return (
     <>
-      <PageHero
-        eyebrow="Pickup Service"
-        title="Digitizing Services"
-        subtitle="Organization, digitization, and memorial videos — we come to you, wherever you are."
-        videoSrc={MEDIA.digitizingHeroVideo}
-      />
+      <section className="mx-auto max-w-4xl px-6 py-20 text-center">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">Pickup Service</p>
+        <h1 className="text-4xl leading-tight sm:text-5xl">Digitizing Services</h1>
+        <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/70">
+          Organization, digitization, and memorial videos — we come to you, wherever you are.
+        </p>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-10">
+        <video className="w-full rounded-2xl" src={MEDIA.digitizingHeroVideo} controls playsInline />
+      </section>
 
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
         <p className="font-serif text-2xl leading-relaxed">{DIGITIZING_INTRO}</p>

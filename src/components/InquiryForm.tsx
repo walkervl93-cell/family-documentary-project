@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
-import { supabase } from '../lib/supabase'
+import { supabase, isSupabaseConfigured } from '../lib/supabase'
 import type { InquiryService } from '../lib/database.types'
+import { BRAND } from '../data/content'
 
 export default function InquiryForm({
   service = 'documentary',
@@ -17,7 +18,7 @@ export default function InquiryForm({
     e.preventDefault()
     setStatus('submitting')
     const form = new FormData(e.currentTarget)
-    const { error } = await supabase.from('inquiries').insert({
+    const fields = {
       name: String(form.get('name') || ''),
       email: String(form.get('email') || ''),
       phone: String(form.get('phone') || '') || null,
@@ -25,7 +26,27 @@ export default function InquiryForm({
       timeline: String(form.get('timeline') || '') || null,
       message: String(form.get('message') || '') || null,
       service,
-    })
+    }
+
+    if (!isSupabaseConfigured) {
+      const body = [
+        `Name: ${fields.name}`,
+        `Email: ${fields.email}`,
+        `Phone: ${fields.phone || '—'}`,
+        `Location: ${fields.location || '—'}`,
+        `Timeline: ${fields.timeline || '—'}`,
+        `Service: ${fields.service}`,
+        '',
+        fields.message || '',
+      ].join('\n')
+      window.location.href = `mailto:${BRAND.email}?subject=${encodeURIComponent(
+        `New ${fields.service} inquiry from ${fields.name}`,
+      )}&body=${encodeURIComponent(body)}`
+      setStatus('done')
+      return
+    }
+
+    const { error } = await supabase.from('inquiries').insert(fields)
     setStatus(error ? 'error' : 'done')
   }
 
