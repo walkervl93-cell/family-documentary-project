@@ -6,11 +6,13 @@ import Home from './pages/Home'
 import Documentaries from './pages/Documentaries'
 import DigitizingServices from './pages/DigitizingServices'
 import GuidedSession from './pages/GuidedSession'
-import GuidedSessionBook from './pages/GuidedSessionBook'
-import GuidedSessionSuccess from './pages/GuidedSessionSuccess'
 import GivingBack from './pages/GivingBack'
-import Portal from './pages/Portal'
-import Admin from './pages/Admin'
+
+// Guided Session's booking/payment wizard, the client portal, and the admin
+// dashboard are built (see src/pages/GuidedSessionBook.tsx, GuidedSessionSuccess.tsx,
+// Portal.tsx, Admin.tsx) but intentionally not routed here for now — the site is
+// inquiry-only across all three service lines until online booking/payment and
+// virtual interviews are ready to launch. Re-add their routes to re-enable.
 
 export default function App() {
   return (
@@ -24,11 +26,7 @@ export default function App() {
               <Route path="/documentaries" element={<Documentaries />} />
               <Route path="/digitizing-services" element={<DigitizingServices />} />
               <Route path="/guided-session" element={<GuidedSession />} />
-              <Route path="/guided-session/book" element={<GuidedSessionBook />} />
-              <Route path="/guided-session/success" element={<GuidedSessionSuccess />} />
               <Route path="/giving-back" element={<GivingBack />} />
-              <Route path="/portal" element={<Portal />} />
-              <Route path="/admin" element={<Admin />} />
             </Routes>
           </main>
           <Footer />

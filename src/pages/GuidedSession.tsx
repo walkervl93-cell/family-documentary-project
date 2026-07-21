@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero'
+import InquiryForm from '../components/InquiryForm'
 import { GUIDED_SESSION_PACKAGES, GUIDED_SESSION_ADDONS } from '../data/content'
 
 export default function GuidedSession() {
@@ -8,22 +8,16 @@ export default function GuidedSession() {
       <PageHero
         eyebrow="New · Remote · $400 – $900"
         title="Guided Session"
-        subtitle="Book a live video-call interview from anywhere. A trained TFDP interviewer guides your family member through their story in real time, while you film on your own device."
-      >
-        <div className="mt-8">
-          <Link to="/guided-session/book" className="btn-primary">
-            Book a Guided Session
-          </Link>
-        </div>
-      </PageHero>
+        subtitle="A live video-call interview from anywhere. A trained TFDP interviewer guides your family member through their story in real time, while you film on your own device."
+      />
 
       <section className="mx-auto max-w-4xl px-6 py-20">
         <h2 className="text-center text-3xl">How It Works</h2>
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {[
             {
-              step: '1. Book & Pay Online',
-              copy: 'Choose your package and time, complete a short intake form about your storyteller, and pay securely online.',
+              step: '1. Tell Us About Your Story',
+              copy: 'Reach out with a bit about your family and who you\'d like to feature, and we\'ll follow up to schedule your session.',
             },
             {
               step: '2. Set Up Your Device',
@@ -35,7 +29,7 @@ export default function GuidedSession() {
             },
             {
               step: '4. Send Us the Footage',
-              copy: 'Upload the raw footage through your secure portal, or ship your device, tapes, or drive to us as a mail-in add-on — a different logistics path from our in-person pickup service.',
+              copy: 'Send us the raw footage, or ship your device, tapes, or drive to us as a mail-in add-on — a different logistics path from our in-person pickup service.',
             },
             {
               step: '5. We Edit',
@@ -43,7 +37,7 @@ export default function GuidedSession() {
             },
             {
               step: '6. Delivery',
-              copy: 'Your finished film is delivered through your portal, with one round of revisions included.',
+              copy: 'Your finished film is delivered to you, with one round of revisions included.',
             },
           ].map((s) => (
             <div key={s.step} className="rounded-2xl border border-ink/10 bg-white/50 p-8">
@@ -85,10 +79,20 @@ export default function GuidedSession() {
             ))}
           </div>
         </div>
-        <div className="mt-10 text-center">
-          <Link to="/guided-session/book" className="btn-primary">
-            Book a Guided Session
-          </Link>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6 py-20">
+        <h2 className="text-center text-3xl">Ask About a Guided Session</h2>
+        <p className="mt-3 text-center text-ink/70">
+          Online scheduling and payment are coming soon — for now, tell us a bit about your family
+          and we'll follow up to set up your session.
+        </p>
+        <div className="mt-8">
+          <InquiryForm
+            service="guided_session"
+            timelinePlaceholder="When would you like to schedule your session? (rough timeline)"
+            messagePlaceholder="Tell us about your family and who you'd like to feature"
+          />
         </div>
       </section>
     </>

@@ -1,7 +1,16 @@
 import { useState, type FormEvent } from 'react'
 import { supabase } from '../lib/supabase'
+import type { InquiryService } from '../lib/database.types'
 
-export default function InquiryForm() {
+export default function InquiryForm({
+  service = 'documentary',
+  timelinePlaceholder = 'When are you hoping to film? (rough timeline)',
+  messagePlaceholder = "Tell us about your family and who you'd like to feature",
+}: {
+  service?: InquiryService
+  timelinePlaceholder?: string
+  messagePlaceholder?: string
+}) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle')
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -15,6 +24,7 @@ export default function InquiryForm() {
       location: String(form.get('location') || '') || null,
       timeline: String(form.get('timeline') || '') || null,
       message: String(form.get('message') || '') || null,
+      service,
     })
     setStatus(error ? 'error' : 'done')
   }
@@ -38,13 +48,8 @@ export default function InquiryForm() {
         <input name="phone" placeholder="Phone" className="input" />
         <input name="location" placeholder="City / area" className="input" />
       </div>
-      <input name="timeline" placeholder="When are you hoping to film? (rough timeline)" className="input" />
-      <textarea
-        name="message"
-        placeholder="Tell us about your family and who you'd like to feature"
-        rows={5}
-        className="input"
-      />
+      <input name="timeline" placeholder={timelinePlaceholder} className="input" />
+      <textarea name="message" placeholder={messagePlaceholder} rows={5} className="input" />
       <button type="submit" disabled={status === 'submitting'} className="btn-primary w-fit">
         {status === 'submitting' ? 'Sending…' : 'Send Inquiry'}
       </button>

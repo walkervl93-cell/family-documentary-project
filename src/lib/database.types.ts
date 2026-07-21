@@ -1,4 +1,5 @@
 export type InquiryStatus = 'new' | 'contacted' | 'booked' | 'closed'
+export type InquiryService = 'documentary' | 'guided_session'
 export type PickupStatus = 'new' | 'scheduled' | 'completed' | 'closed'
 export type BookingStatus =
   | 'pending_payment'
@@ -26,11 +27,13 @@ export interface Database {
           timeline: string | null
           message: string | null
           status: InquiryStatus
+          service: InquiryService
           created_at: string
         }
-        Insert: Omit<Database['public']['Tables']['inquiries']['Row'], 'id' | 'status' | 'created_at'> & {
+        Insert: Omit<Database['public']['Tables']['inquiries']['Row'], 'id' | 'status' | 'service' | 'created_at'> & {
           id?: string
           status?: InquiryStatus
+          service?: InquiryService
           created_at?: string
         }
         Update: Partial<Database['public']['Tables']['inquiries']['Insert']>

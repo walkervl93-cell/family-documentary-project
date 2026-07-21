@@ -20,7 +20,7 @@ const SERVICES = [
   {
     name: 'Guided Session',
     price: '$400 – $900',
-    copy: 'Book a live video-call interview from anywhere. A trained interviewer guides the conversation while you film on your own device.',
+    copy: 'A live video-call interview from anywhere. A trained interviewer guides the conversation while you film on your own device.',
     to: '/guided-session',
   },
 ]
@@ -39,7 +39,7 @@ export default function Home() {
             Start a Documentary
           </Link>
           <Link to="/guided-session" className="btn-secondary border-cream/40 text-cream hover:border-cream">
-            Book a Guided Session
+            Explore Guided Sessions
           </Link>
         </div>
       </PageHero>

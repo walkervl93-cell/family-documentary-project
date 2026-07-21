@@ -10,7 +10,13 @@ interface Inquiry {
   timeline: string | null
   message: string | null
   status: string
+  service: string
   created_at: string
+}
+
+const SERVICE_LABELS: Record<string, string> = {
+  documentary: 'Documentaries',
+  guided_session: 'Guided Session',
 }
 
 export default function InquiriesTab() {
@@ -29,7 +35,7 @@ export default function InquiriesTab() {
   }, [])
 
   if (loading) return <p className="text-ink/60">Loading…</p>
-  if (rows.length === 0) return <p className="text-ink/60">No Documentaries inquiries yet.</p>
+  if (rows.length === 0) return <p className="text-ink/60">No inquiries yet.</p>
 
   return (
     <div className="grid gap-4">
@@ -37,7 +43,12 @@ export default function InquiriesTab() {
         <div key={r.id} className="rounded-xl border border-ink/10 bg-white/50 p-5">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h3 className="font-medium">{r.name}</h3>
-            <span className="text-xs uppercase tracking-wide text-clay">{r.status}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs uppercase tracking-wide text-ink/50">
+                {SERVICE_LABELS[r.service] ?? r.service}
+              </span>
+              <span className="text-xs uppercase tracking-wide text-clay">{r.status}</span>
+            </div>
           </div>
           <p className="mt-1 text-sm text-ink/70">
             {r.email} {r.phone && `· ${r.phone}`} {r.location && `· ${r.location}`}
