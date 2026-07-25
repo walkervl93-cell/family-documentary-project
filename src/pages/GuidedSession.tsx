@@ -56,10 +56,9 @@ export default function GuidedSession() {
         <div className="rounded-2xl border border-moss/30 bg-moss/5 p-8">
           <p className="text-sm font-medium uppercase tracking-wide text-moss">A note on mail-in</p>
           <p className="mt-2 text-ink/80">
-            Our Documentaries and Digitizing Services stay pickup-only — we come to you. Guided
-            Session works differently: we mail you a box for your media, since this tier is
-            remote by design. In-person pickup can still be arranged for an additional fee if
-            you'd rather not ship anything.
+            Our Documentaries and Digitizing Services are pickup-only — we come to you. The
+            Guided Session's mail-in add-on is a separate, distinct path for this remote tier
+            only.
           </p>
         </div>
       </section>
