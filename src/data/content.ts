@@ -73,9 +73,9 @@ export const GUIDED_SESSION_PACKAGES = [
   {
     id: 'base',
     name: 'Guided Interview Session',
-    price: 400,
+    price: 600,
     description:
-      'A live, one-on-one video call with a trained TFDP interviewer who guides your family member through their story in real time, while you film on your own device.',
+      "A live, one-on-one video call with a trained TFDP interviewer who guides your family member through their story in real time. We'll send a lav mic for quality audio, and we record the call on our end — nothing for your family to set up.",
   },
 ]
 
@@ -85,7 +85,7 @@ export const GUIDED_SESSION_ADDONS = [
     name: 'Mail-In Digitizing',
     price: 150,
     description:
-      'Ship your device, tapes, or drive to us after the call and we’ll digitize the raw footage for you. This is a mail-in path, separate from our in-person pickup service used for Documentaries and Digitizing Services.',
+      "We will send you a box for you to ship your media — from reels to VHS' and slides to photos (call for our full list of capabilities). We digitize your media and add it into the recorded interview, Ken Burns style.",
   },
   {
     id: 'extra_runtime',

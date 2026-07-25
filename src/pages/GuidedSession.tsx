@@ -6,12 +6,13 @@ export default function GuidedSession() {
     <>
       <section className="mx-auto max-w-4xl px-6 py-20 text-center">
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">
-          New · Remote · $400 – $900
+          New · Remote · $600 – $1,100
         </p>
         <h1 className="text-4xl leading-tight sm:text-5xl">Guided Session</h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/70">
           A live video-call interview from anywhere. A trained TFDP interviewer guides your
-          family member through their story in real time, while you film on your own device.
+          family member through their story in real time, and records the call themselves —
+          nothing for your family to set up.
         </p>
       </section>
 
@@ -24,12 +25,12 @@ export default function GuidedSession() {
               copy: 'Reach out with a bit about your family and who you\'d like to feature, and we\'ll follow up to schedule your session.',
             },
             {
-              step: '2. Set Up Your Device',
-              copy: 'On the day of the call, set up a phone or tablet on a tripod pointed at your family member — no film crew needed.',
+              step: '2. We Send a Mic',
+              copy: "We'll mail your family member a lavalier microphone that plugs into their computer, so the call has clear, quality audio.",
             },
             {
               step: '3. Live Interview',
-              copy: 'A trained TFDP interviewer joins the video call and guides the conversation with questions and follow-ups in real time, while you record locally.',
+              copy: 'A trained TFDP interviewer joins the video call and guides the conversation with questions and follow-ups in real time. We record the call on our end, so there\'s nothing for your family to manage.',
             },
             {
               step: '4. Send Us Your Media',

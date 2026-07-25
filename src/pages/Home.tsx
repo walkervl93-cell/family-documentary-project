@@ -19,8 +19,8 @@ const SERVICES = [
   },
   {
     name: 'Guided Session',
-    price: '$400 – $900',
-    copy: 'A live video-call interview from anywhere. A trained interviewer guides the conversation while you film on your own device.',
+    price: '$600 – $1,100',
+    copy: 'A live video-call interview from anywhere. A trained interviewer guides the conversation and records the call themselves.',
     to: '/guided-session',
   },
 ]
