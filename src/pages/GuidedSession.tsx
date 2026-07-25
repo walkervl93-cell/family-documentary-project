@@ -32,8 +32,8 @@ export default function GuidedSession() {
               copy: 'A trained TFDP interviewer joins the video call and guides the conversation with questions and follow-ups in real time, while you record locally.',
             },
             {
-              step: '4. Send Us the Footage',
-              copy: 'Send us the raw footage, or ship your device, tapes, or drive to us as a mail-in add-on — a different logistics path from our in-person pickup service.',
+              step: '4. Send Us Your Media',
+              copy: "We will mail you a box, please place any media you'd like digitized and added to the project, this could be VHS', 8mm reels, audio tape, slides, and more. If you prefer in person pick up this can be arranged for an additional fee.",
             },
             {
               step: '5. We Edit',
@@ -56,9 +56,10 @@ export default function GuidedSession() {
         <div className="rounded-2xl border border-moss/30 bg-moss/5 p-8">
           <p className="text-sm font-medium uppercase tracking-wide text-moss">A note on mail-in</p>
           <p className="mt-2 text-ink/80">
-            Our Documentaries and Digitizing Services stay pickup-only — we come to you. The
-            Guided Session's mail-in add-on is a separate, distinct path for this remote tier
-            only, for clients who'd rather ship us their device or tapes than upload large files.
+            Our Documentaries and Digitizing Services stay pickup-only — we come to you. Guided
+            Session works differently: we mail you a box for your media, since this tier is
+            remote by design. In-person pickup can still be arranged for an additional fee if
+            you'd rather not ship anything.
           </p>
         </div>
       </section>
