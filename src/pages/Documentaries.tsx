@@ -16,9 +16,11 @@ export default function Documentaries() {
         </p>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 pb-10">
-        <video className="w-full rounded-2xl" src={MEDIA.documentariesHeroVideo} controls playsInline />
-      </section>
+      {MEDIA.documentariesNewHeroVideo && (
+        <section className="mx-auto max-w-6xl px-6 pb-10">
+          <video className="w-full rounded-2xl" src={MEDIA.documentariesNewHeroVideo} controls playsInline />
+        </section>
+      )}
 
       <section className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-center text-3xl">Our Process</h2>
