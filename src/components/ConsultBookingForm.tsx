@@ -81,26 +81,28 @@ export default function ConsultBookingForm({ serviceType }: { serviceType: Booki
       return
     }
 
-    const { data: booking, error: bookingError } = await supabase
-      .from('bookings')
-      .insert({
-        client_email: clientEmail,
-        service_type: serviceType,
-        consult_type: consultType,
-        scheduled_at: selectedSlot.start_time,
-        slot_id: selectedSlot.id,
-      })
-      .select()
-      .single()
+    // A plain client isn't signed in yet at this point, so it can't read back
+    // the row it just inserted (bookings are only readable by their owner or
+    // an admin) — asking Postgrest to return it via .select() would roll the
+    // whole insert back. Generate the id ourselves instead.
+    const bookingId = crypto.randomUUID()
+    const { error: bookingError } = await supabase.from('bookings').insert({
+      id: bookingId,
+      client_email: clientEmail,
+      service_type: serviceType,
+      consult_type: consultType,
+      scheduled_at: selectedSlot.start_time,
+      slot_id: selectedSlot.id,
+    })
 
-    if (bookingError || !booking) {
-      setError(bookingError?.message ?? 'Could not create booking.')
+    if (bookingError) {
+      setError(bookingError.message)
       setSubmitting(false)
       return
     }
 
     const { error: intakeError } = await supabase.from('intake_forms').insert({
-      booking_id: booking.id,
+      booking_id: bookingId,
       storyteller_name: storytellerName,
       relationship,
       best_contact: clientPhone || null,
