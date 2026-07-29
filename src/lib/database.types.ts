@@ -224,6 +224,21 @@ export interface Database {
         Args: Record<string, never>
         Returns: boolean
       }
+      book_consult: {
+        Args: {
+          p_slot_id: string
+          p_client_email: string
+          p_service_type: BookingServiceType
+          p_consult_type: ConsultType
+          p_storyteller_name: string
+          p_relationship: string
+          p_best_contact: string | null
+          p_topics: string | null
+          p_sensitive_topics: string | null
+          p_preferred_language: string | null
+        }
+        Returns: string
+      }
     }
     Enums: Record<string, never>
     CompositeTypes: Record<string, never>

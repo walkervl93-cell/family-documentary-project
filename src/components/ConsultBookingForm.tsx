@@ -66,53 +66,28 @@ export default function ConsultBookingForm({ serviceType }: { serviceType: Booki
     setSubmitting(true)
     setError(null)
 
-    const { error: slotError } = await supabase
-      .from('availability_slots')
-      .update({ is_booked: true })
-      .eq('id', selectedSlot.id)
-      .eq('is_booked', false)
-      .select()
-      .single()
-
-    if (slotError) {
-      setError('That time was just booked by someone else — please pick another.')
-      setSubmitting(false)
-      setStep(0)
-      return
-    }
-
-    // A plain client isn't signed in yet at this point, so it can't read back
-    // the row it just inserted (bookings are only readable by their owner or
-    // an admin) — asking Postgrest to return it via .select() would roll the
-    // whole insert back. Generate the id ourselves instead.
-    const bookingId = crypto.randomUUID()
-    const { error: bookingError } = await supabase.from('bookings').insert({
-      id: bookingId,
-      client_email: clientEmail,
-      service_type: serviceType,
-      consult_type: consultType,
-      scheduled_at: selectedSlot.start_time,
-      slot_id: selectedSlot.id,
+    // Booking + intake creation happens in a single database function
+    // (book_consult) rather than separate client-side inserts — a plain
+    // browser client isn't signed in yet at this point, so it can't satisfy
+    // the row-level security checks those tables normally require (owner or
+    // admin). The function runs as a trusted operation and does both writes
+    // atomically, so a failure partway through can't leave a slot marked
+    // booked with no booking behind it.
+    const { error: rpcError } = await supabase.rpc('book_consult', {
+      p_slot_id: selectedSlot.id,
+      p_client_email: clientEmail,
+      p_service_type: serviceType,
+      p_consult_type: consultType,
+      p_storyteller_name: storytellerName,
+      p_relationship: relationship,
+      p_best_contact: clientPhone || null,
+      p_topics: topics || null,
+      p_sensitive_topics: sensitiveTopics || null,
+      p_preferred_language: preferredLanguage || null,
     })
 
-    if (bookingError) {
-      setError(bookingError.message)
-      setSubmitting(false)
-      return
-    }
-
-    const { error: intakeError } = await supabase.from('intake_forms').insert({
-      booking_id: bookingId,
-      storyteller_name: storytellerName,
-      relationship,
-      best_contact: clientPhone || null,
-      topics: topics || null,
-      sensitive_topics: sensitiveTopics || null,
-      preferred_language: preferredLanguage || null,
-    })
-
-    if (intakeError) {
-      setError(intakeError.message)
+    if (rpcError) {
+      setError(rpcError.message)
       setSubmitting(false)
       return
     }
