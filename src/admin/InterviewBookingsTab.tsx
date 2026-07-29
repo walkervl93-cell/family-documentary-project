@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { GUIDED_SESSION_STATUSES } from '../data/content'
-import type { BookingStatus } from '../lib/database.types'
+import { BOOKING_STATUSES, BOOKING_STATUS_LABELS, SERVICE_TYPE_LABELS } from '../data/content'
+import type { BookingStatus, BookingServiceType, ConsultType } from '../lib/database.types'
 
 interface Booking {
   id: string
   client_email: string
-  package_type: string
-  addons: string[]
+  service_type: BookingServiceType
+  consult_type: ConsultType
   status: string
   scheduled_at: string
   call_link: string | null
   amount_paid: number | null
+  payment_link_url: string | null
+  payment_amount: number | null
 }
 
 interface Intake {
@@ -21,6 +23,84 @@ interface Intake {
   topics: string | null
   sensitive_topics: string | null
   preferred_language: string | null
+}
+
+function PaymentRequestPanel({ booking, onUpdated }: { booking: Booking; onUpdated: () => void }) {
+  const [amount, setAmount] = useState(booking.payment_amount?.toString() ?? '')
+  const [description, setDescription] = useState('')
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  async function send() {
+    const amountNumber = Number(amount)
+    if (!amountNumber || amountNumber <= 0) {
+      setError('Enter a valid amount.')
+      return
+    }
+    setSending(true)
+    setError(null)
+    const { data, error: fnError } = await supabase.functions.invoke<{ url: string; error?: string }>(
+      'create-payment-link',
+      {
+        body: {
+          bookingId: booking.id,
+          amountCents: Math.round(amountNumber * 100),
+          description: description || undefined,
+          origin: window.location.origin,
+        },
+      },
+    )
+    setSending(false)
+    if (fnError || data?.error) {
+      setError(data?.error ?? fnError?.message ?? 'Could not create payment link.')
+      return
+    }
+    onUpdated()
+  }
+
+  return (
+    <div className="rounded-xl border border-clay/30 bg-clay/5 p-4">
+      <p className="text-sm font-medium uppercase tracking-wide text-clay">Send Payment Request</p>
+      {booking.payment_link_url ? (
+        <div className="mt-2 text-sm">
+          <p className="text-ink/70">
+            Link sent for ${booking.payment_amount} — copy and send to the client:
+          </p>
+          <div className="mt-1 flex items-center gap-2">
+            <input readOnly className="input" value={booking.payment_link_url} />
+            <button
+              className="btn-secondary shrink-0"
+              onClick={() => navigator.clipboard.writeText(booking.payment_link_url!)}
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="mt-2 grid gap-2">
+          <input
+            className="input"
+            type="number"
+            min="1"
+            step="0.01"
+            placeholder="Amount (USD)"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+          <input
+            className="input"
+            placeholder="Description (optional, shown to client)"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <button className="btn-primary w-fit" disabled={sending} onClick={send}>
+            {sending ? 'Creating…' : 'Create Payment Link'}
+          </button>
+          {error && <p className="text-sm text-clay">{error}</p>}
+        </div>
+      )}
+    </div>
+  )
 }
 
 function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () => void }) {
@@ -91,15 +171,17 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
         }}
       >
         <span className="font-medium">{booking.client_email}</span>
-        <span className="text-xs uppercase tracking-wide text-clay">{booking.status}</span>
+        <span className="text-xs uppercase tracking-wide text-clay">
+          {BOOKING_STATUS_LABELS[booking.status as (typeof BOOKING_STATUSES)[number]] ?? booking.status}
+        </span>
       </button>
       <p className="mt-1 text-sm text-ink/70">
-        {new Date(booking.scheduled_at).toLocaleString()} ·{' '}
-        {booking.amount_paid != null ? `$${booking.amount_paid}` : 'unpaid'}
+        {SERVICE_TYPE_LABELS[booking.service_type]} · {booking.consult_type} consult ·{' '}
+        {new Date(booking.scheduled_at).toLocaleString()}
       </p>
-      {booking.addons.length > 0 && (
-        <p className="text-xs text-ink/50">Add-ons: {booking.addons.join(', ')}</p>
-      )}
+      <p className="text-xs text-ink/50">
+        {booking.amount_paid != null ? `Paid $${booking.amount_paid}` : 'No payment received yet'}
+      </p>
 
       {expanded && (
         <div className="mt-4 grid gap-4 border-t border-ink/10 pt-4">
@@ -116,6 +198,8 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
           ) : (
             <p className="text-sm text-ink/50">Loading intake…</p>
           )}
+
+          <PaymentRequestPanel booking={booking} onUpdated={onUpdated} />
 
           <label className="text-sm">
             Call link
@@ -134,9 +218,9 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
               value={status}
               onChange={(e) => setStatus(e.target.value as BookingStatus)}
             >
-              {GUIDED_SESSION_STATUSES.map((s) => (
+              {BOOKING_STATUSES.map((s) => (
                 <option key={s} value={s}>
-                  {s}
+                  {BOOKING_STATUS_LABELS[s]}
                 </option>
               ))}
             </select>
@@ -173,15 +257,16 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
   )
 }
 
-export default function GuidedSessionBookingsTab() {
+export default function InterviewBookingsTab() {
   const [rows, setRows] = useState<Booking[]>([])
   const [loading, setLoading] = useState(true)
 
   async function load() {
     const { data } = await supabase
       .from('bookings')
-      .select('id, client_email, package_type, addons, status, scheduled_at, call_link, amount_paid')
-      .neq('status', 'pending_payment')
+      .select(
+        'id, client_email, service_type, consult_type, status, scheduled_at, call_link, amount_paid, payment_link_url, payment_amount',
+      )
       .order('scheduled_at', { ascending: false })
     setRows(data ?? [])
     setLoading(false)
@@ -192,7 +277,7 @@ export default function GuidedSessionBookingsTab() {
   }, [])
 
   if (loading) return <p className="text-ink/60">Loading…</p>
-  if (rows.length === 0) return <p className="text-ink/60">No confirmed Guided Session bookings yet.</p>
+  if (rows.length === 0) return <p className="text-ink/60">No consult bookings yet.</p>
 
   return (
     <div className="grid gap-4">

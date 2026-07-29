@@ -3,18 +3,18 @@ import { useAdminGuard } from '../admin/useAdminGuard'
 import PortalLogin from '../portal/PortalLogin'
 import InquiriesTab from '../admin/InquiriesTab'
 import PickupRequestsTab from '../admin/PickupRequestsTab'
-import GuidedSessionBookingsTab from '../admin/GuidedSessionBookingsTab'
+import InterviewBookingsTab from '../admin/InterviewBookingsTab'
 import { supabase } from '../lib/supabase'
 
 const TABS = [
-  { id: 'inquiries', label: 'Documentaries Inquiries' },
+  { id: 'interviews', label: 'Interview Bookings (Consults)' },
   { id: 'pickups', label: 'Digitizing Pickup Requests' },
-  { id: 'guided', label: 'Guided Session Bookings' },
+  { id: 'inquiries', label: 'General Contact Messages' },
 ] as const
 
 export default function Admin() {
   const { session, checking, isAdmin } = useAdminGuard()
-  const [tab, setTab] = useState<(typeof TABS)[number]['id']>('inquiries')
+  const [tab, setTab] = useState<(typeof TABS)[number]['id']>('interviews')
 
   if (checking) return <p className="px-6 py-24 text-center text-ink/60">Loading…</p>
   if (!session) return <PortalLogin />
@@ -50,9 +50,9 @@ export default function Admin() {
         ))}
       </div>
 
-      {tab === 'inquiries' && <InquiriesTab />}
+      {tab === 'interviews' && <InterviewBookingsTab />}
       {tab === 'pickups' && <PickupRequestsTab />}
-      {tab === 'guided' && <GuidedSessionBookingsTab />}
+      {tab === 'inquiries' && <InquiriesTab />}
     </div>
   )
 }

@@ -2,6 +2,8 @@ export type InquiryStatus = 'new' | 'contacted' | 'booked' | 'closed'
 export type InquiryService = 'documentary' | 'guided_session'
 export type PickupStatus = 'new' | 'scheduled' | 'completed' | 'closed'
 export type BookingStatus =
+  | 'consult_scheduled'
+  | 'payment_requested'
   | 'pending_payment'
   | 'booked'
   | 'interview_completed'
@@ -10,6 +12,8 @@ export type BookingStatus =
   | 'ready_for_review'
   | 'delivered'
   | 'canceled'
+export type BookingServiceType = 'documentary' | 'guided_session'
+export type ConsultType = 'phone' | 'video'
 export type ProfileRole = 'client' | 'admin' | 'interviewer'
 export type MediaSource = 'upload' | 'mail-in'
 export type RescheduleStatus = 'pending' | 'approved' | 'denied'
@@ -65,7 +69,9 @@ export interface Database {
           id: string
           client_id: string | null
           client_email: string
-          package_type: string
+          service_type: BookingServiceType
+          consult_type: ConsultType
+          package_type: string | null
           addons: string[]
           status: BookingStatus
           scheduled_at: string
@@ -75,18 +81,39 @@ export interface Database {
           stripe_payment_intent_id: string | null
           stripe_checkout_session_id: string | null
           amount_paid: number | null
+          payment_link_url: string | null
+          payment_amount: number | null
           created_at: string
         }
         Insert: Omit<
           Database['public']['Tables']['bookings']['Row'],
-          'id' | 'status' | 'created_at' | 'call_link' | 'stripe_payment_intent_id' | 'amount_paid'
+          | 'id'
+          | 'client_id'
+          | 'interviewer_id'
+          | 'status'
+          | 'created_at'
+          | 'call_link'
+          | 'stripe_payment_intent_id'
+          | 'stripe_checkout_session_id'
+          | 'amount_paid'
+          | 'payment_link_url'
+          | 'payment_amount'
+          | 'package_type'
+          | 'addons'
         > & {
           id?: string
+          client_id?: string | null
+          interviewer_id?: string | null
           status?: BookingStatus
           created_at?: string
           call_link?: string | null
           stripe_payment_intent_id?: string | null
+          stripe_checkout_session_id?: string | null
           amount_paid?: number | null
+          payment_link_url?: string | null
+          payment_amount?: number | null
+          package_type?: string | null
+          addons?: string[]
         }
         Update: Partial<Database['public']['Tables']['bookings']['Insert']>
         Relationships: []

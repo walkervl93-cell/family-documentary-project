@@ -1,5 +1,5 @@
 import Gallery from '../components/Gallery'
-import InquiryForm from '../components/InquiryForm'
+import ConsultBookingForm from '../components/ConsultBookingForm'
 import { DOCUMENTARY_PROCESS, MEDIA } from '../data/content'
 
 export default function Documentaries() {
@@ -40,13 +40,13 @@ export default function Documentaries() {
       </section>
 
       <section className="mx-auto max-w-3xl px-6 py-20">
-        <h2 className="text-center text-3xl">Start Your Documentary</h2>
+        <h2 className="text-center text-3xl">Book a Free Consult</h2>
         <p className="mt-3 text-center text-ink/70">
-          This is an inquiry-only process — tell us a bit about your family and we'll follow up to
-          talk through timing, pricing, and next steps.
+          Start with a free phone or video consult to talk through your family's story, timing,
+          and pricing. If it's a good fit, we'll follow up with next steps afterward.
         </p>
         <div className="mt-8">
-          <InquiryForm />
+          <ConsultBookingForm serviceType="documentary" />
         </div>
       </section>
     </>

@@ -101,7 +101,9 @@ export const GUIDED_SESSION_ADDONS = [
   },
 ]
 
-export const GUIDED_SESSION_STATUSES = [
+export const BOOKING_STATUSES = [
+  'consult_scheduled',
+  'payment_requested',
   'booked',
   'interview_completed',
   'media_received',
@@ -109,6 +111,22 @@ export const GUIDED_SESSION_STATUSES = [
   'ready_for_review',
   'delivered',
 ] as const
+
+export const BOOKING_STATUS_LABELS: Record<(typeof BOOKING_STATUSES)[number], string> = {
+  consult_scheduled: 'Consult Scheduled',
+  payment_requested: 'Payment Requested',
+  booked: 'Booked',
+  interview_completed: 'Interview Completed',
+  media_received: 'Media Received',
+  in_editing: 'In Editing',
+  ready_for_review: 'Ready for Review',
+  delivered: 'Delivered',
+}
+
+export const SERVICE_TYPE_LABELS: Record<'documentary' | 'guided_session', string> = {
+  documentary: 'Documentaries (In-Person)',
+  guided_session: 'Guided Session (Virtual)',
+}
 
 export const MEDIA = {
   logoWide:

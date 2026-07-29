@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom'
-import InquiryForm from '../components/InquiryForm'
+import ConsultBookingForm from '../components/ConsultBookingForm'
 import { GUIDED_SESSION_PACKAGES, GUIDED_SESSION_ADDONS } from '../data/content'
 
 export default function GuidedSession() {
@@ -16,9 +15,9 @@ export default function GuidedSession() {
           nothing for your family to set up.
         </p>
         <div className="mt-8">
-          <Link to="/guided-session/book" className="btn-primary">
-            Book a Guided Session
-          </Link>
+          <a href="#book-consult" className="btn-primary">
+            Book a Free Consult
+          </a>
         </div>
       </section>
 
@@ -27,8 +26,8 @@ export default function GuidedSession() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {[
             {
-              step: '1. Tell Us About Your Story',
-              copy: 'Reach out with a bit about your family and who you\'d like to feature, and we\'ll follow up to schedule your session.',
+              step: '1. Book a Free Consult',
+              copy: "Schedule a free phone or video consult — no payment required. We'll talk through your family's story and figure out if it's a good fit.",
             },
             {
               step: '2. We Send a Mic',
@@ -72,6 +71,10 @@ export default function GuidedSession() {
 
       <section className="mx-auto max-w-4xl px-6 py-20">
         <h2 className="text-center text-3xl">Packages & Add-Ons</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-center text-ink/70">
+          We'll walk through pricing together on your free consult call — here's a general idea of
+          what's included.
+        </p>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-clay/40 bg-white/60 p-8">
             <h3 className="text-lg">{GUIDED_SESSION_PACKAGES[0].name}</h3>
@@ -90,24 +93,16 @@ export default function GuidedSession() {
             ))}
           </div>
         </div>
-        <div className="mt-10 text-center">
-          <Link to="/guided-session/book" className="btn-primary">
-            Book a Guided Session
-          </Link>
-        </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 py-20">
-        <h2 className="text-center text-3xl">Have Questions First?</h2>
+      <section id="book-consult" className="mx-auto max-w-3xl px-6 py-20">
+        <h2 className="text-center text-3xl">Book a Free Consult</h2>
         <p className="mt-3 text-center text-ink/70">
-          If you'd rather talk it through before booking, send us a note and we'll follow up.
+          No payment required — we'll talk through your family's story and figure out next steps
+          together.
         </p>
         <div className="mt-8">
-          <InquiryForm
-            service="guided_session"
-            timelinePlaceholder="When would you like to schedule your session? (rough timeline)"
-            messagePlaceholder="Tell us about your family and who you'd like to feature"
-          />
+          <ConsultBookingForm serviceType="guided_session" />
         </div>
       </section>
     </>

@@ -1,37 +1,31 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { GUIDED_SESSION_STATUSES } from '../data/content'
+import { BOOKING_STATUSES, BOOKING_STATUS_LABELS, SERVICE_TYPE_LABELS } from '../data/content'
+import type { BookingServiceType, ConsultType } from '../lib/database.types'
 
 interface Booking {
   id: string
-  package_type: string
-  addons: string[]
+  service_type: BookingServiceType
+  consult_type: ConsultType
   status: string
   scheduled_at: string
   call_link: string | null
-}
-
-const STATUS_LABELS: Record<string, string> = {
-  booked: 'Booked',
-  interview_completed: 'Interview Completed',
-  media_received: 'Media Received',
-  in_editing: 'In Editing',
-  ready_for_review: 'Ready for Review',
-  delivered: 'Delivered',
+  payment_link_url: string | null
+  payment_amount: number | null
 }
 
 function StatusTracker({ status }: { status: string }) {
-  const currentIndex = GUIDED_SESSION_STATUSES.indexOf(status as (typeof GUIDED_SESSION_STATUSES)[number])
+  const currentIndex = BOOKING_STATUSES.indexOf(status as (typeof BOOKING_STATUSES)[number])
   return (
     <ol className="flex flex-wrap gap-2">
-      {GUIDED_SESSION_STATUSES.map((s, i) => (
+      {BOOKING_STATUSES.map((s, i) => (
         <li
           key={s}
           className={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide ${
             i <= currentIndex ? 'border-clay bg-clay text-cream' : 'border-ink/15 text-ink/40'
           }`}
         >
-          {STATUS_LABELS[s]}
+          {BOOKING_STATUS_LABELS[s]}
         </li>
       ))}
     </ol>
@@ -186,7 +180,9 @@ export default function PortalDashboard() {
       await supabase.rpc('claim_bookings')
       const { data } = await supabase
         .from('bookings')
-        .select('id, package_type, addons, status, scheduled_at, call_link')
+        .select(
+          'id, service_type, consult_type, status, scheduled_at, call_link, payment_link_url, payment_amount',
+        )
         .order('scheduled_at', { ascending: false })
       setBookings(data ?? [])
       setLoading(false)
@@ -210,16 +206,14 @@ export default function PortalDashboard() {
       </div>
 
       {bookings.length === 0 && (
-        <p className="rounded-lg bg-ink/5 p-6 text-ink/70">
-          No Guided Session bookings found for your account yet.
-        </p>
+        <p className="rounded-lg bg-ink/5 p-6 text-ink/70">No bookings found for your account yet.</p>
       )}
 
       <div className="grid gap-6">
         {bookings.map((b) => (
           <div key={b.id} className="rounded-2xl border border-ink/10 bg-white/50 p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="text-lg">Guided Session</h2>
+              <h2 className="text-lg">{SERVICE_TYPE_LABELS[b.service_type]}</h2>
               <span className="text-sm text-ink/60">
                 {new Date(b.scheduled_at).toLocaleString(undefined, {
                   dateStyle: 'medium',
@@ -227,12 +221,24 @@ export default function PortalDashboard() {
                 })}
               </span>
             </div>
+            <p className="mt-1 text-xs uppercase tracking-wide text-ink/50">{b.consult_type} consult</p>
 
             <div className="mt-4">
               <StatusTracker status={b.status} />
             </div>
 
-            {b.status !== 'pending_payment' && (
+            {b.status === 'payment_requested' && b.payment_link_url && (
+              <div className="mt-4 rounded-xl border border-clay/30 bg-clay/5 p-4">
+                <p className="text-sm text-ink/80">
+                  Ready to move forward? Pay ${b.payment_amount} to confirm your booking.
+                </p>
+                <a href={b.payment_link_url} target="_blank" rel="noreferrer" className="btn-primary mt-3">
+                  Pay Now
+                </a>
+              </div>
+            )}
+
+            {b.status !== 'consult_scheduled' && b.status !== 'payment_requested' && (
               <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
                 {b.call_link ? (
                   <a href={b.call_link} target="_blank" rel="noreferrer" className="btn-secondary">
