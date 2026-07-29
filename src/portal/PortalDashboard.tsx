@@ -238,17 +238,29 @@ export default function PortalDashboard() {
               </div>
             )}
 
-            {b.status !== 'consult_scheduled' && b.status !== 'payment_requested' && (
-              <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
-                {b.call_link ? (
-                  <a href={b.call_link} target="_blank" rel="noreferrer" className="btn-secondary">
-                    Join Call
-                  </a>
-                ) : (
-                  <span className="text-ink/50">Call link will appear here closer to your session.</span>
-                )}
-              </div>
-            )}
+            {(() => {
+              const preInterview = b.status === 'consult_scheduled' || b.status === 'payment_requested'
+              // The free consult itself needs a link when it's a video call.
+              // Once past that stage, a Guided Session's actual paid interview
+              // is always virtual (that's what makes it a Guided Session), so
+              // it needs a link too — a Documentaries interview happens
+              // in-person, so no link applies there.
+              const needsCallLink =
+                (preInterview && b.consult_type === 'video') ||
+                (!preInterview && b.service_type === 'guided_session')
+              if (!needsCallLink) return null
+              return (
+                <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
+                  {b.call_link ? (
+                    <a href={b.call_link} target="_blank" rel="noreferrer" className="btn-secondary">
+                      Join Call
+                    </a>
+                  ) : (
+                    <span className="text-ink/50">Call link will appear here closer to your session.</span>
+                  )}
+                </div>
+              )
+            })()}
 
             <RescheduleForm bookingId={b.id} />
 
