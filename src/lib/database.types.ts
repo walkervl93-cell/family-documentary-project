@@ -12,7 +12,7 @@ export type BookingStatus =
   | 'ready_for_review'
   | 'delivered'
   | 'canceled'
-export type BookingServiceType = 'documentary' | 'guided_session'
+export type BookingServiceType = 'documentary' | 'guided_session' | 'audio'
 export type ConsultType = 'phone' | 'video'
 export type ProfileRole = 'client' | 'admin' | 'interviewer'
 export type MediaSource = 'upload' | 'mail-in'

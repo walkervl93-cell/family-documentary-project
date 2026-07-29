@@ -46,6 +46,27 @@ export const DOCUMENTARY_PROCESS = [
   },
 ]
 
+export const AUDIO_INTRO = `Their story, in their voice. Audio is a more accessible way to preserve your family's history — recorded, edited, and set to your own photos and videos. We bring this kind of preservation to more families, without the full production of a documentary, so we can pass the savings on to you.`
+
+export const AUDIO_PROCESS = [
+  {
+    step: 'Book a Free Consult',
+    copy: "Schedule a free phone or video consult — no payment required. We'll talk through your family's story and figure out if it's a good fit.",
+  },
+  {
+    step: 'We Sit Down Together',
+    copy: "We visit in person and mic everyone up, then sit with your family as you share stories and pass around photos and videos together.",
+  },
+  {
+    step: 'We Digitize & Edit',
+    copy: "Back in the studio, we digitize your media and craft a Ken Burns–style film — your photos and videos layered over the recording of your loved one telling their story.",
+  },
+  {
+    step: 'Delivery',
+    copy: "Your finished keepsake film is delivered to you, ready to share and pass down for generations.",
+  },
+]
+
 export const DIGITIZING_INTRO = `We help families bring together the cherished pieces that tell the story of their loved ones' lives. Preserving memories is our greatest passion, and one of the ways we do this is by digitizing photos and videos, to create a digital archive of your cherished memories.`
 
 export const DIGITIZING_DIFFERENTIATOR = `We want to make sure your media is treated with the utmost care and respect, so we come directly to you rather than asking you to ship your materials to us.`
@@ -123,9 +144,10 @@ export const BOOKING_STATUS_LABELS: Record<(typeof BOOKING_STATUSES)[number], st
   delivered: 'Delivered',
 }
 
-export const SERVICE_TYPE_LABELS: Record<'documentary' | 'guided_session', string> = {
+export const SERVICE_TYPE_LABELS: Record<'documentary' | 'guided_session' | 'audio', string> = {
   documentary: 'Documentaries (In-Person)',
   guided_session: 'Guided Session (Virtual)',
+  audio: 'Audio (In-Person)',
 }
 
 export const MEDIA = {

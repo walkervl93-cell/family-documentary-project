@@ -23,6 +23,12 @@ const SERVICES = [
     copy: 'A live video-call interview from anywhere. A trained interviewer guides the conversation and records the call themselves.',
     to: '/guided-session',
   },
+  {
+    name: 'Audio',
+    price: 'Pricing per project',
+    copy: "Their story, in their voice. A lighter, more accessible sit-down recording, edited into a film set to your own photos and videos.",
+    to: '/audio',
+  },
 ]
 
 export default function Home() {
@@ -65,7 +71,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-center text-3xl">What We Offer</h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-ink/70">{WHAT_WE_OFFER}</p>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((s) => (
             <Link
               key={s.name}

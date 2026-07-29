@@ -6,6 +6,7 @@ const links = [
   { to: '/documentaries', label: 'Documentaries' },
   { to: '/digitizing-services', label: 'Digitizing Services' },
   { to: '/guided-session', label: 'Guided Session' },
+  { to: '/audio', label: 'Audio' },
   { to: '/giving-back', label: 'Giving Back' },
 ]
 
