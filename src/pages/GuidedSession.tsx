@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import InquiryForm from '../components/InquiryForm'
 import { GUIDED_SESSION_PACKAGES, GUIDED_SESSION_ADDONS } from '../data/content'
 
@@ -14,6 +15,11 @@ export default function GuidedSession() {
           family member through their story in real time, and records the call themselves —
           nothing for your family to set up.
         </p>
+        <div className="mt-8">
+          <Link to="/guided-session/book" className="btn-primary">
+            Book a Guided Session
+          </Link>
+        </div>
       </section>
 
       <section className="mx-auto max-w-4xl px-6 py-20">
@@ -84,13 +90,17 @@ export default function GuidedSession() {
             ))}
           </div>
         </div>
+        <div className="mt-10 text-center">
+          <Link to="/guided-session/book" className="btn-primary">
+            Book a Guided Session
+          </Link>
+        </div>
       </section>
 
       <section className="mx-auto max-w-3xl px-6 py-20">
-        <h2 className="text-center text-3xl">Ask About a Guided Session</h2>
+        <h2 className="text-center text-3xl">Have Questions First?</h2>
         <p className="mt-3 text-center text-ink/70">
-          Online scheduling and payment are coming soon — for now, tell us a bit about your family
-          and we'll follow up to set up your session.
+          If you'd rather talk it through before booking, send us a note and we'll follow up.
         </p>
         <div className="mt-8">
           <InquiryForm
