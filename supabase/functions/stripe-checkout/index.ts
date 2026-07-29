@@ -4,7 +4,18 @@
 
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import Stripe from 'npm:stripe@17'
-import { PACKAGES, ADDONS } from '../_shared/pricing.ts'
+
+// Server-side source of truth for Guided Session pricing (mirrors src/data/content.ts).
+// Keep in sync manually — this Edge Function runs in Deno and doesn't share the Vite build.
+const PACKAGES: Record<string, { name: string; cents: number }> = {
+  base: { name: 'Guided Interview Session', cents: 60000 },
+}
+
+const ADDONS: Record<string, { name: string; cents: number }> = {
+  mail_in_digitizing: { name: 'Mail-In Digitizing', cents: 15000 },
+  extra_runtime: { name: 'Extra Runtime / Second Session', cents: 20000 },
+  rush_editing: { name: 'Rush Editing Turnaround', cents: 15000 },
+}
 
 const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY')!, { apiVersion: '2024-06-20' })
 
