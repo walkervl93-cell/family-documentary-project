@@ -1,8 +1,7 @@
 export const BRAND = {
   name: 'the family documentary project',
-  tagline: 'an ode to family',
-  description:
-    'Keeping your family stories alive through documentary-style filmmaking and digitizing.',
+  tagline: 'An ode to family',
+  description: 'Keeping your family stories alive through documentary-style filmmaking.',
   mission: 'COMMITTED TO THE PRESERVATION OF MEMORIES.',
   email: 'info@familydocumentaryproject.com',
   phone: '804-432-4773',
@@ -10,39 +9,70 @@ export const BRAND = {
   contactPerson: 'Victoria',
   instagram: 'https://instagram.com/familydocumentaryproject',
   facebook: 'https://www.facebook.com/profile.php?id=61556057250683',
+  tiktok: 'https://www.tiktok.com/@familydocumentaryproject',
 }
 
-export const CLOSING_CTA =
-  'Feel free to reach out! If you have any questions regarding our process, or what it looks like working with us to document your family history through your loved ones stories, please feel free to give us a call and ask for Victoria.'
+export const CLOSING_CTA = `Please don't hesitate to reach out with any questions regarding our process.`
 
 export const HOME_INTRO = `Generational storytelling is the closest thing we have to immortality. Being surrounded by family gives us the strength to move across the timeline of life with confidence. As the conduit for this practice, we are committed to creating an experience that honors your story and reminds us all of just how powerful the gathering of family can be.`
 
 export const WHAT_WE_OFFER = `For over a decade we've dug up thousands of memories – creating a visual archive to be enjoyed and preserved for generations to come. The experience we facilitate will leave you not only with a tangible product, but more memories of togetherness to hold onto.`
 
+// Four varieties of the same core offering — a filmed or recorded interview,
+// digitized media, or both, delivered as a documentary. videoKey points at a
+// short looping example clip in MEDIA; leave that entry blank until a real
+// clip is ready and the card will show a placeholder instead.
+export const DOCUMENTARY_STYLES = [
+  {
+    id: 'subject_centered',
+    name: 'Subject-Centered Interview',
+    copy: "A filmed and edited, in-depth interview with your subject — no additional media, just their story in their own words. Expect a two-camera set up for one subject, and a three-camera set up for two subjects.",
+    videoKey: 'styleSubjectCentered',
+  },
+  {
+    id: 'subject_with_media',
+    name: 'Subject Interview with Digitized Media',
+    copy: "A filmed interview enhanced with your family's photos and videos, digitized and woven throughout. Expect a two-camera set up for one subject, and a three-camera set up for two subjects.",
+    videoKey: 'styleWithDigitizedMedia',
+  },
+  {
+    id: 'audio_ken_burns',
+    name: 'Audio Interview with Ken Burns-Style Media Overlay',
+    copy: 'An audio-only interview paired with panning, animated photos and video clips for a documentary look.',
+    videoKey: 'styleAudioKenBurns',
+  },
+  {
+    id: 'audio_transcript',
+    name: 'Audio Interview with Transcript',
+    copy: 'An audio-only interview delivered with a full written transcript.',
+    videoKey: 'styleAudioTranscript',
+  },
+] as const
+
 export const DOCUMENTARY_PROCESS = [
   {
     step: 'Preliminary Interview',
-    copy: "We'll work together to compile interview questions. This helps us establish which stories have visual aids (photos, videos, objects) so we can leave a list to help you find everything before the interview day.",
+    copy: "We'll work together to compile interview questions. This helps us establish which stories have visual aids (photos, videos, objects) so we can leave a list to help you find everything.",
+  },
+  {
+    step: 'Digitization',
+    copy: "We'll come collect your media to digitize, anything from 8mm reels to film. After we edit and organize them in chronological order, we'll compile additional questions to work into the interview.",
   },
   {
     step: 'Set Design',
-    copy: 'Establish the interview location and begin rearranging furniture and objects (if permitted) to make a comfortable setting with optimal lighting for the subject to be interviewed.',
+    copy: 'Once the interview location is established, on the day of the interview we will rearrange furniture and objects (if permitted) to make a comfortable setting with optimal lighting for the subject to be interviewed.',
   },
   {
     step: 'Production',
-    copy: "Our production crew will arrive two hours before the interview to re-establish the set, cameras, lights, audio and any other visual aids. The interview itself could take upwards of four hours. Once we've cycled through all the established questions, we'll film additional visual aids the family pulled together.",
-  },
-  {
-    step: 'Catering',
-    copy: 'We provide an arrangement of hors d’oeuvres and beverages for the family to graze on throughout the day.',
+    copy: "Our production crew will arrive one hour before the interview to establish the set, cameras, lights, audio and any other visual aids. The interview itself could take upwards of four hours. Once we've cycled through all the established questions, we'll film additional visual aids at the family's request.",
   },
   {
     step: 'Editing',
-    copy: 'In three weeks we will deliver a short story cut with the accompanying visuals, an edited cut of the entire interview, and the transcript. Expect weekly updates on progress from our editing team.',
+    copy: 'Within three to four weeks we will deliver the product with the accompanying visuals, the entire interview raw, and your digitized media. These deliverables vary based upon individual client request. Expect weekly updates on progress from our editing team.',
   },
   {
     step: 'Delivery',
-    copy: 'We deliver the final product by hand on a hard drive and show the family how to access, share and view the videos. A cloud link will also be available for a year after delivery.',
+    copy: 'We deliver the final product by hand on a hard drive and show the family how to access, share and view the videos. A cloud link with casting capabilities will also be available for a year after delivery.',
   },
 ]
 
@@ -81,46 +111,14 @@ export const DIGITIZING_SERVICES = [
     copy: "Once all your photos, slides, film and home videos are collected, we'll digitize them into high-quality digital files and deliver them in neatly organized folders on a flash drive.",
   },
   {
-    name: 'Memorial Videos',
-    copy: "We carefully select your favorite pieces of media and craft them into a meaningful video for you to share at your celebration of life service. If you have audio recordings of your loved one sharing a story, we'll seamlessly incorporate those as well.",
+    name: 'Output',
+    copy: "We carefully select your favorite pieces of media and craft them into a meaningful video for you to share with your loved ones. We place the appropriate media overtop of your loved one's audio or video interview to paint the picture of their life.",
   },
 ]
 
 export const GIVING_BACK_COPY = `When we started this project 10 years ago with our own family members we knew we had to share this practice with a broader community. As we continue to produce The Family Documentary Project, we want to ensure we touch as many lives as possible. The easiest way for us to accomplish this is by hosting a free pop-up every month at a partnering retirement community. For every project we book, we are able to host one free event and share this craft with more people every day.`
 
 export const GIVING_BACK_CTA = `If you work at a facility that would benefit from this service, please reach out.`
-
-export const GUIDED_SESSION_PACKAGES = [
-  {
-    id: 'base',
-    name: 'Guided Interview Session',
-    price: 600,
-    description:
-      "A live, one-on-one video call with a trained TFDP interviewer who guides your family member through their story in real time. We'll send a lav mic for quality audio, and we record the call on our end — nothing for your family to set up.",
-  },
-]
-
-export const GUIDED_SESSION_ADDONS = [
-  {
-    id: 'mail_in_digitizing',
-    name: 'Mail-In Digitizing',
-    price: 150,
-    description:
-      "We will send you a box for you to ship your media — from reels to VHS' and slides to photos (call for our full list of capabilities). We digitize your media and add it into the recorded interview, Ken Burns style.",
-  },
-  {
-    id: 'extra_runtime',
-    name: 'Extra Runtime / Second Session',
-    price: 200,
-    description: 'Add a second interview session or extend runtime to capture more stories.',
-  },
-  {
-    id: 'rush_editing',
-    name: 'Rush Editing Turnaround',
-    price: 150,
-    description: 'Move to the front of the editing queue for faster delivery.',
-  },
-]
 
 export const BOOKING_STATUSES = [
   'consult_scheduled',
@@ -145,8 +143,8 @@ export const BOOKING_STATUS_LABELS: Record<(typeof BOOKING_STATUSES)[number], st
 }
 
 export const SERVICE_TYPE_LABELS: Record<'documentary' | 'guided_session' | 'audio', string> = {
-  documentary: 'Documentaries (In-Person)',
-  guided_session: 'Guided Session (Virtual)',
+  documentary: 'The Documentary (In-Person)',
+  guided_session: 'Guided Session (Virtual, retired)',
   audio: 'Audio (In-Person)',
 }
 
@@ -171,6 +169,13 @@ export const MEDIA = {
     'https://familydocumentaryproject.com/wp-content/uploads/2025/07/MEMORIAL-VIDEO-TEASER_SHORT_1.mp4',
   givingBackHeroVideo:
     'https://familydocumentaryproject.com/wp-content/uploads/2024/04/PopandMimi_2.mp4',
+  // Placeholders for the four "What We Offer" style cards — short looping
+  // example clips. Left blank until real clips are ready; each card shows a
+  // plain placeholder box instead of a broken video while empty.
+  styleSubjectCentered: '',
+  styleWithDigitizedMedia: '',
+  styleAudioKenBurns: '',
+  styleAudioTranscript: '',
   homeGallery: [
     'https://familydocumentaryproject.com/wp-content/uploads/2024/04/FAM-MEMORIES-BROCHURE-3-1024x573.jpg',
     'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-20.jpg',

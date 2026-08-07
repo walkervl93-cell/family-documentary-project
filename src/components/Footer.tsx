@@ -24,6 +24,9 @@ export default function Footer() {
             <a href={BRAND.facebook} target="_blank" rel="noreferrer" className="hover:text-cream">
               Facebook
             </a>
+            <a href={BRAND.tiktok} target="_blank" rel="noreferrer" className="hover:text-cream">
+              TikTok
+            </a>
           </div>
         </div>
       </div>

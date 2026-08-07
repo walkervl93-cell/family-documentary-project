@@ -14,6 +14,7 @@ export type BookingStatus =
   | 'canceled'
 export type BookingServiceType = 'documentary' | 'guided_session' | 'audio'
 export type ConsultType = 'phone' | 'video'
+export type InterviewType = 'audio' | 'video'
 export type ProfileRole = 'client' | 'admin' | 'interviewer'
 export type MediaSource = 'upload' | 'mail-in'
 export type RescheduleStatus = 'pending' | 'approved' | 'denied'
@@ -128,6 +129,8 @@ export interface Database {
           topics: string | null
           sensitive_topics: string | null
           preferred_language: string | null
+          location: string | null
+          interview_type: InterviewType | null
           created_at: string
         }
         Insert: Omit<Database['public']['Tables']['intake_forms']['Row'], 'id' | 'created_at'> & {
@@ -236,6 +239,8 @@ export interface Database {
           p_topics: string | null
           p_sensitive_topics: string | null
           p_preferred_language: string | null
+          p_location: string | null
+          p_interview_type: InterviewType | null
         }
         Returns: string
       }

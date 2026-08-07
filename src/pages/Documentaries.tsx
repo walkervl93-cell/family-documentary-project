@@ -7,12 +7,13 @@ export default function Documentaries() {
     <>
       <section className="mx-auto max-w-4xl px-6 py-20 text-center">
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">
-          Full Production · $4,000 – $8,000
+          Full Production
         </p>
-        <h1 className="text-4xl leading-tight sm:text-5xl">Documentaries</h1>
+        <h1 className="text-4xl leading-tight sm:text-5xl">The Documentary</h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/70">
-          An in-home, multi-hour production with our full crew — resulting in a complete
-          documentary of your family's story.
+          An in-home, multi-hour production with our full crew. Whether you want an audio or video
+          interview, we will create a complete documentary painting the picture of your loved
+          ones' lives.
         </p>
       </section>
 
@@ -22,7 +23,7 @@ export default function Documentaries() {
         </section>
       )}
 
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section id="process" className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-center text-3xl">Our Process</h2>
         <div className="mt-12 grid gap-8 md:grid-cols-2">
           {DOCUMENTARY_PROCESS.map((step, i) => (
@@ -41,11 +42,11 @@ export default function Documentaries() {
         <Gallery images={MEDIA.documentariesGallery} />
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 py-20">
+      <section id="book-consult" className="mx-auto max-w-3xl px-6 py-20">
         <h2 className="text-center text-3xl">Book a Free Consult</h2>
         <p className="mt-3 text-center text-ink/70">
-          Start with a free phone or video consult to talk through your family's story, timing,
-          and pricing. If it's a good fit, we'll follow up with next steps afterward.
+          Start with a free phone or video consult to talk through your family's story and next
+          steps. If it's a good fit, we'll follow up afterward.
         </p>
         <div className="mt-8">
           <ConsultBookingForm serviceType="documentary" />

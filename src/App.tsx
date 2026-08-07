@@ -5,7 +5,6 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Documentaries from './pages/Documentaries'
 import DigitizingServices from './pages/DigitizingServices'
-import GuidedSession from './pages/GuidedSession'
 import Audio from './pages/Audio'
 import GivingBack from './pages/GivingBack'
 import Portal from './pages/Portal'
@@ -22,7 +21,6 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/documentaries" element={<Documentaries />} />
               <Route path="/digitizing-services" element={<DigitizingServices />} />
-              <Route path="/guided-session" element={<GuidedSession />} />
               <Route path="/audio" element={<Audio />} />
               <Route path="/giving-back" element={<GivingBack />} />
               <Route path="/portal" element={<Portal />} />

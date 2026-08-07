@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import type { BookingServiceType, ConsultType } from '../lib/database.types'
+import type { BookingServiceType, ConsultType, InterviewType } from '../lib/database.types'
 
 interface Slot {
   id: string
@@ -10,7 +10,14 @@ interface Slot {
 
 const STEPS = ['Schedule', 'Your Story', 'Confirm'] as const
 
-export default function ConsultBookingForm({ serviceType }: { serviceType: BookingServiceType }) {
+export default function ConsultBookingForm({
+  serviceType,
+  showInterviewType = true,
+}: {
+  serviceType: BookingServiceType
+  /** Hide the Audio/Video interview-style picker — the Audio page's own consult is audio-only by definition. */
+  showInterviewType?: boolean
+}) {
   const [step, setStep] = useState(0)
 
   const [consultType, setConsultType] = useState<ConsultType>('video')
@@ -20,6 +27,8 @@ export default function ConsultBookingForm({ serviceType }: { serviceType: Booki
 
   const [clientEmail, setClientEmail] = useState('')
   const [clientPhone, setClientPhone] = useState('')
+  const [location, setLocation] = useState('')
+  const [interviewType, setInterviewType] = useState<InterviewType | null>(null)
   const [storytellerName, setStorytellerName] = useState('')
   const [relationship, setRelationship] = useState('')
   const [topics, setTopics] = useState('')
@@ -59,7 +68,7 @@ export default function ConsultBookingForm({ serviceType }: { serviceType: Booki
   }, {})
 
   async function handleSubmit() {
-    if (!selectedSlot || !clientEmail || !storytellerName || !relationship) {
+    if (!selectedSlot || !clientEmail || !location || !storytellerName || !relationship) {
       setError('Please complete all required fields before continuing.')
       return
     }
@@ -84,6 +93,8 @@ export default function ConsultBookingForm({ serviceType }: { serviceType: Booki
       p_topics: topics || null,
       p_sensitive_topics: sensitiveTopics || null,
       p_preferred_language: preferredLanguage || null,
+      p_location: location || null,
+      p_interview_type: interviewType,
     })
 
     if (rpcError) {
@@ -118,7 +129,7 @@ export default function ConsultBookingForm({ serviceType }: { serviceType: Booki
             minute: '2-digit',
           })}{' '}
           — a free {consultType} consult, no payment due yet. If we're a good fit, we'll follow up
-          with next steps and pricing after the call.
+          with next steps after the call.
         </p>
         {!magicLinkSent ? (
           <button className="btn-primary mt-6" onClick={sendMagicLink}>
@@ -225,6 +236,36 @@ export default function ConsultBookingForm({ serviceType }: { serviceType: Booki
           <input
             className="input"
             required
+            placeholder="Your city / where we'd meet"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+          {showInterviewType && (
+            <div>
+              <p className="mb-2 text-sm font-medium uppercase tracking-wide text-ink/60">
+                Audio or video interview?
+              </p>
+              <div className="flex gap-2">
+                {(['video', 'audio'] as InterviewType[]).map((type) => (
+                  <button
+                    type="button"
+                    key={type}
+                    onClick={() => setInterviewType(type)}
+                    className={`rounded-full border px-4 py-2 text-sm capitalize ${
+                      interviewType === type
+                        ? 'border-clay bg-clay text-cream'
+                        : 'border-ink/20 hover:border-ink'
+                    }`}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          <input
+            className="input"
+            required
             placeholder="Storyteller's name"
             value={storytellerName}
             onChange={(e) => setStorytellerName(e.target.value)}
@@ -262,7 +303,7 @@ export default function ConsultBookingForm({ serviceType }: { serviceType: Booki
             </button>
             <button
               className="btn-primary"
-              disabled={!clientEmail || !storytellerName || !relationship}
+              disabled={!clientEmail || !location || !storytellerName || !relationship}
               onClick={() => setStep(2)}
             >
               Continue
@@ -289,7 +330,7 @@ export default function ConsultBookingForm({ serviceType }: { serviceType: Booki
             </p>
             <p className="mt-3 text-ink/70">
               This is a free consult — there's no payment due now. If you'd like to move forward
-              afterward, we'll follow up with pricing and next steps.
+              afterward, we'll follow up with next steps.
             </p>
           </div>
           {error && <p className="text-sm text-clay">{error}</p>}
