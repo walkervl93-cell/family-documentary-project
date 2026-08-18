@@ -2,12 +2,28 @@
 -- where to meet the family and, where relevant, whether they want an audio
 -- or video interview — captured at consult-booking time rather than as
 -- separate service lines.
+--
+-- Written to be safely re-runnable: this is applied by hand in the Supabase
+-- SQL editor rather than by the CLI, so a partial run (or a second paste of
+-- the same file) must not fail on objects that already exist.
 
-create type interview_type as enum ('audio', 'video');
+do $$
+begin
+  if not exists (select 1 from pg_type where typname = 'interview_type') then
+    create type interview_type as enum ('audio', 'video');
+  end if;
+end
+$$;
 
 alter table intake_forms
-  add column location text,
-  add column interview_type interview_type;
+  add column if not exists location text,
+  add column if not exists interview_type interview_type;
+
+-- The pre-0012 signature took 10 args; adding two more creates a separate
+-- overload rather than replacing it, so retire the old one explicitly.
+drop function if exists book_consult(
+  uuid, text, booking_service_type, consult_type, text, text, text, text, text, text
+);
 
 create or replace function book_consult(
   p_slot_id uuid,
