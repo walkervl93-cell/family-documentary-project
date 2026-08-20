@@ -169,13 +169,13 @@ export const MEDIA = {
     'https://familydocumentaryproject.com/wp-content/uploads/2025/07/MEMORIAL-VIDEO-TEASER_SHORT_1.mp4',
   givingBackHeroVideo:
     'https://familydocumentaryproject.com/wp-content/uploads/2024/04/PopandMimi_2.mp4',
-  // Placeholders for the four "What We Offer" style cards — short looping
-  // example clips. Left blank until real clips are ready; each card shows a
-  // plain placeholder box instead of a broken video while empty.
-  styleSubjectCentered: '',
-  styleWithDigitizedMedia: '',
-  styleAudioKenBurns: '',
-  styleAudioTranscript: '',
+  // Short looping example clips for the four "What We Offer" style cards.
+  // Dropped into public/videos/ by hand — until a file exists at one of these
+  // paths, Home falls back to a placeholder box for that card.
+  styleSubjectCentered: '/videos/style-subject-centered.mp4',
+  styleWithDigitizedMedia: '/videos/style-digitized-media.mp4',
+  styleAudioKenBurns: '/videos/style-ken-burns.mp4',
+  styleAudioTranscript: '/videos/style-transcript.mp4',
   homeGallery: [
     'https://familydocumentaryproject.com/wp-content/uploads/2024/04/FAM-MEMORIES-BROCHURE-3-1024x573.jpg',
     'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-20.jpg',

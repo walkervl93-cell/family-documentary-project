@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import Gallery from '../components/Gallery'
@@ -5,6 +6,11 @@ import ConsultBookingForm from '../components/ConsultBookingForm'
 import { BRAND, HOME_INTRO, WHAT_WE_OFFER, DOCUMENTARY_STYLES, MEDIA } from '../data/content'
 
 export default function Home() {
+  // The style-card clips are dropped into public/videos/ by hand, so a path
+  // may point at a file that isn't there yet — fall back to the placeholder
+  // rather than rendering a broken player.
+  const [missingClips, setMissingClips] = useState<Record<string, boolean>>({})
+
   return (
     <>
       <PageHero
@@ -53,7 +59,7 @@ export default function Home() {
             const videoSrc = MEDIA[style.videoKey as keyof typeof MEDIA] as string
             return (
               <div key={style.id} className="rounded-2xl border border-ink/10 bg-white/50 p-6">
-                {videoSrc ? (
+                {videoSrc && !missingClips[style.id] ? (
                   <video
                     className="aspect-video w-full rounded-xl object-cover"
                     src={videoSrc}
@@ -61,6 +67,7 @@ export default function Home() {
                     muted
                     loop
                     playsInline
+                    onError={() => setMissingClips((prev) => ({ ...prev, [style.id]: true }))}
                   />
                 ) : (
                   <div className="flex aspect-video w-full items-center justify-center rounded-xl bg-ink/5 text-xs uppercase tracking-wide text-ink/40">
