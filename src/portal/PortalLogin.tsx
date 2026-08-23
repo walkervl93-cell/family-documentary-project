@@ -21,8 +21,8 @@ export default function PortalLogin() {
     <div className="mx-auto max-w-md px-6 py-24">
       <h1 className="text-center text-3xl">Client Portal</h1>
       <p className="mt-3 text-center text-ink/70">
-        Enter the email you used to book your Guided Session and we'll send you a sign-in link —
-        no password needed.
+        Enter the email you used to book your consult and we'll send you a sign-in link. No
+        password needed.
       </p>
       {sent ? (
         <p className="mt-8 rounded-lg bg-moss/10 p-6 text-center text-moss">

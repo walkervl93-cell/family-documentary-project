@@ -64,7 +64,7 @@ function PaymentRequestPanel({ booking, onUpdated }: { booking: Booking; onUpdat
       {booking.payment_link_url ? (
         <div className="mt-2 text-sm">
           <p className="text-ink/70">
-            Link sent for ${booking.payment_amount} — copy and send to the client:
+            Link sent for ${booking.payment_amount}. Copy and send to the client:
           </p>
           <div className="mt-1 flex items-center gap-2">
             <input readOnly className="input" value={booking.payment_link_url} />
@@ -248,7 +248,7 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
           {uploadError && <p className="text-sm text-clay">{uploadError}</p>}
 
           <p className="text-xs text-ink/40">
-            Status-change emails are sent manually from here in a follow-up build — no automatic
+            Status-change emails are sent manually from here in a follow-up build. No automatic
             emails are triggered by status changes.
           </p>
         </div>

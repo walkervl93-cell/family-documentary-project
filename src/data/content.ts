@@ -16,7 +16,7 @@ export const CLOSING_CTA = `Please don't hesitate to reach out with any question
 
 export const HOME_INTRO = `Generational storytelling is the closest thing we have to immortality. Being surrounded by family gives us the strength to move across the timeline of life with confidence. As the conduit for this practice, we are committed to creating an experience that honors your story and reminds us all of just how powerful the gathering of family can be.`
 
-export const WHAT_WE_OFFER = `For over a decade we've dug up thousands of memories – creating a visual archive to be enjoyed and preserved for generations to come. The experience we facilitate will leave you not only with a tangible product, but more memories of togetherness to hold onto.`
+export const WHAT_WE_OFFER = `For over a decade we've dug up thousands of memories, creating a visual archive to be enjoyed and preserved for generations to come. The experience we facilitate will leave you not only with a tangible product, but more memories of togetherness to hold onto.`
 
 // Four varieties of the same core offering — a filmed or recorded interview,
 // digitized media, or both, delivered as a documentary. videoKey points at a
@@ -26,7 +26,7 @@ export const DOCUMENTARY_STYLES = [
   {
     id: 'subject_centered',
     name: 'Subject-Centered Interview',
-    copy: "A filmed and edited, in-depth interview with your subject — no additional media, just their story in their own words. Expect a two-camera set up for one subject, and a three-camera set up for two subjects.",
+    copy: "A filmed and edited, in-depth interview with your subject. No additional media, just their story in their own words. Expect a two-camera set up for one subject, and a three-camera set up for two subjects.",
     videoKey: 'styleSubjectCentered',
   },
   {
@@ -76,12 +76,12 @@ export const DOCUMENTARY_PROCESS = [
   },
 ]
 
-export const AUDIO_INTRO = `Their story, in their voice. Audio is a more accessible way to preserve your family's history — recorded, edited, and set to your own photos and videos. We bring this kind of preservation to more families, without the full production of a documentary, so we can pass the savings on to you.`
+export const AUDIO_INTRO = `Their story, in their voice. Audio is a more accessible way to preserve your family's history, recorded, edited, and set to your own photos and videos. We bring this kind of preservation to more families, without the full production of a documentary, so we can pass the savings on to you.`
 
 export const AUDIO_PROCESS = [
   {
     step: 'Book a Free Consult',
-    copy: "Schedule a free phone or video consult — no payment required. We'll talk through your family's story and figure out if it's a good fit.",
+    copy: "Schedule a free phone or video consult, no payment required. We'll talk through your family's story and figure out if it's a good fit.",
   },
   {
     step: 'We Sit Down Together',
@@ -89,7 +89,7 @@ export const AUDIO_PROCESS = [
   },
   {
     step: 'We Digitize & Edit',
-    copy: "Back in the studio, we digitize your media and craft a Ken Burns–style film — your photos and videos layered over the recording of your loved one telling their story.",
+    copy: "Back in the studio, we digitize your media and craft a Ken Burns-style film, with your photos and videos layered over the recording of your loved one telling their story.",
   },
   {
     step: 'Delivery',

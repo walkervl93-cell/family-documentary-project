@@ -8,7 +8,7 @@ export default function Audio() {
       <PageHero
         eyebrow="New · In-Person"
         title="Audio"
-        subtitle="Their story, in their voice. A more accessible way to preserve your family's history — recorded, edited, and set to your own photos and videos."
+        subtitle="Their story, in their voice. A more accessible way to preserve your family's history, recorded, edited, and set to your own photos and videos."
       >
         <div className="mt-8">
           <a href="#book-consult" className="btn-primary">
@@ -46,7 +46,7 @@ export default function Audio() {
             A lighter way to preserve a story
           </p>
           <p className="mt-2 text-ink/80">
-            It's a lighter lift than a full documentary — no production crew, no full-day set,
+            It's a lighter lift than a full documentary. No production crew, no full-day set,
             just a sit-down conversation and the photos and videos you already have. That means
             we can pass the savings on to you, and bring this kind of preservation to more
             families.
@@ -57,7 +57,7 @@ export default function Audio() {
       <section id="book-consult" className="mx-auto max-w-3xl px-6 py-20">
         <h2 className="text-center text-3xl">Book a Free Consult</h2>
         <p className="mt-3 text-center text-ink/70">
-          No payment required — we'll talk through your family's story and figure out next steps
+          No payment required. We'll talk through your family's story and figure out next steps
           together.
         </p>
         <div className="mt-8">

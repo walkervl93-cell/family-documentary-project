@@ -128,8 +128,8 @@ export default function ConsultBookingForm({
             hour: 'numeric',
             minute: '2-digit',
           })}{' '}
-          — a free {consultType} consult, no payment due yet. If we're a good fit, we'll follow up
-          with next steps after the call.
+          for a free {consultType} consult, no payment due yet. If we're a good fit, we'll follow
+          up with next steps after the call.
         </p>
         {!magicLinkSent ? (
           <button className="btn-primary mt-6" onClick={sendMagicLink}>
@@ -185,7 +185,7 @@ export default function ConsultBookingForm({
           {slotsLoading && <p className="text-ink/60">Loading available times…</p>}
           {!slotsLoading && slots.length === 0 && (
             <p className="rounded-lg bg-ink/5 p-4 text-sm text-ink/70">
-              No open times right now — please call 804-432-4773 and we'll find a time together.
+              No open times right now. Please call 804-432-4773 and we'll find a time together.
             </p>
           )}
           {Object.entries(slotsByDay).map(([day, daySlots]) => (
@@ -329,7 +329,7 @@ export default function ConsultBookingForm({
               })}
             </p>
             <p className="mt-3 text-ink/70">
-              This is a free consult — there's no payment due now. If you'd like to move forward
+              This is a free consult. There's no payment due now. If you'd like to move forward
               afterward, we'll follow up with next steps.
             </p>
           </div>

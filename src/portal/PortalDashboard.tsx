@@ -101,7 +101,7 @@ function DeliverableViewer({ bookingId }: { bookingId: string }) {
   return (
     <div className="mt-6 rounded-xl border border-ink/10 bg-ink/5 p-4">
       <p className="mb-3 text-sm font-medium uppercase tracking-wide text-ink/60">
-        Your Film — v{deliverable.version}
+        Your Film, v{deliverable.version}
       </p>
       {/* A plain <video> with a direct signed URL lets the browser's native
           AirPlay / Chromecast controls fetch it straight from Storage. */}
@@ -111,7 +111,7 @@ function DeliverableViewer({ bookingId }: { bookingId: string }) {
           Download
         </a>
         {deliverable.revision_requested ? (
-          <span className="text-sm text-moss">Revision requested — we'll follow up.</span>
+          <span className="text-sm text-moss">Revision requested. We'll follow up.</span>
         ) : (
           <button
             className="text-sm text-clay underline disabled:opacity-50"
@@ -142,7 +142,7 @@ function RescheduleForm({ bookingId }: { bookingId: string }) {
   }
 
   if (sent) {
-    return <p className="mt-3 text-sm text-moss">Reschedule request sent — we'll follow up by email.</p>
+    return <p className="mt-3 text-sm text-moss">Reschedule request sent. We'll follow up by email.</p>
   }
 
   return open ? (

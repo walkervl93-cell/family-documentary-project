@@ -35,7 +35,7 @@ export default function Home() {
       <section id="book-consult" className="mx-auto max-w-3xl px-6 py-20 text-center">
         <h2 className="text-center text-3xl">Let's Connect</h2>
         <p className="mt-3 text-center text-ink/70">
-          Ready to start telling your family's story? Book a free consult below — no payment
+          Ready to start telling your family's story? Book a free consult below. No payment
           required.
         </p>
         <div className="mt-8">
