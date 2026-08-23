@@ -162,13 +162,12 @@ export const MEDIA = {
     'https://familydocumentaryproject.com/wp-content/uploads/2024/04/NEW-CORPORAL-JIMMY-ROYER.mp4',
   // Served from public/videos/ (a local file, not hotlinked) — the page hides
   // the video section entirely if this file isn't present.
-  documentariesNewHeroVideo: '/videos/fading-fraternity.mp4',
+  documentariesNewHeroVideo: '/videos/documentary-hero.mp4',
   digitizingHeroVideo:
     'https://familydocumentaryproject.com/wp-content/uploads/2025/02/dancing-lessons.mp4',
   memorialVideoExample:
     'https://familydocumentaryproject.com/wp-content/uploads/2025/07/MEMORIAL-VIDEO-TEASER_SHORT_1.mp4',
-  givingBackHeroVideo:
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/PopandMimi_2.mp4',
+  givingBackHeroVideo: '/videos/fading-fraternity.mp4',
   // Short looping example clips for the four "What We Offer" style cards.
   // Dropped into public/videos/ by hand — until a file exists at one of these
   // paths, Home falls back to a placeholder box for that card.

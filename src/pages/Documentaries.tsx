@@ -1,8 +1,13 @@
+import { useState } from 'react'
 import Gallery from '../components/Gallery'
 import ConsultBookingForm from '../components/ConsultBookingForm'
 import { DOCUMENTARY_PROCESS, MEDIA } from '../data/content'
 
 export default function Documentaries() {
+  // The hero clip lives in public/videos/ and is swapped by hand, so drop the
+  // whole section rather than showing a broken player if it isn't there yet.
+  const [heroMissing, setHeroMissing] = useState(false)
+
   return (
     <>
       <section className="mx-auto max-w-4xl px-6 py-20 text-center">
@@ -17,9 +22,15 @@ export default function Documentaries() {
         </p>
       </section>
 
-      {MEDIA.documentariesNewHeroVideo && (
+      {MEDIA.documentariesNewHeroVideo && !heroMissing && (
         <section className="mx-auto max-w-6xl px-6 pb-10">
-          <video className="w-full rounded-2xl" src={MEDIA.documentariesNewHeroVideo} controls playsInline />
+          <video
+            className="w-full rounded-2xl"
+            src={MEDIA.documentariesNewHeroVideo}
+            controls
+            playsInline
+            onError={() => setHeroMissing(true)}
+          />
         </section>
       )}
 
