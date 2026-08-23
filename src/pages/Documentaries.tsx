@@ -4,9 +4,10 @@ import ConsultBookingForm from '../components/ConsultBookingForm'
 import { DOCUMENTARY_PROCESS, MEDIA } from '../data/content'
 
 export default function Documentaries() {
-  // The hero clip lives in public/videos/ and is swapped by hand, so drop the
-  // whole section rather than showing a broken player if it isn't there yet.
+  // These clips live in public/videos/ and are swapped by hand, so drop the
+  // whole section rather than showing a broken player if one isn't there yet.
   const [heroMissing, setHeroMissing] = useState(false)
+  const [processVideoMissing, setProcessVideoMissing] = useState(false)
 
   return (
     <>
@@ -47,6 +48,18 @@ export default function Documentaries() {
             </div>
           ))}
         </div>
+
+        {MEDIA.documentariesProcessVideo && !processVideoMissing && (
+          <div className="mt-12">
+            <video
+              className="w-full rounded-2xl"
+              src={MEDIA.documentariesProcessVideo}
+              controls
+              playsInline
+              onError={() => setProcessVideoMissing(true)}
+            />
+          </div>
+        )}
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">

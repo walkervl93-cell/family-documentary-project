@@ -160,9 +160,10 @@ export const MEDIA = {
     'https://familydocumentaryproject.com/wp-content/uploads/2024/04/GrandmamaShort_2.mp4',
   documentariesHeroVideo:
     'https://familydocumentaryproject.com/wp-content/uploads/2024/04/NEW-CORPORAL-JIMMY-ROYER.mp4',
-  // Served from public/videos/ (a local file, not hotlinked) — the page hides
-  // the video section entirely if this file isn't present.
+  // Served from public/videos/ (local files, not hotlinked) — the page hides
+  // each video section entirely if its file isn't present.
   documentariesNewHeroVideo: '/videos/documentary-hero.mp4',
+  documentariesProcessVideo: '/videos/our-process.mp4',
   digitizingHeroVideo:
     'https://familydocumentaryproject.com/wp-content/uploads/2025/02/dancing-lessons.mp4',
   memorialVideoExample:
