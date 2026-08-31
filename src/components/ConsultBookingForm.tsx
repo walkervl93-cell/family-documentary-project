@@ -82,7 +82,7 @@ export default function ConsultBookingForm({
     // admin). The function runs as a trusted operation and does both writes
     // atomically, so a failure partway through can't leave a slot marked
     // booked with no booking behind it.
-    const { error: rpcError } = await supabase.rpc('book_consult', {
+    const { data: bookingId, error: rpcError } = await supabase.rpc('book_consult', {
       p_slot_id: selectedSlot.id,
       p_client_email: clientEmail,
       p_service_type: serviceType,
@@ -101,6 +101,15 @@ export default function ConsultBookingForm({
       setError(rpcError.message)
       setSubmitting(false)
       return
+    }
+
+    // Notify the studio and confirm to the client. The booking is already
+    // saved at this point, so a mail failure shouldn't surface as a booking
+    // error — it's logged and left for the admin dashboard to catch.
+    if (bookingId) {
+      supabase.functions
+        .invoke('booking-notify', { body: { bookingId } })
+        .catch((err) => console.error('Booking notification failed to send', err))
     }
 
     setSubmitting(false)
