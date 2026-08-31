@@ -41,7 +41,7 @@ export default function Nav() {
         </nav>
         <div className="flex items-center gap-2">
           <Link
-            to="/documentaries#book-consult"
+            to="/#book-consult"
             className="rounded-full bg-clay px-4 py-2 text-xs font-medium uppercase tracking-wide text-cream hover:bg-ink"
           >
             Book a Consult

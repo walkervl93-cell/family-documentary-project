@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import Nav from './components/Nav'
+import ScrollManager from './components/ScrollManager'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Documentaries from './pages/Documentaries'
@@ -14,6 +15,7 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ScrollManager />
         <div className="flex min-h-screen flex-col">
           <Nav />
           <main className="flex-1">
