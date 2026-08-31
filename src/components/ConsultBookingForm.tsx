@@ -10,6 +10,37 @@ interface Slot {
 
 const STEPS = ['Schedule', 'Your Story', 'Confirm'] as const
 
+const WEEKDAY_INITIALS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'] as const
+
+/** Local-calendar key for a date, e.g. "2026-09-01". Deliberately built from
+ *  local parts rather than toISOString(), which would shift late-evening slots
+ *  onto the following day for anyone west of UTC. */
+function dayKey(d: Date) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+    d.getDate(),
+  ).padStart(2, '0')}`
+}
+
+function startOfMonth(d: Date) {
+  return new Date(d.getFullYear(), d.getMonth(), 1)
+}
+
+function addMonths(d: Date, n: number) {
+  return new Date(d.getFullYear(), d.getMonth() + n, 1)
+}
+
+/** The cells of a month grid: leading blanks so the 1st lands under its
+ *  weekday, then one Date per day. */
+function monthCells(month: Date) {
+  const first = startOfMonth(month)
+  const daysInMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate()
+  const cells: (Date | null)[] = Array.from({ length: first.getDay() }, () => null)
+  for (let day = 1; day <= daysInMonth; day++) {
+    cells.push(new Date(month.getFullYear(), month.getMonth(), day))
+  }
+  return cells
+}
+
 export default function ConsultBookingForm({
   serviceType,
   showInterviewType = true,
@@ -24,6 +55,8 @@ export default function ConsultBookingForm({
   const [slots, setSlots] = useState<Slot[]>([])
   const [slotsLoading, setSlotsLoading] = useState(true)
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
+  const [visibleMonth, setVisibleMonth] = useState(() => startOfMonth(new Date()))
+  const [selectedDay, setSelectedDay] = useState<string | null>(null)
 
   const [clientEmail, setClientEmail] = useState('')
   const [clientPhone, setClientPhone] = useState('')
@@ -50,22 +83,38 @@ export default function ConsultBookingForm({
         .gt('start_time', new Date().toISOString())
         .order('start_time', { ascending: true })
         .limit(60)
-      setSlots(data ?? [])
+      const rows = data ?? []
+      setSlots(rows)
+      // Open the calendar on the first month that actually has openings, and
+      // pre-select its first open day, so nobody lands on an empty grid.
+      if (rows.length > 0) {
+        const first = new Date(rows[0].start_time)
+        setVisibleMonth(startOfMonth(first))
+        setSelectedDay(dayKey(first))
+      }
       setSlotsLoading(false)
     }
     loadSlots()
   }, [])
 
   const slotsByDay = slots.reduce<Record<string, Slot[]>>((acc, slot) => {
-    const day = new Date(slot.start_time).toLocaleDateString(undefined, {
-      weekday: 'long',
-      month: 'short',
-      day: 'numeric',
-    })
-    acc[day] = acc[day] ?? []
-    acc[day].push(slot)
+    const key = dayKey(new Date(slot.start_time))
+    acc[key] = acc[key] ?? []
+    acc[key].push(slot)
     return acc
   }, {})
+
+  const cells = monthCells(visibleMonth)
+  const daySlots = selectedDay ? (slotsByDay[selectedDay] ?? []) : []
+
+  // Only let the arrows reach months that hold openings — there's nothing to
+  // find outside that range.
+  const monthsWithSlots = Object.keys(slotsByDay).map((key) => key.slice(0, 7))
+  const earliestMonth = monthsWithSlots.length > 0 ? monthsWithSlots[0] : null
+  const latestMonth = monthsWithSlots.length > 0 ? monthsWithSlots[monthsWithSlots.length - 1] : null
+  const visibleMonthKey = dayKey(visibleMonth).slice(0, 7)
+  const canGoBack = earliestMonth !== null && visibleMonthKey > earliestMonth
+  const canGoForward = latestMonth !== null && visibleMonthKey < latestMonth
 
   async function handleSubmit() {
     if (!selectedSlot || !clientEmail || !location || !storytellerName || !relationship) {
@@ -197,29 +246,108 @@ export default function ConsultBookingForm({
               No open times right now. Please call 804-432-4773 and we'll find a time together.
             </p>
           )}
-          {Object.entries(slotsByDay).map(([day, daySlots]) => (
-            <div key={day}>
-              <p className="mb-2 text-sm font-medium uppercase tracking-wide text-ink/60">{day}</p>
-              <div className="flex flex-wrap gap-2">
-                {daySlots.map((slot) => (
+          {!slotsLoading && slots.length > 0 && (
+            <div className="grid gap-6 sm:grid-cols-[auto_1fr] sm:items-start">
+              <div className="w-full max-w-xs">
+                <div className="mb-3 flex items-center justify-between">
                   <button
-                    key={slot.id}
-                    onClick={() => setSelectedSlot(slot)}
-                    className={`rounded-full border px-4 py-2 text-sm ${
-                      selectedSlot?.id === slot.id
-                        ? 'border-clay bg-clay text-cream'
-                        : 'border-ink/20 hover:border-ink'
-                    }`}
+                    type="button"
+                    aria-label="Previous month"
+                    disabled={!canGoBack}
+                    onClick={() => setVisibleMonth((m) => addMonths(m, -1))}
+                    className="rounded-full border border-ink/20 px-2.5 py-1 text-sm leading-none text-ink/70 hover:border-ink disabled:opacity-25 disabled:hover:border-ink/20"
                   >
-                    {new Date(slot.start_time).toLocaleTimeString(undefined, {
-                      hour: 'numeric',
-                      minute: '2-digit',
-                    })}
+                    ‹
                   </button>
-                ))}
+                  <p className="text-sm font-medium uppercase tracking-wide text-ink/70">
+                    {visibleMonth.toLocaleDateString(undefined, {
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </p>
+                  <button
+                    type="button"
+                    aria-label="Next month"
+                    disabled={!canGoForward}
+                    onClick={() => setVisibleMonth((m) => addMonths(m, 1))}
+                    className="rounded-full border border-ink/20 px-2.5 py-1 text-sm leading-none text-ink/70 hover:border-ink disabled:opacity-25 disabled:hover:border-ink/20"
+                  >
+                    ›
+                  </button>
+                </div>
+                <div className="grid grid-cols-7 gap-1 text-center text-[0.65rem] uppercase tracking-wide text-ink/40">
+                  {WEEKDAY_INITIALS.map((initial, i) => (
+                    <span key={i}>{initial}</span>
+                  ))}
+                </div>
+                <div className="mt-1 grid grid-cols-7 gap-1">
+                  {cells.map((date, i) => {
+                    if (!date) return <span key={`blank-${i}`} />
+                    const key = dayKey(date)
+                    const open = (slotsByDay[key]?.length ?? 0) > 0
+                    const isSelected = selectedDay === key
+                    return (
+                      <button
+                        type="button"
+                        key={key}
+                        disabled={!open}
+                        onClick={() => {
+                          setSelectedDay(key)
+                          setSelectedSlot(null)
+                        }}
+                        className={`aspect-square rounded-lg text-sm transition-colors ${
+                          isSelected
+                            ? 'bg-clay font-medium text-cream'
+                            : open
+                              ? 'bg-sand/60 text-ink hover:bg-sand'
+                              : 'text-ink/25'
+                        }`}
+                      >
+                        {date.getDate()}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <p className="mb-2 text-sm font-medium uppercase tracking-wide text-ink/60">
+                  {selectedDay
+                    ? new Date(`${selectedDay}T00:00:00`).toLocaleDateString(undefined, {
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric',
+                      })
+                    : 'Pick a date'}
+                </p>
+                {daySlots.length === 0 ? (
+                  <p className="text-sm text-ink/50">
+                    Choose a highlighted day to see its open times.
+                  </p>
+                ) : (
+                  <div className="flex flex-wrap gap-2">
+                    {daySlots.map((slot) => (
+                      <button
+                        type="button"
+                        key={slot.id}
+                        onClick={() => setSelectedSlot(slot)}
+                        className={`rounded-full border px-4 py-2 text-sm ${
+                          selectedSlot?.id === slot.id
+                            ? 'border-clay bg-clay text-cream'
+                            : 'border-ink/20 hover:border-ink'
+                        }`}
+                      >
+                        {new Date(slot.start_time).toLocaleTimeString(undefined, {
+                          hour: 'numeric',
+                          minute: '2-digit',
+                        })}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
-          ))}
+          )}
           <button className="btn-primary w-fit" disabled={!selectedSlot} onClick={() => setStep(1)}>
             Continue
           </button>
