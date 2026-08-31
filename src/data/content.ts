@@ -10,6 +10,8 @@ export const BRAND = {
   instagram: 'https://instagram.com/familydocumentaryproject',
   facebook: 'https://www.facebook.com/profile.php?id=61556057250683',
   tiktok: 'https://www.tiktok.com/@familydocumentaryproject',
+  // Teaser page for the app, hosted separately from this site.
+  appUrl: 'https://family-documentary.lovable.app/get',
 }
 
 export const CLOSING_CTA = `Please don't hesitate to reach out with any questions regarding our process.`

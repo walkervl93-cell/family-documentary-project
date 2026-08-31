@@ -28,6 +28,16 @@ export default function Nav() {
               {l.label}
             </NavLink>
           ))}
+          {/* Outbound: the app teaser lives on its own host, so a plain anchor
+              rather than a router link. */}
+          <a
+            href={BRAND.appUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-ink/80 transition-colors hover:text-clay"
+          >
+            Get the App
+          </a>
         </nav>
         <div className="flex items-center gap-2">
           <Link
@@ -50,6 +60,14 @@ export default function Nav() {
             {l.label}
           </NavLink>
         ))}
+        <a
+          href={BRAND.appUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="text-ink/80 hover:text-clay"
+        >
+          Get the App
+        </a>
       </nav>
     </header>
   )
