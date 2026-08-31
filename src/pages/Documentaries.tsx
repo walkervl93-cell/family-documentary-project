@@ -29,6 +29,9 @@ export default function Documentaries() {
             className="w-full rounded-2xl"
             src={MEDIA.documentariesNewHeroVideo}
             controls
+            autoPlay
+            muted
+            loop
             playsInline
             onError={() => setHeroMissing(true)}
           />
@@ -55,6 +58,9 @@ export default function Documentaries() {
               className="w-full rounded-2xl"
               src={MEDIA.documentariesProcessVideo}
               controls
+              autoPlay
+              muted
+              loop
               playsInline
               onError={() => setProcessVideoMissing(true)}
             />

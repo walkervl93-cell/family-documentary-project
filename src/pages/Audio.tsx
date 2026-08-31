@@ -22,7 +22,7 @@ export default function Audio() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-10">
-        <video className="w-full rounded-2xl" src={MEDIA.documentariesHeroVideo} controls playsInline />
+        <video className="w-full rounded-2xl" src={MEDIA.documentariesHeroVideo} controls autoPlay muted loop playsInline />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20">

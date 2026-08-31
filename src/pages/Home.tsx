@@ -48,7 +48,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">
-        <video className="w-full rounded-2xl" src={MEDIA.generationalClip} controls playsInline />
+        <video className="w-full rounded-2xl" src={MEDIA.generationalClip} controls autoPlay muted loop playsInline />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20">

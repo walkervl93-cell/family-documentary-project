@@ -14,7 +14,7 @@ export default function DigitizingServices() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-10">
-        <video className="w-full rounded-2xl" src={MEDIA.digitizingHeroVideo} controls playsInline />
+        <video className="w-full rounded-2xl" src={MEDIA.digitizingHeroVideo} controls autoPlay muted loop playsInline />
       </section>
 
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
@@ -37,7 +37,7 @@ export default function DigitizingServices() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">
-        <video className="w-full rounded-2xl" src={MEDIA.memorialVideoExample} controls playsInline />
+        <video className="w-full rounded-2xl" src={MEDIA.memorialVideoExample} controls autoPlay muted loop playsInline />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">
