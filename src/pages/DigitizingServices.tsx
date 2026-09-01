@@ -10,7 +10,7 @@ export default function DigitizingServices() {
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">In-Person</p>
         <h1 className="text-4xl leading-tight sm:text-5xl">Digitizing</h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/70">
-          Organization, digitization, archive, then interview. We come to you, wherever you are.
+          Organization, digitization, archive, then interview.
         </p>
       </section>
 

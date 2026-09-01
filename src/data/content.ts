@@ -78,7 +78,7 @@ export const DOCUMENTARY_PROCESS = [
   },
 ]
 
-export const AUDIO_INTRO = `Their story, in their voice. Audio is a more accessible way to preserve your family's history, recorded, edited, and set to your own photos and videos. We bring this kind of preservation to more families, without the full production of a documentary, so we can pass the savings on to you.`
+export const AUDIO_INTRO = `We all know what it is like to wish we could hear their voice one last time, wishing they could tell us their stories again and again. This service makes that a reality. We bring preservation to more families, without the full production of a documentary, so you don't have to wish you'd saved those voicemails.`
 
 export const AUDIO_PROCESS = [
   {
@@ -118,7 +118,7 @@ export const DIGITIZING_SERVICES = [
   },
 ]
 
-export const GIVING_BACK_COPY = `When we started this project 10 years ago with our own family members we knew we had to share this practice with a broader community. As we continue to produce The Family Documentary Project, we want to ensure we touch as many lives as possible. The easiest way for us to accomplish this is by hosting a free pop-up every month at a partnering retirement community. For every project we book, we are able to host one free event and share this craft with more people every day.`
+export const GIVING_BACK_COPY = `When we started this project 10 years ago with our own family members we knew we had to share this practice with a broader community. As we continue to produce The Family Documentary Project, we want to ensure we touch as many lives as possible. The easiest way for us to accomplish this is by hosting a free pop-up every month at a partnering retirement community.`
 
 export const GIVING_BACK_CTA = `If you work at a facility that would benefit from this service, please reach out.`
 
