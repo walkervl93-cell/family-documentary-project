@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import Gallery from '../components/Gallery'
+import AutoVideo from '../components/AutoVideo'
 import ConsultBookingForm from '../components/ConsultBookingForm'
 import { BRAND, HOME_INTRO, WHAT_WE_OFFER, DOCUMENTARY_STYLES, MEDIA } from '../data/content'
 
@@ -48,7 +49,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">
-        <video className="w-full rounded-2xl" src={MEDIA.generationalClip} controls autoPlay muted loop playsInline />
+        <AutoVideo className="w-full rounded-2xl" src={MEDIA.generationalClip} controls />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20">
@@ -60,13 +61,9 @@ export default function Home() {
             return (
               <div key={style.id} className="rounded-2xl border border-ink/10 bg-white/50 p-6">
                 {videoSrc && !missingClips[style.id] ? (
-                  <video
+                  <AutoVideo
                     className="aspect-video w-full rounded-xl object-cover"
                     src={videoSrc}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
                     onError={() => setMissingClips((prev) => ({ ...prev, [style.id]: true }))}
                   />
                 ) : (

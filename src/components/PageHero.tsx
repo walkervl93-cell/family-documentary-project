@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import AutoVideo from './AutoVideo'
 
 export default function PageHero({
   eyebrow,
@@ -16,13 +17,9 @@ export default function PageHero({
   return (
     <section className="relative overflow-hidden bg-ink text-cream">
       {videoSrc && (
-        <video
+        <AutoVideo
           className="absolute inset-0 h-full w-full object-cover opacity-40"
           src={videoSrc}
-          autoPlay
-          muted
-          loop
-          playsInline
         />
       )}
       <div className="relative mx-auto max-w-4xl px-6 py-28 text-center">

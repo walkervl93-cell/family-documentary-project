@@ -1,4 +1,5 @@
 import Gallery from '../components/Gallery'
+import AutoVideo from '../components/AutoVideo'
 import ConsultBookingForm from '../components/ConsultBookingForm'
 import { DIGITIZING_INTRO, DIGITIZING_DIFFERENTIATOR, DIGITIZING_SERVICES, MEDIA } from '../data/content'
 
@@ -14,7 +15,7 @@ export default function DigitizingServices() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-10">
-        <video className="w-full rounded-2xl" src={MEDIA.digitizingHeroVideo} controls autoPlay muted loop playsInline />
+        <AutoVideo className="w-full rounded-2xl" src={MEDIA.digitizingHeroVideo} controls />
       </section>
 
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
@@ -37,7 +38,7 @@ export default function DigitizingServices() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">
-        <video className="w-full rounded-2xl" src={MEDIA.memorialVideoExample} controls autoPlay muted loop playsInline />
+        <AutoVideo className="w-full rounded-2xl" src={MEDIA.memorialVideoExample} controls />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">

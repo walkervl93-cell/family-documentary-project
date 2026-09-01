@@ -1,4 +1,5 @@
 import PageHero from '../components/PageHero'
+import AutoVideo from '../components/AutoVideo'
 import ConsultBookingForm from '../components/ConsultBookingForm'
 import { AUDIO_INTRO, AUDIO_PROCESS, MEDIA } from '../data/content'
 
@@ -22,7 +23,7 @@ export default function Audio() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-10">
-        <video className="w-full rounded-2xl" src={MEDIA.documentariesHeroVideo} controls autoPlay muted loop playsInline />
+        <AutoVideo className="w-full rounded-2xl" src={MEDIA.documentariesHeroVideo} controls />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20">

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Gallery from '../components/Gallery'
+import AutoVideo from '../components/AutoVideo'
 import ConsultBookingForm from '../components/ConsultBookingForm'
 import { DOCUMENTARY_PROCESS, MEDIA } from '../data/content'
 
@@ -25,14 +26,10 @@ export default function Documentaries() {
 
       {MEDIA.documentariesNewHeroVideo && !heroMissing && (
         <section className="mx-auto max-w-6xl px-6 pb-10">
-          <video
+          <AutoVideo
             className="w-full rounded-2xl"
             src={MEDIA.documentariesNewHeroVideo}
             controls
-            autoPlay
-            muted
-            loop
-            playsInline
             onError={() => setHeroMissing(true)}
           />
         </section>
@@ -54,14 +51,10 @@ export default function Documentaries() {
 
         {MEDIA.documentariesProcessVideo && !processVideoMissing && (
           <div className="mt-12">
-            <video
+            <AutoVideo
               className="w-full rounded-2xl"
               src={MEDIA.documentariesProcessVideo}
               controls
-              autoPlay
-              muted
-              loop
-              playsInline
               onError={() => setProcessVideoMissing(true)}
             />
           </div>
