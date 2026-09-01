@@ -151,25 +151,18 @@ export const SERVICE_TYPE_LABELS: Record<'documentary' | 'guided_session' | 'aud
 }
 
 export const MEDIA = {
-  logoWide:
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/03/LARGE-TFDP-LOGO2-1024x494.png',
-  logoLarge: 'https://familydocumentaryproject.com/wp-content/uploads/2024/03/LARGE-TFDP-LOGO.png',
-  favicon:
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/03/LOGO_TFDP-transblack-300x300.png',
-  homeHeroVideo:
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/NEW-NEW-web-SNIPPETS-.mp4',
-  generationalClip:
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/GrandmamaShort_2.mp4',
-  documentariesHeroVideo:
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/NEW-CORPORAL-JIMMY-ROYER.mp4',
+  homeHeroVideo: '/videos/home-hero.mp4',
+  generationalClip: '/videos/grandmama.mp4',
+  // Only the Audio page reads this. The clip that used to sit here
+  // (Corporal Jimmy Royer) lived on the old WordPress site and wasn't
+  // among the recovered files, so it borrows the documentary hero for now.
+  audioVideo: '/videos/documentary-hero.mp4',
   // Served from public/videos/ (local files, not hotlinked) — the page hides
   // each video section entirely if its file isn't present.
   documentariesNewHeroVideo: '/videos/documentary-hero.mp4',
   documentariesProcessVideo: '/videos/our-process.mp4',
-  digitizingHeroVideo:
-    'https://familydocumentaryproject.com/wp-content/uploads/2025/02/dancing-lessons.mp4',
-  memorialVideoExample:
-    'https://familydocumentaryproject.com/wp-content/uploads/2025/07/MEMORIAL-VIDEO-TEASER_SHORT_1.mp4',
+  digitizingHeroVideo: '/videos/dancing-lessons.mp4',
+  memorialVideoExample: '/videos/memorial-teaser.mp4',
   givingBackHeroVideo: '/videos/fading-fraternity.mp4',
   // Short looping example clips for the four "What We Offer" style cards.
   // Dropped into public/videos/ by hand — until a file exists at one of these
@@ -179,32 +172,59 @@ export const MEDIA = {
   styleAudioKenBurns: '/videos/style-ken-burns.mp4',
   styleAudioTranscript: '/videos/style-transcript.mp4',
   homeGallery: [
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/FAM-MEMORIES-BROCHURE-3-1024x573.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-20.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-37-scaled.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-36-scaled.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-35-scaled.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-28.jpg',
+    '/images/fam-memories-brochure-1.jpg',
+    '/images/fam-memories-brochure-4.jpg',
+    '/images/fam-memories-brochure-7.jpg',
+    '/images/tfdp-website-image-13.jpg',
+    '/images/tfdp-website-image-14.jpg',
+    '/images/tfdp-website-image-16.jpg',
+    '/images/tfdp-website-image-24.jpg',
+    '/images/tfdp-website-image-28.jpg',
+    '/images/tfdp-website-image-32.jpg',
+    '/images/tfdp-website-image-34.jpg',
+    '/images/tfdp-website-image-36.jpg',
+    '/images/tfdp-website-image-37.jpg',
   ],
   documentariesGallery: [
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-26.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-23.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-21-e1714508260658.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-22.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-10-scaled.jpg',
+    '/images/fam-memories-brochure-2.jpg',
+    '/images/fam-memories-brochure-8.jpg',
+    '/images/tfdp-website-image-01.jpg',
+    '/images/tfdp-website-image-02.jpg',
+    '/images/tfdp-website-image-05.jpg',
+    '/images/tfdp-website-image-07.jpg',
+    '/images/tfdp-website-image-08.jpg',
+    '/images/tfdp-website-image-12.jpg',
+    '/images/tfdp-website-image-15.jpg',
+    '/images/tfdp-website-image-23.jpg',
+    '/images/tfdp-website-image-29.jpg',
+    '/images/tfdp-pop.jpg',
   ],
   digitizingGallery: [
-    'https://familydocumentaryproject.com/wp-content/uploads/2025/02/JEAN-002.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2025/02/image000001.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2025/02/017.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2025/02/2025-02-08-12-14-0005.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2025/02/RONS_SLIDES-11-scaled.jpg',
+    '/images/fam-memories-brochure-3.jpg',
+    '/images/tfdp-website-image-03.jpg',
+    '/images/tfdp-website-image-04.jpg',
+    '/images/tfdp-website-image-06.jpg',
+    '/images/tfdp-website-image-11.jpg',
+    '/images/tfdp-website-image-17.jpg',
+    '/images/tfdp-website-image-26.jpg',
+    '/images/tfdp-website-image-30.jpg',
+    '/images/tfdp-website-image-31.jpg',
+    '/images/tfdp-website-image-33.jpg',
+    '/images/tfdp-website-image-35.jpg',
+    '/images/tfdp-pop-1.jpg',
   ],
   givingBackGallery: [
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-07-scaled.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-05-scaled-e1714508441910.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/FAM-MEMORIES-BROCHURE-1-scaled.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-18.jpg',
-    'https://familydocumentaryproject.com/wp-content/uploads/2024/04/TFDP-WEBSITE-IMAGE-32-scaled.jpg',
+    '/images/fam-memories-brochure-5.jpg',
+    '/images/fam-memories-brochure-6.jpg',
+    '/images/tfdp-website-image-09.jpg',
+    '/images/tfdp-website-image-10.jpg',
+    '/images/tfdp-website-image-18.jpg',
+    '/images/tfdp-website-image-19.jpg',
+    '/images/tfdp-website-image-20.jpg',
+    '/images/tfdp-website-image-21.jpg',
+    '/images/tfdp-website-image-22.jpg',
+    '/images/tfdp-website-image-25.jpg',
+    '/images/tfdp-website-image-27.jpg',
+    '/images/tfdp-louise.jpg',
   ],
 }
