@@ -6,17 +6,21 @@ import { AUDIO_INTRO, AUDIO_PROCESS, MEDIA } from '../data/content'
 export default function Audio() {
   return (
     <>
-      <PageHero
-        eyebrow="New · In-Person"
-        title="Audio"
-        subtitle="Their story, in their voice. A more accessible way to preserve your family's history, recorded, edited, and set to your own photos and videos."
-      >
+      <section className="mx-auto max-w-4xl px-6 py-20 text-center">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">
+          New · In-Person
+        </p>
+        <h1 className="text-4xl leading-tight sm:text-5xl">Audio</h1>
+        <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/70">
+          Their story, in their voice. A more accessible way to preserve your family's history,
+          recorded, edited, and set to your own photos and videos.
+        </p>
         <div className="mt-8">
           <a href="#book-consult" className="btn-primary">
             Book a Free Consult
           </a>
         </div>
-      </PageHero>
+      </section>
 
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
         <p className="font-serif text-2xl leading-relaxed">{AUDIO_INTRO}</p>
