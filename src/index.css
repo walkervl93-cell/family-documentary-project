@@ -36,3 +36,29 @@ h1, h2, h3, h4, .font-serif {
     @apply inline-flex items-center justify-center rounded-full border border-ink/20 px-6 py-3 text-sm font-medium uppercase tracking-wide text-ink transition-colors hover:border-ink;
   }
 }
+
+/* Continuously scrolling photo strip. The track holds the images twice over,
+   so sliding it exactly half its width lands on an identical frame and the
+   loop is invisible. */
+@keyframes gallery-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.gallery-track {
+  animation: gallery-marquee linear infinite;
+  width: max-content;
+}
+
+.gallery-strip:hover .gallery-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-track {
+    animation: none;
+  }
+  .gallery-strip {
+    overflow-x: auto;
+  }
+}

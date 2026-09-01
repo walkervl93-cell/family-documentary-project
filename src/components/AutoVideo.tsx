@@ -56,10 +56,18 @@ export default function AutoVideo({
     return () => observer.disconnect()
   }, [])
 
+  // Every clip has a still of its own first frame in public/posters/, named
+  // after the file. It shows instantly while the video itself is still
+  // arriving, so a section never opens as a black rectangle.
+  const poster = src.startsWith('/videos/')
+    ? src.replace('/videos/', '/posters/').replace(/\.mp4$/, '-poster.jpg')
+    : undefined
+
   return (
     <video
       ref={ref}
       className={className}
+      poster={poster}
       src={shouldLoad ? src : undefined}
       controls={controls}
       muted
