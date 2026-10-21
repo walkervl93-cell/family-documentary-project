@@ -29,6 +29,11 @@ h1, h2, h3, h4, .font-serif {
   .input {
     @apply w-full rounded-lg border border-ink/15 bg-white/70 px-4 py-3 text-sm placeholder:text-ink/40 focus:border-clay focus:outline-none;
   }
+  /* Larger counterpart to .input for the intake page, which is built for
+     seniors on phones: taller target, bigger type, visible borders. */
+  .input-lg {
+    @apply w-full rounded-xl border border-ink/25 bg-white px-4 py-4 text-lg text-ink placeholder:text-ink/40 focus:border-clay focus:outline-none focus:ring-2 focus:ring-clay/30;
+  }
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-full bg-clay px-6 py-3 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-ink disabled:opacity-50;
   }

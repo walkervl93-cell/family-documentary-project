@@ -8,6 +8,7 @@ import Documentaries from './pages/Documentaries'
 import DigitizingServices from './pages/DigitizingServices'
 import Audio from './pages/Audio'
 import GivingBack from './pages/GivingBack'
+import Intake from './pages/Intake'
 import Portal from './pages/Portal'
 import Admin from './pages/Admin'
 
@@ -25,6 +26,9 @@ export default function App() {
               <Route path="/digitizing-services" element={<DigitizingServices />} />
               <Route path="/audio" element={<Audio />} />
               <Route path="/giving-back" element={<GivingBack />} />
+              {/* Shared as a direct link only: deliberately absent from the
+                  nav and the footer, and the page marks itself noindex. */}
+              <Route path="/intake" element={<Intake />} />
               <Route path="/portal" element={<Portal />} />
               <Route path="/admin" element={<Admin />} />
             </Routes>

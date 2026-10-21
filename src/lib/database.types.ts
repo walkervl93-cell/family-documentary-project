@@ -22,6 +22,25 @@ export type RescheduleStatus = 'pending' | 'approved' | 'denied'
 export interface Database {
   public: {
     Tables: {
+      intake_signups: {
+        Row: {
+          id: string
+          full_name: string
+          interview_date: string
+          email: string
+          phone: string
+          family_contacts: { name: string; contact: string }[]
+          notified_at: string | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['intake_signups']['Row'], 'id' | 'notified_at' | 'created_at'> & {
+          id?: string
+          notified_at?: string | null
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['intake_signups']['Insert']>
+        Relationships: []
+      }
       inquiries: {
         Row: {
           id: string
@@ -226,6 +245,16 @@ export interface Database {
       is_admin: {
         Args: Record<string, never>
         Returns: boolean
+      }
+      submit_intake: {
+        Args: {
+          p_full_name: string
+          p_interview_date: string
+          p_email: string
+          p_phone: string
+          p_family_contacts: { name: string; contact: string }[]
+        }
+        Returns: string
       }
       book_consult: {
         Args: {
