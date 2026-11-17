@@ -4,12 +4,14 @@ import PortalLogin from '../portal/PortalLogin'
 import InquiriesTab from '../admin/InquiriesTab'
 import PickupRequestsTab from '../admin/PickupRequestsTab'
 import InterviewBookingsTab from '../admin/InterviewBookingsTab'
+import NewsletterTab from '../admin/NewsletterTab'
 import { supabase } from '../lib/supabase'
 
 const TABS = [
   { id: 'interviews', label: 'Interview Bookings (Consults)' },
   { id: 'pickups', label: 'Digitizing Pickup Requests' },
   { id: 'inquiries', label: 'General Contact Messages' },
+  { id: 'newsletter', label: 'Newsletter List' },
 ] as const
 
 export default function Admin() {
@@ -53,6 +55,7 @@ export default function Admin() {
       {tab === 'interviews' && <InterviewBookingsTab />}
       {tab === 'pickups' && <PickupRequestsTab />}
       {tab === 'inquiries' && <InquiriesTab />}
+      {tab === 'newsletter' && <NewsletterTab />}
     </div>
   )
 }

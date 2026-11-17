@@ -30,6 +30,14 @@ export default function Home() {
           >
             Explore the Process
           </Link>
+          {/* Jumps to the sign-up bar in the footer rather than repeating the
+              form up here. */}
+          <a
+            href="#newsletter"
+            className="btn-secondary border-cream/40 text-cream hover:border-cream"
+          >
+            Sign Up for the Newsletter
+          </a>
         </div>
       </PageHero>
 

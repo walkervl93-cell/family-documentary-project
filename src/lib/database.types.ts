@@ -41,6 +41,22 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['intake_signups']['Insert']>
         Relationships: []
       }
+      newsletter_subscribers: {
+        Row: {
+          id: string
+          email: string
+          phone: string | null
+          source: string | null
+          unsubscribed_at: string | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['newsletter_subscribers']['Row'], 'id' | 'created_at'> & {
+          id?: string
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['newsletter_subscribers']['Insert']>
+        Relationships: []
+      }
       inquiries: {
         Row: {
           id: string
@@ -245,6 +261,14 @@ export interface Database {
       is_admin: {
         Args: Record<string, never>
         Returns: boolean
+      }
+      subscribe_newsletter: {
+        Args: {
+          p_email: string
+          p_phone: string | null
+          p_source: string | null
+        }
+        Returns: void
       }
       submit_intake: {
         Args: {
