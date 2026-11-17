@@ -21,8 +21,11 @@ export default function Home() {
         videoSrc={MEDIA.homeHeroVideo}
       >
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a href="#book-consult" className="btn-primary">
-            Book a Call
+          {/* Jumps to the sign-up bar in the footer rather than repeating the
+              form up here. Booking still has the header's own button and the
+              Let's Connect section below. */}
+          <a href="#newsletter" className="btn-primary">
+            Sign Up for the Newsletter
           </a>
           <Link
             to="/documentaries#process"
@@ -30,14 +33,6 @@ export default function Home() {
           >
             Explore the Process
           </Link>
-          {/* Jumps to the sign-up bar in the footer rather than repeating the
-              form up here. */}
-          <a
-            href="#newsletter"
-            className="btn-secondary border-cream/40 text-cream hover:border-cream"
-          >
-            Sign Up for the Newsletter
-          </a>
         </div>
       </PageHero>
 
