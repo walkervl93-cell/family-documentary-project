@@ -57,6 +57,26 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['newsletter_subscribers']['Insert']>
         Relationships: []
       }
+      picture_this_leads: {
+        Row: {
+          id: string
+          created_at: string
+          full_name: string
+          phone: string
+          email: string
+          best_time: 'morning' | 'midday' | 'evening'
+          interviewee: 'self' | 'family_member'
+          source: string | null
+          notified_at: string | null
+        }
+        Insert: Omit<Database['public']['Tables']['picture_this_leads']['Row'], 'id' | 'created_at' | 'notified_at'> & {
+          id?: string
+          created_at?: string
+          notified_at?: string | null
+        }
+        Update: Partial<Database['public']['Tables']['picture_this_leads']['Insert']>
+        Relationships: []
+      }
       inquiries: {
         Row: {
           id: string
@@ -269,6 +289,17 @@ export interface Database {
           p_source: string | null
         }
         Returns: void
+      }
+      submit_picture_this_lead: {
+        Args: {
+          p_full_name: string
+          p_phone: string
+          p_email: string
+          p_best_time: 'morning' | 'midday' | 'evening'
+          p_interviewee: 'self' | 'family_member'
+          p_source: string | null
+        }
+        Returns: string
       }
       submit_intake: {
         Args: {
