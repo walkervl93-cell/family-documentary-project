@@ -123,9 +123,9 @@ export default function PictureThis() {
   }
 
   return (
-    // dvh rather than vh so the card isn't pushed under a phone browser's
-    // address bar; min-h lets the page scroll when the keyboard is up.
-    <div className="relative flex min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-ink px-4 py-10">
+    // Fixed to the viewport: the page itself never scrolls. dvh rather than
+    // vh so the card isn't pushed under a phone browser's address bar.
+    <div className="fixed inset-0 flex h-[100dvh] w-full items-center justify-center overflow-hidden bg-ink px-4 py-6">
       <video
         className="absolute inset-0 h-full w-full object-cover"
         src={BG_VIDEO}
@@ -140,7 +140,10 @@ export default function PictureThis() {
       {/* Keeps the text readable whatever the footage is doing underneath. */}
       <div className="absolute inset-0 bg-ink/65" aria-hidden="true" />
 
-      <div className="relative w-[90%] max-w-lg rounded-3xl border border-white/20 bg-ink/40 p-6 shadow-2xl backdrop-blur-xl sm:w-full sm:p-10">
+      {/* The card, not the page, takes any overflow. On a short screen with
+          the keyboard up the fields stay reachable without the background
+          ever moving. */}
+      <div className="relative max-h-full w-[90%] max-w-lg overflow-y-auto overscroll-contain rounded-3xl border border-white/20 bg-ink/40 p-6 shadow-2xl backdrop-blur-xl sm:w-full sm:p-10">
         {done ? (
           <div className="py-8 text-center">
             <h1 className="font-serif text-3xl leading-tight text-cream sm:text-4xl">Thank you!</h1>
@@ -154,7 +157,7 @@ export default function PictureThis() {
               Preserve Their Story This Holiday Season
             </h1>
             <p className="mt-4 text-center text-base text-cream/80 sm:text-lg">
-              Legacy short films from your family photos, $650 per family.
+              Legacy short films from your family photos.
             </p>
 
             <form onSubmit={handleSubmit} noValidate className="mt-8 grid gap-5">
