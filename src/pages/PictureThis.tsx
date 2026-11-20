@@ -34,6 +34,10 @@ function isUsPhone(value: string) {
   return digits.length === 10 || (digits.length === 11 && digits.startsWith('1'))
 }
 
+function isEmail(value: string) {
+  return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)
+}
+
 export default function PictureThis() {
   useNoIndex()
   const [params] = useSearchParams()
@@ -58,7 +62,7 @@ export default function PictureThis() {
     if (!phone.trim()) next.phone = 'Please add a phone number.'
     else if (!isUsPhone(phone)) next.phone = "That doesn't look like a 10-digit US number."
     if (!email.trim()) next.email = 'Please add an email address.'
-    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) next.email = 'Please check that address.'
+    else if (!isEmail(email)) next.email = 'Please check that address.'
     if (!bestTime) next.bestTime = 'Pick a time that suits you.'
     if (!interviewee) next.interviewee = 'Let us know who we would be interviewing.'
     return next
@@ -111,11 +115,18 @@ export default function PictureThis() {
     setDone(true)
   }
 
+  const complete =
+    fullName.trim() !== '' &&
+    isUsPhone(phone) &&
+    isEmail(email) &&
+    bestTime !== null &&
+    interviewee !== null
+
   const fieldClass =
-    'w-full rounded-xl border border-white/30 bg-white/10 px-4 py-3 text-base text-cream placeholder:text-cream/50 focus:border-cream focus:outline-none focus:ring-2 focus:ring-cream/30'
+    'w-full rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 text-sm text-cream placeholder:text-cream/50 focus:border-cream focus:outline-none focus:ring-2 focus:ring-cream/30'
 
   function pillClass(active: boolean) {
-    return `rounded-full border px-4 py-2.5 text-sm transition-colors ${
+    return `rounded-full border px-3.5 py-2 text-sm transition-colors ${
       active
         ? 'border-clay bg-clay text-cream'
         : 'border-white/30 text-cream/90 hover:border-cream'
@@ -125,7 +136,7 @@ export default function PictureThis() {
   return (
     // Fixed to the viewport: the page itself never scrolls. dvh rather than
     // vh so the card isn't pushed under a phone browser's address bar.
-    <div className="fixed inset-0 flex h-[100dvh] w-full items-center justify-center overflow-hidden bg-ink px-4 py-6">
+    <div className="fixed inset-0 flex h-[100dvh] w-full items-center justify-center overflow-hidden bg-ink px-4 py-3 sm:py-6">
       <video
         className="absolute inset-0 h-full w-full object-cover"
         src={BG_VIDEO}
@@ -143,46 +154,49 @@ export default function PictureThis() {
       {/* The card, not the page, takes any overflow. On a short screen with
           the keyboard up the fields stay reachable without the background
           ever moving. */}
-      <div className="relative max-h-full w-[90%] max-w-lg overflow-y-auto overscroll-contain rounded-3xl border border-white/20 bg-ink/40 p-6 shadow-2xl backdrop-blur-xl sm:w-full sm:p-10">
+      <div className="relative max-h-full w-[90%] max-w-xl overflow-y-auto overscroll-contain rounded-3xl border border-white/20 bg-ink/40 p-4 shadow-2xl backdrop-blur-xl sm:w-full sm:p-8">
         {done ? (
-          <div className="py-8 text-center">
-            <h1 className="font-serif text-3xl leading-tight text-cream sm:text-4xl">Thank you!</h1>
-            <p className="mx-auto mt-4 max-w-sm text-lg leading-relaxed text-cream/80">
+          <div className="py-6 text-center">
+            <h1 className="font-serif text-2xl leading-tight text-cream sm:text-3xl">Thank you!</h1>
+            <p className="mx-auto mt-3 max-w-sm text-base leading-relaxed text-cream/80">
               We'll reach out at your preferred time to chat about your family's story.
             </p>
           </div>
         ) : (
           <>
-            <h1 className="text-center font-serif text-3xl leading-tight text-cream sm:text-4xl">
+            <h1 className="text-center font-serif text-xl leading-tight text-cream sm:text-3xl">
               Preserve Their Story This Holiday Season
             </h1>
-            <p className="mt-4 text-center text-base text-cream/80 sm:text-lg">
+            <p className="mt-1.5 text-center text-sm text-cream/80 sm:text-base">
               Legacy short films from your family photos.
             </p>
 
-            <form onSubmit={handleSubmit} noValidate className="mt-8 grid gap-5">
+            <form onSubmit={handleSubmit} noValidate className="mt-4 grid gap-3 sm:mt-5 sm:gap-3.5">
               <div>
-                <label htmlFor="pt-name" className="mb-1.5 block text-sm text-cream/80">
+                <label htmlFor="pt-name" className="mb-1 block text-xs text-cream/80">
                   Full name
                 </label>
                 <input
                   id="pt-name"
+                  required
                   className={fieldClass}
                   autoComplete="name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   aria-invalid={!!errors.fullName}
                 />
-                {errors.fullName && <p className="mt-1.5 text-sm text-clay">{errors.fullName}</p>}
+                {errors.fullName && <p className="mt-1 text-xs text-clay">{errors.fullName}</p>}
               </div>
 
+              <div className="grid gap-3 sm:grid-cols-2 sm:gap-3.5">
               <div>
-                <label htmlFor="pt-phone" className="mb-1.5 block text-sm text-cream/80">
+                <label htmlFor="pt-phone" className="mb-1 block text-xs text-cream/80">
                   Phone
                 </label>
                 <input
                   id="pt-phone"
                   type="tel"
+                  required
                   inputMode="tel"
                   autoComplete="tel"
                   className={fieldClass}
@@ -190,16 +204,17 @@ export default function PictureThis() {
                   onChange={(e) => setPhone(e.target.value)}
                   aria-invalid={!!errors.phone}
                 />
-                {errors.phone && <p className="mt-1.5 text-sm text-clay">{errors.phone}</p>}
+                {errors.phone && <p className="mt-1 text-xs text-clay">{errors.phone}</p>}
               </div>
 
               <div>
-                <label htmlFor="pt-email" className="mb-1.5 block text-sm text-cream/80">
+                <label htmlFor="pt-email" className="mb-1 block text-xs text-cream/80">
                   Email
                 </label>
                 <input
                   id="pt-email"
                   type="email"
+                  required
                   inputMode="email"
                   autoComplete="email"
                   className={fieldClass}
@@ -207,11 +222,12 @@ export default function PictureThis() {
                   onChange={(e) => setEmail(e.target.value)}
                   aria-invalid={!!errors.email}
                 />
-                {errors.email && <p className="mt-1.5 text-sm text-clay">{errors.email}</p>}
+                {errors.email && <p className="mt-1 text-xs text-clay">{errors.email}</p>}
+              </div>
               </div>
 
               <fieldset>
-                <legend className="mb-2 text-sm text-cream/80">Best time to call</legend>
+                <legend className="mb-1.5 text-xs text-cream/80">Best time to call</legend>
                 <div className="flex flex-wrap gap-2">
                   {BEST_TIMES.map((t) => (
                     <button
@@ -225,11 +241,11 @@ export default function PictureThis() {
                     </button>
                   ))}
                 </div>
-                {errors.bestTime && <p className="mt-1.5 text-sm text-clay">{errors.bestTime}</p>}
+                {errors.bestTime && <p className="mt-1 text-xs text-clay">{errors.bestTime}</p>}
               </fieldset>
 
               <fieldset>
-                <legend className="mb-2 text-sm text-cream/80">Who would be interviewed</legend>
+                <legend className="mb-1.5 text-xs text-cream/80">Who would be interviewed</legend>
                 <div className="flex flex-wrap gap-2">
                   {INTERVIEWEES.map((t) => (
                     <button
@@ -244,7 +260,7 @@ export default function PictureThis() {
                   ))}
                 </div>
                 {errors.interviewee && (
-                  <p className="mt-1.5 text-sm text-clay">{errors.interviewee}</p>
+                  <p className="mt-1 text-xs text-clay">{errors.interviewee}</p>
                 )}
               </fieldset>
 
@@ -271,16 +287,23 @@ export default function PictureThis() {
 
               <button
                 type="submit"
-                disabled={submitting}
-                className="mt-1 w-full rounded-full bg-clay px-8 py-4 text-base font-medium uppercase tracking-wide text-cream transition-colors hover:bg-cream hover:text-ink disabled:opacity-50"
+                disabled={submitting || !complete}
+                className="mt-1 w-full rounded-full bg-clay px-8 py-3 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-cream hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {submitting ? 'Sending…' : 'Count Me In'}
               </button>
+              {/* A disabled button with no explanation just reads as broken,
+                  so say why it is off. */}
+              {!complete && (
+                <p className="-mt-1 text-center text-xs text-cream/50">
+                  All fields are required.
+                </p>
+              )}
             </form>
           </>
         )}
 
-        <p className="mt-6 text-center text-xs leading-relaxed text-cream/60">
+        <p className="mt-3 text-center text-xs leading-relaxed text-cream/60 sm:mt-4">
           Questions? Call or text{' '}
           <a href={BRAND.phoneHref} className="underline hover:text-cream">
             {BRAND.phone}
