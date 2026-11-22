@@ -18,7 +18,7 @@ export const CLOSING_CTA = `Please don't hesitate to reach out with any question
 
 export const HOME_INTRO = `Generational storytelling is the closest thing we have to immortality. Being surrounded by family gives us the strength to move across the timeline of life with confidence. As the conduit for this practice, we are committed to creating an experience that honors your story and reminds us all of just how powerful the gathering of family can be.`
 
-export const WHAT_WE_OFFER = `For over a decade we've dug up thousands of memories, creating a visual archive to be enjoyed and preserved for generations to come. The experience we facilitate will leave you not only with a tangible product, but more memories of togetherness to hold onto.`
+export const WHAT_WE_OFFER = `We come to you, sit down and go through your old photos and old media, then interview you as you take us through the vaults of your memory to piece together a documentary that tells the story of your life. For over a decade we've dug up thousands of memories, creating a visual archive to be enjoyed and preserved for generations to come. The experience we facilitate will leave you not only with a tangible product, but more memories of togetherness to hold onto.`
 
 // Four varieties of the same core offering — a filmed or recorded interview,
 // digitized media, or both, delivered as a documentary. videoKey points at a
@@ -30,51 +30,63 @@ export const DOCUMENTARY_STYLES = [
     name: 'Subject-Centered Interview',
     copy: "A filmed and edited, in-depth interview with your subject. No additional media, just their story in their own words. Expect a two-camera set up for one subject, and a three-camera set up for two subjects.",
     videoKey: 'styleSubjectCentered',
+    youtubeKey: 'styleSubjectCentered',
   },
   {
     id: 'subject_with_media',
     name: 'Subject Interview with Digitized Media',
     copy: "A filmed interview enhanced with your family's photos and videos, digitized and woven throughout. Expect a two-camera set up for one subject, and a three-camera set up for two subjects.",
     videoKey: 'styleWithDigitizedMedia',
+    youtubeKey: 'styleWithDigitizedMedia',
   },
   {
     id: 'audio_ken_burns',
     name: 'Audio Interview with Ken Burns-Style Media Overlay',
     copy: 'An audio-only interview paired with panning, animated photos and video clips for a documentary look.',
     videoKey: 'styleAudioKenBurns',
+    youtubeKey: 'styleAudioKenBurns',
   },
   {
     id: 'audio_transcript',
     name: 'Audio Interview with Transcript',
     copy: 'An audio-only interview delivered with a full written transcript.',
     videoKey: 'styleAudioTranscript',
+    youtubeKey: 'styleAudioTranscript',
   },
 ] as const
 
 export const DOCUMENTARY_PROCESS = [
   {
     step: 'Preliminary Interview',
-    copy: "We'll work together to compile interview questions. This helps us establish which stories have visual aids (photos, videos, objects) so we can leave a list to help you find everything.",
+    copy: "We sit down together, on camera. This one is mostly for our own reference, so we can work out which stories have photographs, film or objects behind them and leave you a list of what to look for. It is also the least guarded conversation anyone has with us, and some of the rawest moments in the finished film come from it.",
+  },
+  {
+    step: 'Research',
+    copy: "Then we go and learn about them. We talk to the people around them, and we look at the photographs before we ever ask about them. If he served, we find out where and with whom. A general question gets a general answer. Asking about a particular winter, in the place he actually was, gets you the thing he has not said out loud in forty years.",
   },
   {
     step: 'Digitization',
-    copy: "We'll come collect your media to digitize, anything from 8mm reels to film. After we edit and organize them in chronological order, we'll compile additional questions to work into the interview.",
+    copy: "We come and collect your media, anything from 8mm reels to loose prints, and digitize it. Once it is organized in order, it always raises more questions, and those go into the interview too.",
   },
   {
     step: 'Set Design',
-    copy: 'Once the interview location is established, on the day of the interview we will rearrange furniture and objects (if permitted) to make a comfortable setting with optimal lighting for the subject to be interviewed.',
+    copy: 'Once we know where the interview will happen, we arrive early and rearrange furniture and objects, with your permission, into a comfortable setting with proper light. The room should look like theirs and they should look like themselves.',
   },
   {
     step: 'Production',
-    copy: "Our production crew will arrive one hour before the interview to establish the set, cameras, lights, audio and any other visual aids. The interview itself could take upwards of four hours. Once we've cycled through all the established questions, we'll film additional visual aids at the family's request.",
+    copy: "The crew arrives an hour ahead to set cameras, lights and sound. The interview itself can run upwards of four hours, with breaks whenever they want one. Some people want to sit and talk. Some need to be moving, walking the house, holding things. We follow their lead.",
+  },
+  {
+    step: 'We Follow You',
+    copy: "Over the following days we come back. First for the photographs that surfaced overnight, and then for everything the sitting-down part cannot show: the car in the garage, the kitchen, the writing desk, the trail they have walked for thirty years. A person is not only what they say about themselves, and we would rather film the whole of someone than an interview with them.",
   },
   {
     step: 'Editing',
-    copy: 'Within three to four weeks we will deliver the product with the accompanying visuals, the entire interview raw, and your digitized media. These deliverables vary based upon individual client request. Expect weekly updates on progress from our editing team.',
+    copy: 'Within three to four weeks we deliver the finished film with its visuals, the entire interview raw, and your digitized media. You will see a cut before it is final. Expect weekly updates from the editing team.',
   },
   {
     step: 'Delivery',
-    copy: 'We deliver the final product by hand on a hard drive and show the family how to access, share and view the videos. A cloud link with casting capabilities will also be available for a year after delivery.',
+    copy: 'We deliver by hand, on a hard drive, and show the family how to access, share and watch it. A cloud link with casting is available for a year after delivery.',
   },
 ]
 
@@ -118,9 +130,44 @@ export const DIGITIZING_SERVICES = [
   },
 ]
 
-export const GIVING_BACK_COPY = `When we started this project 10 years ago with our own family members we knew we had to share this practice with a broader community. As we continue to produce The Family Documentary Project, we want to ensure we touch as many lives as possible. The easiest way for us to accomplish this is by hosting a free pop-up every month at a partnering retirement community.`
+export const GIVING_BACK_COPY = `Every month we host a free pop-up at a partnering community. Bring three to six photographs and we digitize them on the spot, then sit down and record you telling us the stories behind them. You keep the scans. Your family keeps the recording. There is no cost and nothing to sign up for on the day.`
 
-export const GIVING_BACK_CTA = `If you work at a facility that would benefit from this service, please reach out.`
+export const GIVING_BACK_CTA = `If you help run a community that would benefit from this, please reach out and we will bring a pop-up to you.`
+
+export const WHAT_TO_EXPECT = [
+  {
+    q: 'How long does the filming take?',
+    a: 'The main interview can run up to four hours, with breaks whenever they want one. We never push someone past the point where they are enjoying it. If they are tired at ninety minutes, we stop at ninety minutes and come back.',
+  },
+  {
+    q: 'How many visits is it?',
+    a: 'More than one, and we do not charge by the visit. A sit-down, a follow-up for whatever surfaced overnight, a session to go through the media, and however many days it takes to film them doing the things they actually do.',
+  },
+  {
+    q: 'What do I need to do to get ready?',
+    a: 'Nothing, and please do not sort the photographs first. Half of what we find comes out of the boxes nobody organized. Leave them as they are and we will go through them together.',
+  },
+  {
+    q: 'Does the house need to be tidy?',
+    a: 'No. We pick the spot and light around whatever is there. A room that looks lived in is usually better than a room that looks staged.',
+  },
+  {
+    q: 'What if they do not want to be on camera?',
+    a: 'Then we do not use one. Plenty of people will talk freely into a microphone who freeze in front of a lens. An audio interview, set to their photographs, is every bit as much their story. We all know what it is like to wish we could hear a voice one more time.',
+  },
+  {
+    q: 'What if they get tired, or it is an emotional day?',
+    a: 'We stop. This is their afternoon, not our schedule. We have done this with people in hospice and people who cried through most of it, and the answer is always the same. We wait, or we come back.',
+  },
+  {
+    q: 'How long until we see it?',
+    a: 'Three to four weeks from the last visit, with weekly updates along the way. You see a cut before it is finished so you can tell us what to change.',
+  },
+  {
+    q: 'What do we get at the end?',
+    a: 'The finished film delivered by hand on a hard drive, the entire interview raw, and every photograph and video we scanned, organized, yours to keep. A cloud link with casting stays live for a year.',
+  },
+]
 
 export const BOOKING_STATUSES = [
   'consult_scheduled',
@@ -150,7 +197,30 @@ export const SERVICE_TYPE_LABELS: Record<'documentary' | 'guided_session' | 'aud
   audio: 'Audio (In-Person)',
 }
 
+// YouTube video ids, not full URLs. Empty means "not supplied yet": every
+// player falls back to a labelled placeholder, so the site builds and ships
+// without them. Paste the id from a watch URL, the part after v=.
+//
+// These must be UNLISTED on YouTube, not Private. A private video cannot be
+// embedded and shows "Video unavailable" to every visitor. Unlisted is
+// viewable by anyone with the link, embeddable, and kept out of search and
+// off the channel page.
+export const YOUTUBE = {
+  splashTeaser: '',
+  homeHero: '',
+  nanasStory: '',
+  nadyiaShoot: '',
+  styleSubjectCentered: '',
+  styleWithDigitizedMedia: '',
+  styleAudioKenBurns: '',
+  styleAudioTranscript: '',
+}
+
 export const MEDIA = {
+  // Baba's teaser, shown on the splash. Drop the files in as
+  // public/media/splash.mp4 and public/media/splash-poster.jpg.
+  splashVideo: '',
+  splashPoster: '/media/splash-poster.jpg',
   homeHeroVideo: '/videos/home-hero.mp4',
   generationalClip: '/videos/grandmama.mp4',
   // Only the Audio page reads this. The clip that used to sit here
@@ -171,6 +241,9 @@ export const MEDIA = {
   styleWithDigitizedMedia: '/videos/style-digitized-media.mp4',
   styleAudioKenBurns: '/videos/style-ken-burns.mp4',
   styleAudioTranscript: '/videos/style-transcript.mp4',
+  // Still photographs, supplied by hand. Empty renders a placeholder.
+  ourWhyHeroImage: '',
+  processSetupImage: '',
   homeGallery: [
     '/images/fam-memories-brochure-3.jpg',
     '/images/fam-memories-brochure-4.jpg',
@@ -208,6 +281,20 @@ export const MEDIA = {
     '/images/tfdp-website-image-24.jpg',
     '/images/tfdp-website-image-25.jpg',
     '/images/tfdp-website-image-26.jpg',
+  ],
+  // Digitized archive pieces, cross-dissolving behind the Giving Back
+  // sign-up: veterans, family portraits and documents, all visibly scanned.
+  givingBackSlideshow: [
+    '/images/tfdp-website-image-25.jpg',
+    '/images/tfdp-website-image-21.jpg',
+    '/images/tfdp-website-image-22.jpg',
+    '/images/tfdp-website-image-20.jpg',
+    '/images/tfdp-website-image-18.jpg',
+    '/images/tfdp-pop-1.jpg',
+    '/images/fam-memories-brochure-6.jpg',
+    '/images/tfdp-website-image-04.jpg',
+    '/images/tfdp-website-image-03.jpg',
+    '/images/tfdp-website-image-11.jpg',
   ],
   givingBackGallery: [
     '/images/tfdp-website-image-27.jpg',

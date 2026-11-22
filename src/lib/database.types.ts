@@ -77,6 +77,26 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['picture_this_leads']['Insert']>
         Relationships: []
       }
+      community_event_leads: {
+        Row: {
+          id: string
+          created_at: string
+          full_name: string
+          community: string
+          phone: string
+          email: string
+          notes: string | null
+          source: string | null
+          notified_at: string | null
+        }
+        Insert: Omit<Database['public']['Tables']['community_event_leads']['Row'], 'id' | 'created_at' | 'notified_at'> & {
+          id?: string
+          created_at?: string
+          notified_at?: string | null
+        }
+        Update: Partial<Database['public']['Tables']['community_event_leads']['Insert']>
+        Relationships: []
+      }
       inquiries: {
         Row: {
           id: string
@@ -289,6 +309,17 @@ export interface Database {
           p_source: string | null
         }
         Returns: void
+      }
+      submit_community_event_lead: {
+        Args: {
+          p_full_name: string
+          p_community: string
+          p_phone: string
+          p_email: string
+          p_notes: string | null
+          p_source: string | null
+        }
+        Returns: string
       }
       submit_picture_this_lead: {
         Args: {

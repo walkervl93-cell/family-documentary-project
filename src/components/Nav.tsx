@@ -4,9 +4,11 @@ import { BRAND } from '../data/content'
 import logo from '../assets/logo.png'
 
 const links = [
-  { to: '/documentaries', label: 'The Documentary' },
-  { to: '/digitizing-services', label: 'Digitizing' },
-  { to: '/audio', label: 'Audio' },
+  // "The Documentary" is the home page, so the main offering is the first
+  // thing in the nav rather than hidden behind the logo.
+  { to: '/home', label: 'The Documentary' },
+  { to: '/our-why', label: 'Our Why' },
+  { to: '/our-process', label: 'Our Process' },
   { to: '/giving-back', label: 'Giving Back' },
 ]
 
@@ -21,7 +23,7 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-cream/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
-        <NavLink to="/" aria-label={BRAND.name}>
+        <NavLink to="/home" aria-label={BRAND.name}>
           <img src={logo} alt={BRAND.name} className="h-8 w-auto md:h-11" />
         </NavLink>
 
@@ -53,7 +55,7 @@ export default function Nav() {
           {/* Both buttons stay on phones, just tighter — they're the two
               things a visitor is most likely to want. */}
           <Link
-            to="/#book-consult"
+            to="/home#book-consult"
             className="whitespace-nowrap rounded-full bg-clay px-2.5 py-1.5 text-[0.65rem] font-medium uppercase tracking-wide text-cream hover:bg-ink sm:px-4 sm:py-2 sm:text-xs"
           >
             Book a Consult
