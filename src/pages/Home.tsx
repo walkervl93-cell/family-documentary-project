@@ -34,7 +34,6 @@ export default function Home() {
         <YouTubeEmbed
           id={YOUTUBE.homeHero}
           title="The Family Documentary Project"
-          autoplay
           eager
           placeholder="Home hero video (YouTube)"
         />

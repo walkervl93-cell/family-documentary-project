@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import MediaPlaceholder from './MediaPlaceholder'
 
 /**
@@ -6,23 +7,28 @@ import MediaPlaceholder from './MediaPlaceholder'
  * Pass the video id, not the whole URL. An empty id renders the placeholder
  * instead, so the page can be built and shipped before the videos exist.
  *
- * Served from youtube.com rather than youtube-nocookie.com. The no-cookie
- * domain is the more private option, but it is also stricter about which
- * videos it will serve, and unlisted ones are among those it sometimes
- * refuses outright with "Video unavailable".
+ * By default this renders a facade: the video's own still with our play
+ * button over it, and the real player is only created once someone clicks.
+ * Two reasons. It keeps about a megabyte of player script out of the initial
+ * page load, which is most of the delay before anything appears. And YouTube
+ * no longer honours modestbranding, so its title bar and "Watch on YouTube"
+ * overlay cannot be turned off on a live player; with a facade they are
+ * simply not there until the viewer has chosen to watch.
  *
  * On autoplay with sound: browsers refuse it. Chrome, Safari and Firefox all
- * block an unmuted video from starting on its own, and YouTube's own player
- * enforces the same rule, so `autoplay=1` without `mute=1` simply does not
- * start. We therefore autoplay muted and let the viewer unmute with the
- * player's own control. There is no setting that changes this.
+ * block an unmuted video from starting on its own, and YouTube's player
+ * enforces the same rule, so autoplay without mute does not start at all.
+ *
+ * Never loop an unlisted video through the URL. Looping that way needs
+ * `playlist=ID`, YouTube will not serve an unlisted video through a playlist,
+ * and the embed answers "This video is unavailable" while the same id plays
+ * fine elsewhere. Splash.tsx loops through the player API instead.
  */
 export default function YouTubeEmbed({
   id,
   title,
   className = 'aspect-video w-full',
   autoplay = false,
-  loop = false,
   controls = true,
   eager = false,
   placeholder = 'YouTube video',
@@ -30,32 +36,55 @@ export default function YouTubeEmbed({
   id: string
   title: string
   className?: string
+  /** Skips the facade and starts muted playback straight away. */
   autoplay?: boolean
-  loop?: boolean
   controls?: boolean
-  /** Above the fold: start fetching immediately instead of waiting for the
-   *  element to approach the viewport. A lazy iframe at the top of the page
-   *  adds seconds before the player even begins loading. */
+  /** Above the fold: fetch immediately rather than waiting for the viewport. */
   eager?: boolean
   placeholder?: string
 }) {
+  const [playing, setPlaying] = useState(autoplay)
+  // maxresdefault does not exist for every upload; hqdefault always does.
+  const [thumb, setThumb] = useState(`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`)
+
   if (!id) return <MediaPlaceholder label={placeholder} className={className} />
+
+  if (!playing) {
+    return (
+      <button
+        type="button"
+        onClick={() => setPlaying(true)}
+        aria-label={`Play ${title}`}
+        className={`${className} group relative overflow-hidden rounded-2xl bg-ink`}
+      >
+        <img
+          src={thumb}
+          alt=""
+          loading={eager ? 'eager' : 'lazy'}
+          onError={() => setThumb(`https://i.ytimg.com/vi/${id}/hqdefault.jpg`)}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <span className="absolute inset-0 bg-ink/25 transition-colors group-hover:bg-ink/10" />
+        <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-clay/90 transition-transform group-hover:scale-110">
+          {/* Our own play button, not YouTube's mark. */}
+          <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 fill-cream" aria-hidden="true">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </span>
+      </button>
+    )
+  }
 
   const params = new URLSearchParams({
     rel: '0',
-    modestbranding: '1',
     playsinline: '1',
+    iv_load_policy: '3',
     controls: controls ? '1' : '0',
+    // Only reached once the viewer has pressed play, which is also the user
+    // gesture that lets playback start at all.
+    autoplay: '1',
   })
-  if (autoplay) {
-    params.set('autoplay', '1')
-    params.set('mute', '1')
-  }
-  if (loop) {
-    params.set('loop', '1')
-    // A looping embed needs its own id in the playlist or it plays once.
-    params.set('playlist', id)
-  }
+  if (autoplay) params.set('mute', '1')
 
   return (
     <iframe

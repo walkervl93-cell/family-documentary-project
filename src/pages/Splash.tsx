@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MEDIA, YOUTUBE } from '../data/content'
 import logo from '../assets/logo.png'
@@ -7,21 +7,104 @@ import logo from '../assets/logo.png'
  *  on every navigation back to the site root in the same tab. */
 export const SPLASH_SEEN_KEY = 'tfdp-splash-seen'
 
+declare global {
+  interface Window {
+    YT?: any
+    onYouTubeIframeAPIReady?: () => void
+  }
+}
+
+/** Loads YouTube's player script once, however many callers ask for it. */
+function loadIframeApi(): Promise<void> {
+  if (window.YT?.Player) return Promise.resolve()
+  return new Promise((resolve) => {
+    const existing = document.getElementById('yt-iframe-api')
+    if (!existing) {
+      const tag = document.createElement('script')
+      tag.id = 'yt-iframe-api'
+      tag.src = 'https://www.youtube.com/iframe_api'
+      document.head.appendChild(tag)
+    }
+    const prev = window.onYouTubeIframeAPIReady
+    window.onYouTubeIframeAPIReady = () => {
+      prev?.()
+      resolve()
+    }
+  })
+}
+
 /**
  * The full-screen teaser a first-time visitor lands on, with one way forward.
  *
- * On sound: no browser will autoplay an unmuted video, so it starts muted
- * with a visible unmute control. Clicking that control counts as a user
- * gesture, which both turns the sound on here and, in Chrome, makes it more
- * likely the home page hero can start with sound too.
+ * Looping is done through the player API rather than the `loop=1&playlist=ID`
+ * URL trick. That trick builds an implicit playlist, and YouTube will not
+ * serve an UNLISTED video through a playlist: the embed answers "This video
+ * is unavailable" while the very same id plays fine elsewhere on the site.
+ * Restarting the player ourselves when it ends has no such restriction.
+ *
+ * On sound: no browser autoplays an unmuted video, so it starts muted with a
+ * visible control. Clicking that counts as a user gesture, which both turns
+ * the sound on here and makes Chrome likelier to allow sound on the home
+ * page afterwards.
  */
 export default function Splash() {
   const navigate = useNavigate()
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const localRef = useRef<HTMLVideoElement>(null)
+  const ytHostRef = useRef<HTMLDivElement>(null)
+  const ytPlayerRef = useRef<any>(null)
   const [muted, setMuted] = useState(true)
 
+  useEffect(() => {
+    if (!YOUTUBE.splashTeaser || !ytHostRef.current) return
+    let cancelled = false
+
+    loadIframeApi().then(() => {
+      if (cancelled || !ytHostRef.current) return
+      ytPlayerRef.current = new window.YT.Player(ytHostRef.current, {
+        videoId: YOUTUBE.splashTeaser,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          disablekb: 1,
+          playsinline: 1,
+          rel: 0,
+          iv_load_policy: 3,
+          fs: 0,
+        },
+        events: {
+          onReady: (e: any) => {
+            e.target.mute()
+            e.target.playVideo()
+          },
+          // 0 is ENDED. Restarting here is what replaces loop=1.
+          onStateChange: (e: any) => {
+            if (e.data === 0) e.target.seekTo(0, true)
+          },
+        },
+      })
+    })
+
+    return () => {
+      cancelled = true
+      ytPlayerRef.current?.destroy?.()
+      ytPlayerRef.current = null
+    }
+  }, [])
+
   function toggleSound() {
-    const el = videoRef.current
+    const yt = ytPlayerRef.current
+    if (yt) {
+      if (muted) {
+        yt.unMute()
+        yt.setVolume(100)
+      } else {
+        yt.mute()
+      }
+      setMuted(!muted)
+      return
+    }
+    const el = localRef.current
     if (!el) return
     el.muted = !el.muted
     setMuted(el.muted)
@@ -37,28 +120,25 @@ export default function Splash() {
     navigate('/home')
   }
 
+  const hasVideo = Boolean(YOUTUBE.splashTeaser || MEDIA.splashVideo)
+
   return (
     <div className="fixed inset-0 flex h-[100dvh] w-full flex-col items-center justify-center overflow-hidden bg-ink px-6">
       {YOUTUBE.splashTeaser ? (
-        // Blown up well past the viewport on purpose. YouTube ignores
-        // modestbranding now, and its title and "Watch on YouTube" buttons
-        // are positioned against the player's own corners, so oversizing the
-        // frame pushes that chrome off screen entirely. pointer-events-none
-        // keeps the whole thing unclickable, which also stops the overlay
-        // appearing on hover.
-        //
-        // A YouTube background can't be unmuted from our own control either,
-        // so the sound toggle below is hidden for it.
-        <iframe
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 scale-150 border-0"
-          src={`https://www.youtube.com/embed/${YOUTUBE.splashTeaser}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE.splashTeaser}&controls=0&playsinline=1&rel=0&iv_load_policy=3&disablekb=1`}
-          title="Teaser"
-          allow="autoplay; encrypted-media"
+        // Scaled well past the viewport on purpose. YouTube ignores
+        // modestbranding now, and anchors its title and "Watch on YouTube"
+        // buttons to the player's own corners, so oversizing pushes that
+        // chrome off screen. pointer-events-none keeps it unclickable, which
+        // also stops the overlay appearing on hover.
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 scale-150"
           aria-hidden="true"
-        />
+        >
+          <div ref={ytHostRef} className="h-full w-full" />
+        </div>
       ) : MEDIA.splashVideo ? (
         <video
-          ref={videoRef}
+          ref={localRef}
           className="absolute inset-0 h-full w-full object-cover"
           src={MEDIA.splashVideo}
           poster={MEDIA.splashPoster}
@@ -87,7 +167,7 @@ export default function Splash() {
         </button>
       </div>
 
-      {MEDIA.splashVideo && !YOUTUBE.splashTeaser && (
+      {hasVideo && (
         <button
           onClick={toggleSound}
           aria-label={muted ? 'Turn sound on' : 'Turn sound off'}
