@@ -6,6 +6,11 @@ import MediaPlaceholder from './MediaPlaceholder'
  * Pass the video id, not the whole URL. An empty id renders the placeholder
  * instead, so the page can be built and shipped before the videos exist.
  *
+ * Served from youtube.com rather than youtube-nocookie.com. The no-cookie
+ * domain is the more private option, but it is also stricter about which
+ * videos it will serve, and unlisted ones are among those it sometimes
+ * refuses outright with "Video unavailable".
+ *
  * On autoplay with sound: browsers refuse it. Chrome, Safari and Firefox all
  * block an unmuted video from starting on its own, and YouTube's own player
  * enforces the same rule, so `autoplay=1` without `mute=1` simply does not
@@ -50,7 +55,7 @@ export default function YouTubeEmbed({
   return (
     <iframe
       className={`${className} rounded-2xl border-0`}
-      src={`https://www.youtube-nocookie.com/embed/${id}?${params}`}
+      src={`https://www.youtube.com/embed/${id}?${params}`}
       title={title}
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerPolicy="strict-origin-when-cross-origin"

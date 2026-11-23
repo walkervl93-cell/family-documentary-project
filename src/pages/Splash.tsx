@@ -44,7 +44,7 @@ export default function Splash() {
         // sound toggle below is hidden for it; viewers use the player's.
         <iframe
           className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 border-0"
-          src={`https://www.youtube-nocookie.com/embed/${YOUTUBE.splashTeaser}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE.splashTeaser}&controls=0&modestbranding=1&playsinline=1&rel=0`}
+          src={`https://www.youtube.com/embed/${YOUTUBE.splashTeaser}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE.splashTeaser}&controls=0&modestbranding=1&playsinline=1&rel=0`}
           title="Teaser"
           allow="autoplay; encrypted-media"
           aria-hidden="true"
