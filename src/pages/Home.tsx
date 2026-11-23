@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import Gallery from '../components/Gallery'
+import AutoVideo from '../components/AutoVideo'
 import YouTubeEmbed from '../components/YouTubeEmbed'
 import ConsultBookingForm from '../components/ConsultBookingForm'
 import { BRAND, HOME_INTRO, WHAT_WE_OFFER, DOCUMENTARY_STYLES, MEDIA, YOUTUBE } from '../data/content'
@@ -45,14 +46,12 @@ export default function Home() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {DOCUMENTARY_STYLES.map((style) => (
             <div key={style.id} className="rounded-2xl border border-ink/10 bg-white/50 p-6">
-              <YouTubeEmbed
-                id={YOUTUBE[style.youtubeKey as keyof typeof YOUTUBE]}
-                title={style.name}
-                className="aspect-video w-full"
-                controls={false}
-                autoplay
-                loop
-                placeholder={style.name}
+              {/* Left as local files on purpose: these are silent looping
+                  teasers, and four YouTube players here would cost more in
+                  script than the clips cost in video. */}
+              <AutoVideo
+                className="aspect-video w-full rounded-xl object-cover"
+                src={MEDIA[style.videoKey as keyof typeof MEDIA] as string}
               />
               <h3 className="mt-4 text-lg">{style.name}</h3>
               <p className="mt-3 text-sm text-ink/70">{style.copy}</p>
@@ -66,7 +65,9 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-16">
-        <YouTubeEmbed id={YOUTUBE.nanasStory} title="Nana's story" placeholder="Nana's story" />
+        <YouTubeEmbed id={YOUTUBE.homeFeature}
+          title="A Family Documentary Project film"
+          placeholder="Feature video" />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">

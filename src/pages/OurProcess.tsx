@@ -1,6 +1,7 @@
 import MediaPlaceholder from '../components/MediaPlaceholder'
+import YouTubeEmbed from '../components/YouTubeEmbed'
 import ConsultBookingForm from '../components/ConsultBookingForm'
-import { DOCUMENTARY_PROCESS, WHAT_TO_EXPECT, MEDIA } from '../data/content'
+import { DOCUMENTARY_PROCESS, WHAT_TO_EXPECT, MEDIA, YOUTUBE } from '../data/content'
 
 export default function OurProcess() {
   return (
@@ -51,6 +52,14 @@ export default function OurProcess() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-6 pb-20">
+        <YouTubeEmbed
+          id={YOUTUBE.ourProcessFeature}
+          title="A Family Documentary Project film"
+          placeholder="Feature video"
+        />
       </section>
 
       <section className="border-y border-ink/10 bg-sand/30">

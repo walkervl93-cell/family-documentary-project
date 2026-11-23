@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MEDIA } from '../data/content'
+import { MEDIA, YOUTUBE } from '../data/content'
 import logo from '../assets/logo.png'
 
 /** Set once the visitor has clicked through, so the splash doesn't reappear
@@ -39,7 +39,17 @@ export default function Splash() {
 
   return (
     <div className="fixed inset-0 flex h-[100dvh] w-full flex-col items-center justify-center overflow-hidden bg-ink px-6">
-      {MEDIA.splashVideo ? (
+      {YOUTUBE.splashTeaser ? (
+        // A YouTube background can't be unmuted from our own control, so the
+        // sound toggle below is hidden for it; viewers use the player's.
+        <iframe
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 border-0"
+          src={`https://www.youtube-nocookie.com/embed/${YOUTUBE.splashTeaser}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE.splashTeaser}&controls=0&modestbranding=1&playsinline=1&rel=0`}
+          title="Teaser"
+          allow="autoplay; encrypted-media"
+          aria-hidden="true"
+        />
+      ) : MEDIA.splashVideo ? (
         <video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
@@ -54,7 +64,7 @@ export default function Splash() {
       ) : (
         <div className="absolute inset-0 flex items-center justify-center bg-ink">
           <span className="text-xs uppercase tracking-[0.3em] text-cream/30">
-            Baba's teaser video
+            Splash teaser video
           </span>
         </div>
       )}
@@ -70,7 +80,7 @@ export default function Splash() {
         </button>
       </div>
 
-      {MEDIA.splashVideo && (
+      {MEDIA.splashVideo && !YOUTUBE.splashTeaser && (
         <button
           onClick={toggleSound}
           aria-label={muted ? 'Turn sound on' : 'Turn sound off'}

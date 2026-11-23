@@ -40,9 +40,9 @@ export default function OurWhy() {
 
       <section className="mx-auto max-w-5xl px-6 pb-16">
         <YouTubeEmbed
-          id={YOUTUBE.nadyiaShoot}
-          title="Behind the scenes"
-          placeholder="Nadyia shoot video"
+          id={YOUTUBE.ourWhyFeature}
+          title="A Family Documentary Project film"
+          placeholder="Feature video"
         />
       </section>
 

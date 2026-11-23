@@ -30,28 +30,24 @@ export const DOCUMENTARY_STYLES = [
     name: 'Subject-Centered Interview',
     copy: "A filmed and edited, in-depth interview with your subject. No additional media, just their story in their own words. Expect a two-camera set up for one subject, and a three-camera set up for two subjects.",
     videoKey: 'styleSubjectCentered',
-    youtubeKey: 'styleSubjectCentered',
   },
   {
     id: 'subject_with_media',
     name: 'Subject Interview with Digitized Media',
     copy: "A filmed interview enhanced with your family's photos and videos, digitized and woven throughout. Expect a two-camera set up for one subject, and a three-camera set up for two subjects.",
     videoKey: 'styleWithDigitizedMedia',
-    youtubeKey: 'styleWithDigitizedMedia',
   },
   {
     id: 'audio_ken_burns',
     name: 'Audio Interview with Ken Burns-Style Media Overlay',
     copy: 'An audio-only interview paired with panning, animated photos and video clips for a documentary look.',
     videoKey: 'styleAudioKenBurns',
-    youtubeKey: 'styleAudioKenBurns',
   },
   {
     id: 'audio_transcript',
     name: 'Audio Interview with Transcript',
     copy: 'An audio-only interview delivered with a full written transcript.',
     videoKey: 'styleAudioTranscript',
-    youtubeKey: 'styleAudioTranscript',
   },
 ] as const
 
@@ -206,14 +202,17 @@ export const SERVICE_TYPE_LABELS: Record<'documentary' | 'guided_session' | 'aud
 // viewable by anyone with the link, embeddable, and kept out of search and
 // off the channel page.
 export const YOUTUBE = {
-  splashTeaser: '',
-  homeHero: '',
-  nanasStory: '',
-  nadyiaShoot: '',
-  styleSubjectCentered: '',
-  styleWithDigitizedMedia: '',
-  styleAudioKenBurns: '',
-  styleAudioTranscript: '',
+  // Unlisted YouTube ids, not full URLs: the part after v= in a watch link.
+  // A PRIVATE video cannot be embedded and shows "Video unavailable" to every
+  // visitor. Unlisted is viewable by anyone with the link, embeddable, and
+  // kept out of search and off the channel page.
+  //
+  // Empty renders a labelled placeholder, so the site ships without them.
+  splashTeaser: '',      // the splash at /
+  homeHero: '',          // top of the home page
+  homeFeature: '',       // further down the home page
+  ourWhyFeature: '',     // Our Why
+  ourProcessFeature: '', // Our Process
 }
 
 export const MEDIA = {
