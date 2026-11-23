@@ -208,11 +208,11 @@ export const YOUTUBE = {
   // kept out of search and off the channel page.
   //
   // Empty renders a labelled placeholder, so the site ships without them.
-  splashTeaser: '',      // the splash at /
-  homeHero: '',          // top of the home page
-  homeFeature: '',       // further down the home page
-  ourWhyFeature: '',     // Our Why
-  ourProcessFeature: '', // Our Process
+  splashTeaser: 'iFzWdwkM3fc',      // the splash at /
+  homeHero: 'iFzWdwkM3fc',          // top of the home page, same film
+  homeFeature: 'qogtFPn1XJo',       // further down the home page
+  ourWhyFeature: 'Cm_YIx2KyQ0',     // Our Why
+  ourProcessFeature: 'O7-raGu7hvw', // Our Process
 }
 
 export const MEDIA = {
