@@ -40,11 +40,18 @@ export default function Splash() {
   return (
     <div className="fixed inset-0 flex h-[100dvh] w-full flex-col items-center justify-center overflow-hidden bg-ink px-6">
       {YOUTUBE.splashTeaser ? (
-        // A YouTube background can't be unmuted from our own control, so the
-        // sound toggle below is hidden for it; viewers use the player's.
+        // Blown up well past the viewport on purpose. YouTube ignores
+        // modestbranding now, and its title and "Watch on YouTube" buttons
+        // are positioned against the player's own corners, so oversizing the
+        // frame pushes that chrome off screen entirely. pointer-events-none
+        // keeps the whole thing unclickable, which also stops the overlay
+        // appearing on hover.
+        //
+        // A YouTube background can't be unmuted from our own control either,
+        // so the sound toggle below is hidden for it.
         <iframe
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 border-0"
-          src={`https://www.youtube.com/embed/${YOUTUBE.splashTeaser}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE.splashTeaser}&controls=0&modestbranding=1&playsinline=1&rel=0`}
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 scale-150 border-0"
+          src={`https://www.youtube.com/embed/${YOUTUBE.splashTeaser}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE.splashTeaser}&controls=0&playsinline=1&rel=0&iv_load_policy=3&disablekb=1`}
           title="Teaser"
           allow="autoplay; encrypted-media"
           aria-hidden="true"

@@ -35,6 +35,7 @@ export default function Home() {
           id={YOUTUBE.homeHero}
           title="The Family Documentary Project"
           autoplay
+          eager
           placeholder="Home hero video (YouTube)"
         />
       </section>

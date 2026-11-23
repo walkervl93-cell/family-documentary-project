@@ -24,6 +24,7 @@ export default function YouTubeEmbed({
   autoplay = false,
   loop = false,
   controls = true,
+  eager = false,
   placeholder = 'YouTube video',
 }: {
   id: string
@@ -32,6 +33,10 @@ export default function YouTubeEmbed({
   autoplay?: boolean
   loop?: boolean
   controls?: boolean
+  /** Above the fold: start fetching immediately instead of waiting for the
+   *  element to approach the viewport. A lazy iframe at the top of the page
+   *  adds seconds before the player even begins loading. */
+  eager?: boolean
   placeholder?: string
 }) {
   if (!id) return <MediaPlaceholder label={placeholder} className={className} />
@@ -60,7 +65,7 @@ export default function YouTubeEmbed({
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerPolicy="strict-origin-when-cross-origin"
       allowFullScreen
-      loading="lazy"
+      loading={eager ? 'eager' : 'lazy'}
     />
   )
 }
