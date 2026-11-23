@@ -74,7 +74,7 @@ export default function Splash() {
         <img src={logo} alt="" className="mb-10 h-16 w-auto invert sm:h-20" />
         <button
           onClick={enter}
-          className="rounded-full bg-clay px-10 py-4 text-sm font-medium uppercase tracking-[0.2em] text-cream transition-colors hover:bg-cream hover:text-ink"
+          className="rounded-full bg-clay px-4 py-2 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-cream transition-colors hover:bg-cream hover:text-ink"
         >
           Enter Site
         </button>
