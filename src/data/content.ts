@@ -259,8 +259,7 @@ export const MEDIA = {
   styleWithDigitizedMedia: '/videos/style-digitized-media.mp4',
   styleAudioKenBurns: '/videos/style-ken-burns.mp4',
   styleAudioTranscript: '/videos/style-transcript.mp4',
-  // Still photographs, supplied by hand. Empty renders a placeholder.
-  ourWhyHeroImage: '',
+  // Still photograph, supplied by hand. Empty renders a placeholder.
   processSetupImage: '',
   homeGallery: [
     '/images/fam-memories-brochure-3.jpg',

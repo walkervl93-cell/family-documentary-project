@@ -1,4 +1,3 @@
-import MediaPlaceholder from '../components/MediaPlaceholder'
 import YouTubeEmbed from '../components/YouTubeEmbed'
 import Gallery from '../components/Gallery'
 import ConsultBookingForm from '../components/ConsultBookingForm'
@@ -7,24 +6,7 @@ import { MEDIA, YOUTUBE, OUR_WHY_TITLE, OUR_WHY_BEFORE, OUR_WHY_AFTER } from '..
 export default function OurWhy() {
   return (
     <>
-      {/* Portrait hero rather than video: this page is the origin story, and
-          a still of Victoria working carries it better than a reel. */}
-      <section className="mx-auto max-w-6xl px-6 pt-16">
-        {MEDIA.ourWhyHeroImage ? (
-          <img
-            src={MEDIA.ourWhyHeroImage}
-            alt=""
-            className="h-[46vh] w-full rounded-3xl object-cover sm:h-[58vh]"
-          />
-        ) : (
-          <MediaPlaceholder
-            label="Our Why hero photo (Nadyia shoot)"
-            className="h-[46vh] w-full sm:h-[58vh]"
-          />
-        )}
-      </section>
-
-      <section className="mx-auto max-w-3xl px-6 py-16 text-center">
+      <section className="mx-auto max-w-3xl px-6 pb-16 pt-20 text-center">
         <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.2em] text-navy">Our Why</p>
         <h1 className="text-center text-4xl leading-tight sm:text-5xl">{OUR_WHY_TITLE}</h1>
         <div className="mt-8 grid gap-6 text-left">
