@@ -44,7 +44,7 @@ export default function Admin() {
             key={t.id}
             onClick={() => setTab(t.id)}
             className={`rounded-full border px-4 py-2 text-sm ${
-              tab === t.id ? 'border-clay bg-clay text-cream' : 'border-ink/20 text-ink/70'
+              tab === t.id ? 'border-navy bg-navy text-cream' : 'border-ink/20 text-ink/70'
             }`}
           >
             {t.label}

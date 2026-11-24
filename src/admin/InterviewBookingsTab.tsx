@@ -59,8 +59,8 @@ function PaymentRequestPanel({ booking, onUpdated }: { booking: Booking; onUpdat
   }
 
   return (
-    <div className="rounded-xl border border-clay/30 bg-clay/5 p-4">
-      <p className="text-sm font-medium uppercase tracking-wide text-clay">Send Payment Request</p>
+    <div className="rounded-xl border border-navy/30 bg-navy/5 p-4">
+      <p className="text-sm font-medium uppercase tracking-wide text-navy">Send Payment Request</p>
       {booking.payment_link_url ? (
         <div className="mt-2 text-sm">
           <p className="text-ink/70">
@@ -96,7 +96,7 @@ function PaymentRequestPanel({ booking, onUpdated }: { booking: Booking; onUpdat
           <button className="btn-primary w-fit" disabled={sending} onClick={send}>
             {sending ? 'Creating…' : 'Create Payment Link'}
           </button>
-          {error && <p className="text-sm text-clay">{error}</p>}
+          {error && <p className="text-sm text-navy">{error}</p>}
         </div>
       )}
     </div>
@@ -171,7 +171,7 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
         }}
       >
         <span className="font-medium">{booking.client_email}</span>
-        <span className="text-xs uppercase tracking-wide text-clay">
+        <span className="text-xs uppercase tracking-wide text-navy">
           {BOOKING_STATUS_LABELS[booking.status as (typeof BOOKING_STATUSES)[number]] ?? booking.status}
         </span>
       </button>
@@ -245,7 +245,7 @@ function BookingRow({ booking, onUpdated }: { booking: Booking; onUpdated: () =>
             />
           </label>
           {uploading && <p className="text-sm text-ink/50">Uploading…</p>}
-          {uploadError && <p className="text-sm text-clay">{uploadError}</p>}
+          {uploadError && <p className="text-sm text-navy">{uploadError}</p>}
 
           <p className="text-xs text-ink/40">
             Status-change emails are sent manually from here in a follow-up build. No automatic

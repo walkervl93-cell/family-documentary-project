@@ -38,7 +38,7 @@ export default function PickupRequestsTab() {
         <div key={r.id} className="rounded-xl border border-ink/10 bg-white/50 p-5">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h3 className="font-medium">{r.name}</h3>
-            <span className="text-xs uppercase tracking-wide text-clay">{r.status}</span>
+            <span className="text-xs uppercase tracking-wide text-navy">{r.status}</span>
           </div>
           <p className="mt-1 text-sm text-ink/70">
             {r.email} {r.phone && `· ${r.phone}`} {r.location && `· ${r.location}`}

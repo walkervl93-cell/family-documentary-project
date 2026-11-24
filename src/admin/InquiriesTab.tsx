@@ -47,7 +47,7 @@ export default function InquiriesTab() {
               <span className="text-xs uppercase tracking-wide text-ink/50">
                 {SERVICE_LABELS[r.service] ?? r.service}
               </span>
-              <span className="text-xs uppercase tracking-wide text-clay">{r.status}</span>
+              <span className="text-xs uppercase tracking-wide text-navy">{r.status}</span>
             </div>
           </div>
           <p className="mt-1 text-sm text-ink/70">

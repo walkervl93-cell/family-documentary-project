@@ -130,7 +130,7 @@ export default function NewsletterTab() {
             </div>
             <button
               onClick={() => toggleUnsubscribe(r)}
-              className="shrink-0 text-xs text-ink/50 underline hover:text-clay"
+              className="shrink-0 text-xs text-ink/50 underline hover:text-navy"
             >
               {r.unsubscribed_at ? 'Resubscribe' : 'Unsubscribe'}
             </button>

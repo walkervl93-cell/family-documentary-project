@@ -209,7 +209,7 @@ export default function ConsultBookingForm({
           <li
             key={label}
             className={`rounded-full border px-3 py-1.5 ${
-              i === step ? 'border-clay bg-clay text-cream' : 'border-ink/20 text-ink/50'
+              i === step ? 'border-navy bg-navy text-cream' : 'border-ink/20 text-ink/50'
             }`}
           >
             {i + 1}. {label}
@@ -230,7 +230,7 @@ export default function ConsultBookingForm({
                   onClick={() => setConsultType(type)}
                   className={`rounded-full border px-4 py-2 text-sm capitalize ${
                     consultType === type
-                      ? 'border-clay bg-clay text-cream'
+                      ? 'border-navy bg-navy text-cream'
                       : 'border-ink/20 hover:border-ink'
                   }`}
                 >
@@ -297,7 +297,7 @@ export default function ConsultBookingForm({
                         }}
                         className={`aspect-square rounded-lg text-sm transition-colors ${
                           isSelected
-                            ? 'bg-clay font-medium text-cream'
+                            ? 'bg-navy font-medium text-cream'
                             : open
                               ? 'bg-sand/60 text-ink hover:bg-sand'
                               : 'text-ink/25'
@@ -333,7 +333,7 @@ export default function ConsultBookingForm({
                         onClick={() => setSelectedSlot(slot)}
                         className={`rounded-full border px-4 py-2 text-sm ${
                           selectedSlot?.id === slot.id
-                            ? 'border-clay bg-clay text-cream'
+                            ? 'border-navy bg-navy text-cream'
                             : 'border-ink/20 hover:border-ink'
                         }`}
                       >
@@ -390,7 +390,7 @@ export default function ConsultBookingForm({
                     onClick={() => setInterviewType(type)}
                     className={`rounded-full border px-4 py-2 text-sm capitalize ${
                       interviewType === type
-                        ? 'border-clay bg-clay text-cream'
+                        ? 'border-navy bg-navy text-cream'
                         : 'border-ink/20 hover:border-ink'
                     }`}
                   >
@@ -470,7 +470,7 @@ export default function ConsultBookingForm({
               afterward, we'll follow up with next steps.
             </p>
           </div>
-          {error && <p className="text-sm text-clay">{error}</p>}
+          {error && <p className="text-sm text-navy">{error}</p>}
           <div className="flex gap-3">
             <button className="btn-secondary" onClick={() => setStep(1)}>
               Back

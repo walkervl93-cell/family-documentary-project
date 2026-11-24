@@ -41,7 +41,7 @@ export default function PortalLogin() {
           <button type="submit" className="btn-primary">
             Send Sign-In Link
           </button>
-          {error && <p className="text-sm text-clay">{error}</p>}
+          {error && <p className="text-sm text-navy">{error}</p>}
         </form>
       )}
     </div>

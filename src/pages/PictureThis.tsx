@@ -128,7 +128,7 @@ export default function PictureThis() {
   function pillClass(active: boolean) {
     return `rounded-full border px-3.5 py-2 text-sm transition-colors ${
       active
-        ? 'border-clay bg-clay text-cream'
+        ? 'border-navy bg-navy text-cream'
         : 'border-white/30 text-cream/90 hover:border-cream'
     }`
   }
@@ -185,7 +185,7 @@ export default function PictureThis() {
                   onChange={(e) => setFullName(e.target.value)}
                   aria-invalid={!!errors.fullName}
                 />
-                {errors.fullName && <p className="mt-1 text-xs text-clay">{errors.fullName}</p>}
+                {errors.fullName && <p className="mt-1 text-xs text-navy-soft">{errors.fullName}</p>}
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2 sm:gap-3.5">
@@ -204,7 +204,7 @@ export default function PictureThis() {
                   onChange={(e) => setPhone(e.target.value)}
                   aria-invalid={!!errors.phone}
                 />
-                {errors.phone && <p className="mt-1 text-xs text-clay">{errors.phone}</p>}
+                {errors.phone && <p className="mt-1 text-xs text-navy-soft">{errors.phone}</p>}
               </div>
 
               <div>
@@ -222,7 +222,7 @@ export default function PictureThis() {
                   onChange={(e) => setEmail(e.target.value)}
                   aria-invalid={!!errors.email}
                 />
-                {errors.email && <p className="mt-1 text-xs text-clay">{errors.email}</p>}
+                {errors.email && <p className="mt-1 text-xs text-navy-soft">{errors.email}</p>}
               </div>
               </div>
 
@@ -241,7 +241,7 @@ export default function PictureThis() {
                     </button>
                   ))}
                 </div>
-                {errors.bestTime && <p className="mt-1 text-xs text-clay">{errors.bestTime}</p>}
+                {errors.bestTime && <p className="mt-1 text-xs text-navy-soft">{errors.bestTime}</p>}
               </fieldset>
 
               <fieldset>
@@ -260,7 +260,7 @@ export default function PictureThis() {
                   ))}
                 </div>
                 {errors.interviewee && (
-                  <p className="mt-1 text-xs text-clay">{errors.interviewee}</p>
+                  <p className="mt-1 text-xs text-navy-soft">{errors.interviewee}</p>
                 )}
               </fieldset>
 
@@ -280,7 +280,7 @@ export default function PictureThis() {
               </div>
 
               {submitError && (
-                <p role="alert" className="rounded-xl bg-clay/20 p-3 text-sm text-cream">
+                <p role="alert" className="rounded-xl bg-navy/20 p-3 text-sm text-cream">
                   {submitError}
                 </p>
               )}
@@ -288,7 +288,7 @@ export default function PictureThis() {
               <button
                 type="submit"
                 disabled={submitting || !complete}
-                className="mt-1 w-full rounded-full bg-clay px-8 py-3 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-cream hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+                className="mt-1 w-full rounded-full bg-navy px-8 py-3 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-cream hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {submitting ? 'Sending…' : 'Count Me In'}
               </button>

@@ -65,7 +65,7 @@ export default function YouTubeEmbed({
           className="absolute inset-0 h-full w-full object-cover"
         />
         <span className="absolute inset-0 bg-ink/25 transition-colors group-hover:bg-ink/10" />
-        <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-clay/90 transition-transform group-hover:scale-110">
+        <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-navy/90 transition-transform group-hover:scale-110">
           {/* Our own play button, not YouTube's mark. */}
           <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 fill-cream" aria-hidden="true">
             <path d="M8 5v14l11-7z" />

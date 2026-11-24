@@ -83,7 +83,7 @@ export default function GivingBack() {
         {/* Outside the card on purpose: the offer should land before the
             form asks for anything. */}
         <div className="mb-8 text-center">
-          <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-navy-soft">
             Giving Back
           </p>
           <h1 className="font-serif text-3xl leading-tight text-cream sm:text-4xl">
@@ -191,7 +191,7 @@ export default function GivingBack() {
                 </div>
 
                 {error && (
-                  <p role="alert" className="rounded-xl bg-clay/20 p-3 text-sm text-cream">
+                  <p role="alert" className="rounded-xl bg-navy/20 p-3 text-sm text-cream">
                     {error}
                   </p>
                 )}
@@ -199,7 +199,7 @@ export default function GivingBack() {
                 <button
                   type="submit"
                   disabled={submitting || !complete}
-                  className="mt-1 w-full rounded-full bg-clay px-8 py-3 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-cream hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+                  className="mt-1 w-full rounded-full bg-navy px-8 py-3 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-cream hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {submitting ? 'Sending…' : 'Request a Pop-Up'}
                 </button>

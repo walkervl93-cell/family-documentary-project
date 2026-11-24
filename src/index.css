@@ -6,7 +6,12 @@
 
   --color-ink: #16140f;
   --color-cream: #f6f2e9;
-  --color-clay: #b5502f;
+  /* The accent, on light surfaces: buttons, eyebrows, active nav. 10.3:1
+     on cream. */
+  --color-navy: #1e3a5f;
+  /* The same accent where it sits on ink. A true navy scores 1.6:1 there and
+     disappears; this is 10:1. */
+  --color-navy-soft: #9ec3e8;
   --color-moss: #4a5240;
   --color-sand: #e4dac8;
 }
@@ -27,15 +32,15 @@ h1, h2, h3, h4, .font-serif {
 
 @layer components {
   .input {
-    @apply w-full rounded-lg border border-ink/15 bg-white/70 px-4 py-3 text-sm placeholder:text-ink/40 focus:border-clay focus:outline-none;
+    @apply w-full rounded-lg border border-ink/15 bg-white/70 px-4 py-3 text-sm placeholder:text-ink/40 focus:border-navy focus:outline-none;
   }
   /* Larger counterpart to .input for the intake page, which is built for
      seniors on phones: taller target, bigger type, visible borders. */
   .input-lg {
-    @apply w-full rounded-xl border border-ink/25 bg-white px-4 py-4 text-lg text-ink placeholder:text-ink/40 focus:border-clay focus:outline-none focus:ring-2 focus:ring-clay/30;
+    @apply w-full rounded-xl border border-ink/25 bg-white px-4 py-4 text-lg text-ink placeholder:text-ink/40 focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/30;
   }
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-clay px-6 py-3 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-ink disabled:opacity-50;
+    @apply inline-flex items-center justify-center rounded-full bg-navy px-6 py-3 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-ink disabled:opacity-50;
   }
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-full border border-ink/20 px-6 py-3 text-sm font-medium uppercase tracking-wide text-ink transition-colors hover:border-ink;

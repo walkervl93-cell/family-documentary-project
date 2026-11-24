@@ -33,7 +33,7 @@ export default function Nav() {
               key={l.to}
               to={l.to}
               className={({ isActive }) =>
-                `transition-colors hover:text-clay ${isActive ? 'text-clay' : 'text-ink/80'}`
+                `transition-colors hover:text-navy ${isActive ? 'text-navy' : 'text-ink/80'}`
               }
             >
               {l.label}
@@ -46,13 +46,13 @@ export default function Nav() {
               things a visitor is most likely to want. */}
           <Link
             to="/home#book-consult"
-            className="whitespace-nowrap rounded-full bg-clay px-2.5 py-1.5 text-[0.65rem] font-medium uppercase tracking-wide text-cream hover:bg-ink sm:px-4 sm:py-2 sm:text-xs"
+            className="whitespace-nowrap rounded-full bg-navy px-2.5 py-1.5 text-[0.65rem] font-medium uppercase tracking-wide text-cream hover:bg-ink sm:px-4 sm:py-2 sm:text-xs"
           >
             Book a Consult
           </Link>
           <a
             href={BRAND.phoneHref}
-            className="whitespace-nowrap rounded-full bg-ink px-2.5 py-1.5 text-[0.65rem] font-medium uppercase tracking-wide text-cream hover:bg-clay sm:px-4 sm:py-2 sm:text-xs"
+            className="whitespace-nowrap rounded-full bg-ink px-2.5 py-1.5 text-[0.65rem] font-medium uppercase tracking-wide text-cream hover:bg-navy sm:px-4 sm:py-2 sm:text-xs"
           >
             {BRAND.phone}
           </a>
@@ -93,7 +93,7 @@ export default function Nav() {
               key={l.to}
               to={l.to}
               className={({ isActive }) =>
-                `border-b border-ink/5 py-3 last:border-0 ${isActive ? 'text-clay' : 'text-ink/80'}`
+                `border-b border-ink/5 py-3 last:border-0 ${isActive ? 'text-navy' : 'text-ink/80'}`
               }
             >
               {l.label}

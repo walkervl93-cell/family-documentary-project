@@ -7,7 +7,7 @@ export default function OurProcess() {
   return (
     <>
       <section className="mx-auto max-w-4xl px-6 py-16 text-center">
-        <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-navy">
           How we work
         </p>
         <h1 className="text-4xl leading-tight sm:text-5xl">Our Process</h1>
@@ -44,7 +44,7 @@ export default function OurProcess() {
         <div className="grid gap-8 md:grid-cols-2">
           {DOCUMENTARY_PROCESS.map((step, i) => (
             <div key={step.step} className="rounded-2xl border border-ink/10 bg-white/50 p-8">
-              <span className="text-sm font-medium uppercase tracking-wide text-clay">
+              <span className="text-sm font-medium uppercase tracking-wide text-navy">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h2 className="mt-2 text-xl">{step.step}</h2>

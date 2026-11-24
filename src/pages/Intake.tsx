@@ -96,7 +96,7 @@ export default function Intake() {
         </p>
         <p className="mt-10 text-lg text-ink/60">
           Questions in the meantime? Call{' '}
-          <a className="font-medium text-clay underline" href={BRAND.phoneHref}>
+          <a className="font-medium text-navy underline" href={BRAND.phoneHref}>
             {BRAND.phone}
           </a>
           .
@@ -220,7 +220,7 @@ export default function Intake() {
                   <button
                     type="button"
                     onClick={() => removeContact(i)}
-                    className="justify-self-start py-2 text-base text-clay underline"
+                    className="justify-self-start py-2 text-base text-navy underline"
                   >
                     Remove {contact.name.trim() || 'this person'}
                   </button>
@@ -239,7 +239,7 @@ export default function Intake() {
         </fieldset>
 
         {error && (
-          <p role="alert" className="rounded-xl bg-clay/10 p-4 text-lg text-clay">
+          <p role="alert" className="rounded-xl bg-navy/10 p-4 text-lg text-navy">
             {error}
           </p>
         )}
@@ -247,14 +247,14 @@ export default function Intake() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-full bg-clay px-8 py-5 text-xl font-medium text-cream transition-colors hover:bg-ink disabled:opacity-50"
+          className="w-full rounded-full bg-navy px-8 py-5 text-xl font-medium text-cream transition-colors hover:bg-ink disabled:opacity-50"
         >
           {submitting ? 'Sending…' : 'Sign Me Up'}
         </button>
 
         <p className="text-center text-base text-ink/60">
           Prefer to do this over the phone? Call{' '}
-          <a className="font-medium text-clay underline" href={BRAND.phoneHref}>
+          <a className="font-medium text-navy underline" href={BRAND.phoneHref}>
             {BRAND.phone}
           </a>
           .

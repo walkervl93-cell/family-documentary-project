@@ -22,7 +22,7 @@ function StatusTracker({ status }: { status: string }) {
         <li
           key={s}
           className={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide ${
-            i <= currentIndex ? 'border-clay bg-clay text-cream' : 'border-ink/15 text-ink/40'
+            i <= currentIndex ? 'border-navy bg-navy text-cream' : 'border-ink/15 text-ink/40'
           }`}
         >
           {BOOKING_STATUS_LABELS[s]}
@@ -114,7 +114,7 @@ function DeliverableViewer({ bookingId }: { bookingId: string }) {
           <span className="text-sm text-moss">Revision requested. We'll follow up.</span>
         ) : (
           <button
-            className="text-sm text-clay underline disabled:opacity-50"
+            className="text-sm text-navy underline disabled:opacity-50"
             disabled={requestingRevision}
             onClick={requestRevision}
           >
@@ -165,7 +165,7 @@ function RescheduleForm({ bookingId }: { bookingId: string }) {
       </button>
     </div>
   ) : (
-    <button className="mt-3 text-sm text-clay underline" onClick={() => setOpen(true)}>
+    <button className="mt-3 text-sm text-navy underline" onClick={() => setOpen(true)}>
       Request a reschedule
     </button>
   )
@@ -228,7 +228,7 @@ export default function PortalDashboard() {
             </div>
 
             {b.status === 'payment_requested' && b.payment_link_url && (
-              <div className="mt-4 rounded-xl border border-clay/30 bg-clay/5 p-4">
+              <div className="mt-4 rounded-xl border border-navy/30 bg-navy/5 p-4">
                 <p className="text-sm text-ink/80">
                   Ready to move forward? Pay ${b.payment_amount} to confirm your booking.
                 </p>

@@ -84,7 +84,7 @@ export default function NewsletterSignup() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="shrink-0 rounded-full bg-clay px-6 py-2.5 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-cream hover:text-ink disabled:opacity-50"
+                className="shrink-0 rounded-full bg-navy px-6 py-2.5 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-cream hover:text-ink disabled:opacity-50"
               >
                 {submitting ? 'Signing up…' : 'Subscribe'}
               </button>
@@ -115,7 +115,7 @@ export default function NewsletterSignup() {
             )}
 
             {error && (
-              <p role="alert" className="mt-3 text-sm text-clay">
+              <p role="alert" className="mt-3 text-sm text-navy">
                 {error}
               </p>
             )}

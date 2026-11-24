@@ -25,7 +25,7 @@ export default function OurWhy() {
       </section>
 
       <section className="mx-auto max-w-3xl px-6 py-16 text-center">
-        <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.2em] text-clay">Our Why</p>
+        <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.2em] text-navy">Our Why</p>
         <h1 className="text-center text-4xl leading-tight sm:text-5xl">{OUR_WHY_TITLE}</h1>
         <div className="mt-8 grid gap-6 text-left">
           {OUR_WHY_BEFORE.map((para) => (
@@ -52,6 +52,21 @@ export default function OurWhy() {
             </p>
           ))}
         </div>
+      </section>
+
+      {/* The thesis the story above is about. On YouTube rather than the
+          copy in public/videos: that one is a silenced 640x360 cut made for
+          use as a muted background, and this is meant to be watched. */}
+      <section className="mx-auto max-w-5xl px-6 pb-20">
+        <p className="mb-4 text-center text-xs font-medium uppercase tracking-[0.2em] text-navy">
+          The senior thesis
+        </p>
+        <h2 className="mb-6 text-center font-serif text-3xl">A Fading Fraternity</h2>
+        <YouTubeEmbed
+          id={YOUTUBE.fadingFraternity}
+          title="A Fading Fraternity"
+          placeholder="A Fading Fraternity"
+        />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">
