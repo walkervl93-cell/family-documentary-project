@@ -55,7 +55,7 @@ export default function YouTubeEmbed({
         type="button"
         onClick={() => setPlaying(true)}
         aria-label={`Play ${title}`}
-        className={`${className} group relative overflow-hidden rounded-2xl bg-ink`}
+        className={`${className} group relative overflow-hidden rounded-3xl bg-ink`}
       >
         <img
           src={thumb}
@@ -88,7 +88,7 @@ export default function YouTubeEmbed({
 
   return (
     <iframe
-      className={`${className} rounded-2xl border-0`}
+      className={`${className} rounded-3xl border-0`}
       src={`https://www.youtube.com/embed/${id}?${params}`}
       title={title}
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

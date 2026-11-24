@@ -25,7 +25,7 @@ export default function OurProcess() {
         </p>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 pb-12">
+      <section className="media-wide pb-12">
         {MEDIA.processSetupImage ? (
           <img
             src={MEDIA.processSetupImage}
@@ -40,21 +40,38 @@ export default function OurProcess() {
         )}
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 pb-20">
-        <div className="grid gap-8 md:grid-cols-2">
-          {DOCUMENTARY_PROCESS.map((step, i) => (
-            <div key={step.step} className="rounded-2xl border border-ink/10 bg-white/50 p-8">
-              <span className="text-sm font-medium uppercase tracking-wide text-navy">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h2 className="mt-2 text-xl">{step.step}</h2>
-              <p className="mt-3 text-ink/70">{step.copy}</p>
-            </div>
-          ))}
+      {/* The steps sit over a scanned album rather than on bare cream: the
+          page describes digitizing someone's archive, so the archive itself
+          is the backdrop. Fixed attachment so the photograph holds still and
+          the cards travel over it. */}
+      <section className="relative overflow-hidden bg-ink py-20">
+        <img
+          src={MEDIA.processBackdrop}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover sm:bg-fixed"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-ink/70" aria-hidden="true" />
+
+        <div className="media-wide relative">
+          <div className="grid gap-6 md:grid-cols-2">
+            {DOCUMENTARY_PROCESS.map((step, i) => (
+              <div
+                key={step.step}
+                className="rounded-3xl border border-white/15 bg-ink/50 p-8 backdrop-blur-md"
+              >
+                <span className="text-sm font-medium uppercase tracking-wide text-navy-soft">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h2 className="mt-2 text-xl text-cream">{step.step}</h2>
+                <p className="mt-3 leading-relaxed text-cream/75">{step.copy}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 pb-20">
+      <section className="media-wide pb-20">
         <YouTubeEmbed
           id={YOUTUBE.ourProcessFeature}
           title="A Family Documentary Project film"

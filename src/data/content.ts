@@ -260,6 +260,9 @@ export const MEDIA = {
   styleAudioTranscript: '/videos/style-transcript.mp4',
   // Still photograph, supplied by hand. Empty renders a placeholder.
   processSetupImage: '',
+  // Behind the process steps: a scanned album, so the page about digitizing
+  // someone's archive is sitting on one.
+  processBackdrop: '/images/tfdp-website-image-34.jpg',
   homeGallery: [
     '/images/fam-memories-brochure-3.jpg',
     '/images/fam-memories-brochure-4.jpg',

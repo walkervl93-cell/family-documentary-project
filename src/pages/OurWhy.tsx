@@ -19,7 +19,7 @@ export default function OurWhy() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 pb-16">
+      <section className="media-wide pb-16">
         <YouTubeEmbed
           id={YOUTUBE.ourWhyFeature}
           title="A Family Documentary Project film"
@@ -42,7 +42,7 @@ export default function OurWhy() {
           cut down for use as a muted page background. Fine as a visual, but
           it needs replacing with a proper export before anyone watches it
           expecting to hear these men speak. */}
-      <section className="mx-auto max-w-5xl px-6 pb-20">
+      <section className="media-wide pb-20">
         <p className="mb-4 text-center text-xs font-medium uppercase tracking-[0.2em] text-navy">
           The senior thesis
         </p>

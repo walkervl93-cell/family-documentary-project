@@ -30,7 +30,7 @@ export default function Home() {
 
       {/* The hero reel, as a YouTube embed. Muted at the start because no
           browser will autoplay sound; the viewer unmutes from the player. */}
-      <section className="mx-auto max-w-5xl px-6 pt-12">
+      <section className="media-wide pt-10">
         <YouTubeEmbed
           id={YOUTUBE.homeHero}
           title="The Family Documentary Project"
@@ -64,7 +64,7 @@ export default function Home() {
         </p>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 pb-16">
+      <section className="media-wide pb-16">
         <YouTubeEmbed id={YOUTUBE.homeFeature}
           title="A Family Documentary Project film"
           placeholder="Feature video" />
