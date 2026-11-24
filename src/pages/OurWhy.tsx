@@ -2,7 +2,7 @@ import MediaPlaceholder from '../components/MediaPlaceholder'
 import YouTubeEmbed from '../components/YouTubeEmbed'
 import Gallery from '../components/Gallery'
 import ConsultBookingForm from '../components/ConsultBookingForm'
-import { MEDIA, YOUTUBE } from '../data/content'
+import { MEDIA, YOUTUBE, OUR_WHY_TITLE, OUR_WHY_BEFORE, OUR_WHY_AFTER } from '../data/content'
 
 export default function OurWhy() {
   return (
@@ -25,17 +25,15 @@ export default function OurWhy() {
       </section>
 
       <section className="mx-auto max-w-3xl px-6 py-16 text-center">
-        <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-clay">Our Why</p>
-        <h1 className="text-4xl leading-tight sm:text-5xl">
-          It started with our own family
-        </h1>
-        <p className="mt-6 font-serif text-xl leading-relaxed">
-          {/* TODO: Victoria's origin story, first paragraph. Who in your own
-              family you set out to record, and what made you pick up a camera
-              in the first place. */}
-          [ORIGIN STORY, PARAGRAPH ONE: the family member you first set out to
-          record, and what made you start.]
-        </p>
+        <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.2em] text-clay">Our Why</p>
+        <h1 className="text-center text-4xl leading-tight sm:text-5xl">{OUR_WHY_TITLE}</h1>
+        <div className="mt-8 grid gap-6 text-left">
+          {OUR_WHY_BEFORE.map((para) => (
+            <p key={para} className="font-serif text-xl leading-relaxed">
+              {para}
+            </p>
+          ))}
+        </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-16">
@@ -46,12 +44,14 @@ export default function OurWhy() {
         />
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 pb-16 text-center">
-        <p className="font-serif text-xl leading-relaxed">
-          {/* TODO: second origin paragraph, leading into the veterans work. */}
-          [ORIGIN STORY, PARAGRAPH TWO: how it grew past your own family, and
-          what drew you to recording veterans in particular.]
-        </p>
+      <section className="mx-auto max-w-3xl px-6 pb-16">
+        <div className="grid gap-6 text-left">
+          {OUR_WHY_AFTER.map((para) => (
+            <p key={para} className="font-serif text-xl leading-relaxed">
+              {para}
+            </p>
+          ))}
+        </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">

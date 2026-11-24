@@ -126,6 +126,22 @@ export const DIGITIZING_SERVICES = [
   },
 ]
 
+export const OUR_WHY_TITLE = `I grew up surrounded by people worth listening to`
+
+// First person throughout, on purpose. The rest of the site is "we"; this
+// page is Victoria's own story and reads false in the plural.
+export const OUR_WHY_BEFORE = [
+  `I come from a very large family, which where I am from is not unusual. My father had eleven aunts and uncles, which left me with eleven great aunts and uncles of my own, more grandparents than I could keep straight, and great grandparents who were still around well into my childhood. I did not think of any of that as remarkable at the time. It was just Sunday.`,
+  `When I went to college to study film, I made my senior thesis about World War II veterans and called it A Fading Fraternity. My grandfather is the reason. He served in the 82nd Airborne, 517th. I drove all over Virginia looking for men like him, and I asked them about their whole lives rather than only the war: who they were before it, what happened during it, and what they came home to be.`,
+]
+
+export const OUR_WHY_AFTER = [
+  `Then some of those men started to pass away.`,
+  `I had already given each family the finished film. What surprised me was what they asked for next. Several of them came back and said, do you still have the raw interview? The whole thing? Not the edited version. The hours of him just talking. They wanted his voice, uncut, to keep.`,
+  `That is when it clicked. If those families needed that, so did mine. So I turned the camera on my own grandparents, my own great aunts and uncles, the people I had grown up around and somehow never thought to ask. Once I had done it for my family, other people started asking me to do it for theirs.`,
+  `There is so much in the older generations that simply leaves when they do. I have watched that happen, and I have watched what it means to a family to have caught it in time. That is the whole of it. However grand or however small your story feels to you, it is worth keeping, and I would be glad to help you keep it.`,
+]
+
 export const GIVING_BACK_COPY = `Every month we host a free pop-up at a partnering community. Bring three to six photographs and we digitize them on the spot, then sit down and record you telling us the stories behind them. You keep the scans. Your family keeps the recording. There is no cost and nothing to sign up for on the day.`
 
 export const GIVING_BACK_CTA = `If you help run a community that would benefit from this, please reach out and we will bring a pop-up to you.`
