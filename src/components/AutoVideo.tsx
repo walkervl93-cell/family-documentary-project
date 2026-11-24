@@ -1,60 +1,82 @@
 import { useEffect, useRef, useState } from 'react'
 
 /**
- * A muted, looping video that only downloads once it's near the viewport, and
- * pauses again when it scrolls away.
+ * A muted, looping video that downloads before it is reached and plays once
+ * it is actually on screen.
  *
- * A plain `autoPlay` attribute makes the browser fetch every video on the page
- * the moment it loads, so five clips on the home page all compete for the same
- * connection and each one stutters. Deferring the `src` until the element is
- * close to being seen means a visitor only ever pays for what they actually
- * reach.
+ * Two separate observers, which is the point. A plain `autoPlay` attribute
+ * makes the browser fetch every video on the page at once, so several clips
+ * compete for the same connection and each one stutters. But loading only at
+ * the moment a clip becomes visible is the opposite mistake: the download
+ * starts from nothing exactly when the viewer is already looking at it, which
+ * is what made these take seconds to move.
+ *
+ * So: start fetching a long way out, a screenful and a half, and start
+ * playing only when it is genuinely in view. By the time the viewer arrives
+ * it has buffered, and nothing off screen is burning bandwidth playing to
+ * an empty room.
  */
 export default function AutoVideo({
   src,
   className,
   controls = false,
+  /** Above the fold: fetch immediately instead of waiting for an observer. */
+  eager = false,
   onError,
 }: {
   src: string
   className?: string
   controls?: boolean
+  eager?: boolean
   onError?: () => void
 }) {
   const ref = useRef<HTMLVideoElement>(null)
-  const [shouldLoad, setShouldLoad] = useState(false)
+  const [shouldLoad, setShouldLoad] = useState(eager)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
 
-    // Without IntersectionObserver (very old browsers) just load everything —
-    // a slow page beats a page with no video on it at all.
+    // Without IntersectionObserver (very old browsers) just load everything.
+    // A slow page beats a page with no video on it at all.
     if (typeof IntersectionObserver === 'undefined') {
       setShouldLoad(true)
       return
     }
 
-    const observer = new IntersectionObserver(
+    // Far out: begin fetching.
+    const loader = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setShouldLoad(true)
+          loader.disconnect()
+        }
+      },
+      { rootMargin: '1500px' },
+    )
+
+    // On screen: play. Off screen: pause.
+    const player = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
           // play() rejects if the browser declines to autoplay (a data-saver
-          // setting, say). The controls are there for that case, so there's
+          // setting, say). The controls are there for that case, so there is
           // nothing to handle beyond not throwing.
           el.play().catch(() => {})
         } else {
           el.pause()
         }
       },
-      // Start fetching a little before it's on screen so it's ready by the
-      // time the visitor gets there.
-      { rootMargin: '300px' },
+      { rootMargin: '0px', threshold: 0.1 },
     )
 
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
+    if (!eager) loader.observe(el)
+    player.observe(el)
+    return () => {
+      loader.disconnect()
+      player.disconnect()
+    }
+  }, [eager])
 
   // Every clip has a still of its own first frame in public/posters/, named
   // after the file. It shows instantly while the video itself is still
@@ -73,7 +95,9 @@ export default function AutoVideo({
       muted
       loop
       playsInline
-      preload="none"
+      // Only meaningful once src is set, and by then we have decided this one
+      // is worth fetching, so buffer it properly rather than on demand.
+      preload={shouldLoad ? 'auto' : 'none'}
       onError={onError}
     />
   )

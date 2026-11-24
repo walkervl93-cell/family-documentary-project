@@ -75,7 +75,11 @@ export default function GivingBack() {
     'w-full rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 text-sm text-cream placeholder:text-cream/50 focus:border-cream focus:outline-none focus:ring-2 focus:ring-cream/30'
 
   return (
-    <div className="relative flex min-h-[80vh] w-full items-center justify-center overflow-hidden bg-ink px-4 py-16">
+    // The footer carries a 6rem top margin for the cream pages, which on this
+    // dark one showed as a band of body background between the two. The extra
+    // bottom padding plus the matching negative margin runs the ink straight
+    // into the footer.
+    <div className="relative -mb-24 flex min-h-[80vh] w-full items-center justify-center overflow-hidden bg-ink px-4 pb-[10rem] pt-16">
       <SlideshowBackground images={MEDIA.givingBackSlideshow} />
       <div className="absolute inset-0 bg-ink/70" aria-hidden="true" />
 

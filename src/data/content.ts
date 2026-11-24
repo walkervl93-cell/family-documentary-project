@@ -229,7 +229,6 @@ export const YOUTUBE = {
   homeFeature: 'qogtFPn1XJo',       // Edward, further down the home page
   ourWhyFeature: 'Cm_YIx2KyQ0',     // Clara, on Our Why
   ourProcessFeature: 'O7-raGu7hvw', // Ola, on Our Process
-  fadingFraternity: '',             // the senior thesis, on Our Why
 }
 
 export const MEDIA = {
@@ -249,9 +248,9 @@ export const MEDIA = {
   documentariesProcessVideo: '/videos/our-process.mp4',
   digitizingHeroVideo: '/videos/dancing-lessons.mp4',
   memorialVideoExample: '/videos/memorial-teaser.mp4',
-  // The silenced 640x360 cut, made when this was a muted page background.
-  // Not the version to show anyone: Our Why uses YOUTUBE.fadingFraternity.
-  fadingFraternityBackground: '/videos/fading-fraternity.mp4',
+  // NOTE: this file is 640x360 with no audio track at all. It was cut down
+  // when it served as a muted page background. Replace with a proper export.
+  fadingFraternity: '/videos/fading-fraternity.mp4',
   // Short looping example clips for the four "What We Offer" style cards.
   // Dropped into public/videos/ by hand — until a file exists at one of these
   // paths, Home falls back to a placeholder box for that card.
