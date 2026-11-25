@@ -83,7 +83,7 @@ export default function OurProcess() {
             <div className="lg:sticky lg:top-28">
               <img
                 src={MEDIA.expectImage}
-                alt="A scanned family photograph"
+                alt="A scanned class photograph, the date written on a board held up in the front row"
                 loading="lazy"
                 className="w-full rounded-2xl object-cover shadow-2xl shadow-black/40"
               />
