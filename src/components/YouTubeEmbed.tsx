@@ -44,8 +44,24 @@ export default function YouTubeEmbed({
   placeholder?: string
 }) {
   const [playing, setPlaying] = useState(autoplay)
-  // maxresdefault does not exist for every upload; hqdefault always does.
+  // maxresdefault does not exist for every upload, so fall back to hqdefault.
   const [thumb, setThumb] = useState(`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`)
+  const [noThumb, setNoThumb] = useState(false)
+
+  // When YouTube holds no still for an id at all, it does not 404: it answers
+  // 200 with its grey play-button placeholder, 120x90, which object-cover then
+  // blows up into a grey slab across the section. onError never fires, so the
+  // size is the only tell. A still that small is never a real frame.
+  function checkRealFrame(e: React.SyntheticEvent<HTMLImageElement>) {
+    if (e.currentTarget.naturalWidth > 160) return
+    if (thumb.includes('maxresdefault')) {
+      setThumb(`https://i.ytimg.com/vi/${id}/hqdefault.jpg`)
+      return
+    }
+    // hqdefault is a placeholder too: the video is private, still processing
+    // or gone. Our own labelled card is better than YouTube's grey one.
+    setNoThumb(true)
+  }
 
   if (!id) return <MediaPlaceholder label={placeholder} className={className} />
 
@@ -57,13 +73,22 @@ export default function YouTubeEmbed({
         aria-label={`Play ${title}`}
         className={`${className} group relative overflow-hidden rounded-3xl bg-ink`}
       >
-        <img
-          src={thumb}
-          alt=""
-          loading={eager ? 'eager' : 'lazy'}
-          onError={() => setThumb(`https://i.ytimg.com/vi/${id}/hqdefault.jpg`)}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        {!noThumb && (
+          <img
+            src={thumb}
+            alt=""
+            loading={eager ? 'eager' : 'lazy'}
+            onLoad={checkRealFrame}
+            onError={() => {
+              if (thumb.includes('maxresdefault')) {
+                setThumb(`https://i.ytimg.com/vi/${id}/hqdefault.jpg`)
+              } else {
+                setNoThumb(true)
+              }
+            }}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
         <span className="absolute inset-0 bg-ink/25 transition-colors group-hover:bg-ink/10" />
         <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-navy/90 transition-transform group-hover:scale-110">
           {/* Our own play button, not YouTube's mark. */}
