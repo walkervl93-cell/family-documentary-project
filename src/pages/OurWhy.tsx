@@ -1,5 +1,4 @@
 import YouTubeEmbed from '../components/YouTubeEmbed'
-import AutoVideo from '../components/AutoVideo'
 import Gallery from '../components/Gallery'
 import ConsultBookingForm from '../components/ConsultBookingForm'
 import { MEDIA, YOUTUBE, OUR_WHY_TITLE, OUR_WHY_BEFORE, OUR_WHY_AFTER } from '../data/content'
@@ -37,17 +36,19 @@ export default function OurWhy() {
         </div>
       </section>
 
-      {/* The thesis the story above is about. On YouTube rather than the
-          file in public/videos, which is 640x360 and has NO AUDIO: it was
-          cut down for use as a muted page background. Fine as a visual, but
-          it needs replacing with a proper export before anyone watches it
-          expecting to hear these men speak. */}
+      {/* The thesis the story above is about. The YouTube upload, not the
+          file in public/videos: that one is 640x360 with NO AUDIO, cut down
+          to run as a muted background, and these men need to be heard. */}
       <section className="media-wide pb-20">
         <p className="mb-4 text-center text-xs font-medium uppercase tracking-[0.2em] text-navy">
           The senior thesis
         </p>
         <h2 className="mb-6 text-center font-serif text-3xl">A Fading Fraternity</h2>
-        <AutoVideo className="w-full rounded-2xl" src={MEDIA.fadingFraternity} controls />
+        <YouTubeEmbed
+          id={YOUTUBE.fadingFraternity}
+          title="A Fading Fraternity"
+          placeholder="A Fading Fraternity"
+        />
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">

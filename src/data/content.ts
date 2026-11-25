@@ -234,6 +234,7 @@ export const YOUTUBE = {
   homeFeature: 'qogtFPn1XJo',       // Edward, further down the home page
   ourWhyFeature: 'Cm_YIx2KyQ0',     // Clara, on Our Why
   ourProcessFeature: 'O7-raGu7hvw', // Ola, on Our Process
+  fadingFraternity: 'DyNgqHNuwgg',  // The senior thesis, on Our Why
 }
 
 export const MEDIA = {
