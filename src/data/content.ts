@@ -264,7 +264,7 @@ export const MEDIA = {
   styleAudioKenBurns: '/videos/style-ken-burns.mp4',
   styleAudioTranscript: '/videos/style-transcript.mp4',
   // Still photograph, supplied by hand. Empty renders a placeholder.
-  processSetupImage: '',
+  processSetupImage: '/images/process-setup.svg',
   // Behind the process steps: a scanned album, so the page about digitizing
   // someone's archive is sitting on one.
   processBackdrop: '/images/tfdp-website-image-34.jpg',

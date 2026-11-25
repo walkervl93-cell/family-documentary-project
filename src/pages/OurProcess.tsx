@@ -31,8 +31,10 @@ export default function OurProcess() {
         {MEDIA.processSetupImage ? (
           <img
             src={MEDIA.processSetupImage}
-            alt=""
-            className="aspect-[21/9] w-full rounded-3xl object-cover"
+            alt="A documentary set-up in a living room: a lantern softbox, a panel light, three cameras on tripods and two armchairs"
+            // No forced aspect: the drawing has its own proportions and
+            // cropping a line drawing just lops the legs off the tripods.
+            className="w-full rounded-3xl"
           />
         ) : (
           <MediaPlaceholder
