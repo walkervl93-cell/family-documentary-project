@@ -1,7 +1,13 @@
 import MediaPlaceholder from '../components/MediaPlaceholder'
 import YouTubeEmbed from '../components/YouTubeEmbed'
 import ConsultBookingForm from '../components/ConsultBookingForm'
-import { DOCUMENTARY_PROCESS, WHAT_TO_EXPECT, MEDIA, YOUTUBE } from '../data/content'
+import {
+  DOCUMENTARY_PROCESS,
+  OUR_PROCESS_INTRO,
+  WHAT_TO_EXPECT,
+  MEDIA,
+  YOUTUBE,
+} from '../data/content'
 
 export default function OurProcess() {
   return (
@@ -11,18 +17,13 @@ export default function OurProcess() {
           How we work
         </p>
         <h1 className="text-4xl leading-tight sm:text-5xl">Our Process</h1>
-        <p className="mx-auto mt-6 max-w-2xl font-serif text-xl leading-relaxed">
-          We make one thing: a documentary about a person. We research a life before we film it.
-          We light a room properly because the person in it deserves to be seen well. We digitize
-          photographs because a story is easier to believe when you can see it. None of these are
-          add-ons. They are what it takes to capture someone's story properly.
-        </p>
-        <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/70">
-          What changes is the shape. Some people want to sit down across from you and talk. Some
-          need to be moving, walking the house, holding things, pointing at what's on the wall.
-          Neither one is better. The story arrives on its own terms, and our job is to be ready
-          when it does.
-        </p>
+        <div className="mx-auto mt-6 grid max-w-2xl gap-5">
+          {OUR_PROCESS_INTRO.map((para) => (
+            <p key={para} className="font-serif text-xl leading-relaxed">
+              {para}
+            </p>
+          ))}
+        </div>
       </section>
 
       <section className="media-wide pb-12">

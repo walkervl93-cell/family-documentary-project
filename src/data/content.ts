@@ -146,6 +146,11 @@ export const GIVING_BACK_COPY = `Every month we host a free pop-up at a partneri
 
 export const GIVING_BACK_CTA = `If you help run a community that would benefit from this, please reach out and we will bring a pop-up to you.`
 
+export const OUR_PROCESS_INTRO = [
+  `We make one thing: family documentaries. Everything else we do serves that. We do our research before we film. We come with the questions families often don't think to ask until it's too late. We scan the old slides, 8mm reels, and photographs, because a story feels truer when you can see the faces in it. None of that is extra. It's just what it takes to tell someone's story right.`,
+  `What changes from family to family is how the story comes out. Some people want to sit down across from you and talk. Others need to keep moving: walking you through town or through the house, picking things up, pointing at pictures on the wall. Neither way is better. People tell their stories in their own way, and our job is to be ready when they do.`,
+]
+
 export const WHAT_TO_EXPECT = [
   {
     q: 'How long does the filming take?',
