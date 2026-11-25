@@ -269,6 +269,9 @@ export const MEDIA = {
   // Behind the process steps: a scanned album, so the page about digitizing
   // someone's archive is sitting on one.
   processBackdrop: '/images/tfdp-website-image-34.jpg',
+  // Beside What to Expect: a scanned print, creases and all, so the column
+  // shows what comes out of a family's boxes.
+  expectImage: '/images/tfdp-website-image-21.jpg',
   homeGallery: [
     '/images/fam-memories-brochure-3.jpg',
     '/images/fam-memories-brochure-4.jpg',

@@ -1,4 +1,5 @@
 import ProcessTimeline from '../components/ProcessTimeline'
+import QuestionList from '../components/QuestionList'
 import YouTubeEmbed from '../components/YouTubeEmbed'
 import ConsultBookingForm from '../components/ConsultBookingForm'
 import {
@@ -48,6 +49,10 @@ export default function OurProcess() {
         <div className="absolute inset-0 bg-ink/75" aria-hidden="true" />
 
         <div className="media-wide relative">
+          {/* The steps give nothing away until you point at one, so say so. */}
+          <p className="mb-10 text-center text-[0.7rem] uppercase tracking-[0.2em] text-cream/45">
+            Hover to read more
+          </p>
           <ProcessTimeline steps={DOCUMENTARY_PROCESS} />
         </div>
       </section>
@@ -60,17 +65,30 @@ export default function OurProcess() {
         />
       </section>
 
-      <section className="border-y border-ink/10 bg-sand/30">
-        <div className="mx-auto max-w-3xl px-6 py-20">
-          <h2 className="text-center text-3xl">What to Expect</h2>
-          <dl className="mt-10 grid gap-7">
-            {WHAT_TO_EXPECT.map((item) => (
-              <div key={item.q}>
-                <dt className="font-medium">{item.q}</dt>
-                <dd className="mt-2 text-ink/70">{item.a}</dd>
-              </div>
-            ))}
-          </dl>
+      {/* Questions on the left, a scanned print on the right. The answers
+          open on hover with the same motion as the timeline above, so the
+          two halves of the page move the same way. */}
+      <section className="bg-ink text-cream">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.2em] text-navy-soft">
+            Before you book
+          </p>
+          <h2 className="text-center text-3xl sm:text-4xl">What to Expect</h2>
+
+          <div className="mt-14 grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:gap-16">
+            <QuestionList items={WHAT_TO_EXPECT} />
+
+            {/* Sticky so the photograph stays put while the list is read;
+                the list is much the taller column. */}
+            <div className="lg:sticky lg:top-28">
+              <img
+                src={MEDIA.expectImage}
+                alt="A scanned family photograph"
+                loading="lazy"
+                className="w-full rounded-2xl object-cover shadow-2xl shadow-black/40"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
