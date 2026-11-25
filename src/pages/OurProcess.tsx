@@ -32,9 +32,11 @@ export default function OurProcess() {
           <img
             src={MEDIA.processSetupImage}
             alt="A documentary set-up in a living room: a lantern softbox, a panel light, three cameras on tripods and two armchairs"
-            // No forced aspect: the drawing has its own proportions and
-            // cropping a line drawing just lops the legs off the tripods.
-            className="w-full rounded-3xl"
+            // Half width, centred. No forced aspect either: the drawing has
+            // its own proportions and cropping a line drawing just lops the
+            // legs off the tripods. Full width on a phone, where half of a
+            // narrow screen would be too small to read.
+            className="mx-auto w-full sm:w-3/4 md:w-1/2"
           />
         ) : (
           <MediaPlaceholder
