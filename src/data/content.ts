@@ -54,7 +54,7 @@ export const DOCUMENTARY_STYLES = [
 export const DOCUMENTARY_PROCESS = [
   {
     step: 'Preliminary Interview',
-    copy: "We sit down together, on camera. This one is mostly for our own reference, so we can work out which stories have photographs, film or objects behind them and leave you a list of what to look for. It is also the least guarded conversation anyone has with us, and some of the rawest moments in the finished film come from it.",
+    copy: "We sit down together, on camera. This one is mostly for our own reference, so we can work out which stories have photographs, film or objects behind them and leave you a list of what to look for. Some of the rawest moments in the finished film come from it.",
   },
   {
     step: 'Research',

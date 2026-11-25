@@ -64,7 +64,7 @@ export default function OurProcess() {
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <h2 className="mt-2 text-xl text-cream">{step.step}</h2>
-                <p className="mt-3 leading-relaxed text-cream/75">{step.copy}</p>
+                <p className="mt-3 font-serif text-lg leading-relaxed text-cream/80">{step.copy}</p>
               </div>
             ))}
           </div>
