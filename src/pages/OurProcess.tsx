@@ -1,4 +1,5 @@
 import MediaPlaceholder from '../components/MediaPlaceholder'
+import ProcessTimeline from '../components/ProcessTimeline'
 import YouTubeEmbed from '../components/YouTubeEmbed'
 import ConsultBookingForm from '../components/ConsultBookingForm'
 import {
@@ -41,34 +42,19 @@ export default function OurProcess() {
         )}
       </section>
 
-      {/* The steps sit over a scanned album rather than on bare cream: the
-          page describes digitizing someone's archive, so the archive itself
-          is the backdrop. Fixed attachment so the photograph holds still and
-          the cards travel over it. */}
-      <section className="relative overflow-hidden bg-ink py-20">
+      {/* One screen, no inner scrolling: the whole process is meant to be
+          taken in at once. The scanned album stays as the backdrop. */}
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-ink py-16">
         <img
           src={MEDIA.processBackdrop}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover sm:bg-fixed"
+          className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-ink/70" aria-hidden="true" />
+        <div className="absolute inset-0 bg-ink/75" aria-hidden="true" />
 
         <div className="media-wide relative">
-          <div className="grid gap-6 md:grid-cols-2">
-            {DOCUMENTARY_PROCESS.map((step, i) => (
-              <div
-                key={step.step}
-                className="rounded-3xl border border-white/15 bg-ink/50 p-8 backdrop-blur-md"
-              >
-                <span className="text-sm font-medium uppercase tracking-wide text-navy-soft">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <h2 className="mt-2 text-xl text-cream">{step.step}</h2>
-                <p className="mt-3 font-serif text-lg leading-relaxed text-cream/80">{step.copy}</p>
-              </div>
-            ))}
-          </div>
+          <ProcessTimeline steps={DOCUMENTARY_PROCESS} />
         </div>
       </section>
 
