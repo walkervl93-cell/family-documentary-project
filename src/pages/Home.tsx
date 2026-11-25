@@ -16,6 +16,7 @@ export default function Home() {
         // No background video: the reel sits directly below it, and a second
         // moving image behind the headline only fought with it. Flat ink.
         compact
+        light
       >
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <a href="#newsletter" className="btn-primary">
@@ -23,7 +24,7 @@ export default function Home() {
           </a>
           <Link
             to="/our-process"
-            className="btn-secondary border-cream/40 text-cream hover:border-cream"
+            className="btn-secondary"
           >
             Explore the Process
           </Link>
