@@ -58,7 +58,7 @@ export default function OurProcess() {
         </div>
       </section>
 
-      <section className="media-wide pb-20">
+      <section className="media-wide pb-20 pt-32 sm:pt-48">
         <YouTubeEmbed
           id={YOUTUBE.ourProcessFeature}
           title="A Family Documentary Project film"
