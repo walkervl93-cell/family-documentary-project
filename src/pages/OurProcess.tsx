@@ -1,4 +1,3 @@
-import MediaPlaceholder from '../components/MediaPlaceholder'
 import ProcessTimeline from '../components/ProcessTimeline'
 import YouTubeEmbed from '../components/YouTubeEmbed'
 import ConsultBookingForm from '../components/ConsultBookingForm'
@@ -14,6 +13,16 @@ export default function OurProcess() {
   return (
     <>
       <section className="mx-auto max-w-4xl px-6 py-16 text-center">
+        {/* Centred over the eyebrow, so the top of the page reads as one
+            stack: drawing, label, title, paragraph. The SVG is cropped to
+            the drawing itself, so this width is all picture, no blank paper. */}
+        {MEDIA.processSetupImage ? (
+          <img
+            src={MEDIA.processSetupImage}
+            alt="A documentary set-up in a living room: a lantern softbox, a panel light, three cameras on tripods and two armchairs"
+            className="mx-auto mb-8 w-56 sm:w-64"
+          />
+        ) : null}
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-navy">
           How we work
         </p>
@@ -25,25 +34,6 @@ export default function OurProcess() {
             </p>
           ))}
         </div>
-      </section>
-
-      <section className="media-wide pb-12">
-        {MEDIA.processSetupImage ? (
-          <img
-            src={MEDIA.processSetupImage}
-            alt="A documentary set-up in a living room: a lantern softbox, a panel light, three cameras on tripods and two armchairs"
-            // Half width, centred. No forced aspect either: the drawing has
-            // its own proportions and cropping a line drawing just lops the
-            // legs off the tripods. Full width on a phone, where half of a
-            // narrow screen would be too small to read.
-            className="mx-auto w-full sm:w-3/4 md:w-1/2"
-          />
-        ) : (
-          <MediaPlaceholder
-            label="Set-up in a client's home"
-            className="aspect-[21/9] w-full"
-          />
-        )}
       </section>
 
       {/* One screen, no inner scrolling: the whole process is meant to be
