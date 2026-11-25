@@ -23,7 +23,10 @@ export default function PageHero({
   return (
     <section
       className={`relative overflow-hidden ${
-        light ? 'bg-white text-ink' : 'bg-ink text-cream'
+        // Cream, the page's own ground, so the hero runs continuously into
+        // the header above it and the section under it. White left a seam at
+        // both edges.
+        light ? 'bg-cream text-ink' : 'bg-ink text-cream'
       }`}
     >
       {videoSrc && (
