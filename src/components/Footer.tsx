@@ -12,7 +12,11 @@ export default function Footer() {
 
         <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-cream/70">
           <div className="flex items-center gap-3">
-            <img src={logo} alt={BRAND.name} className="h-7 w-auto invert" />
+            {/* The logo PNG carries about 15% of its width in transparent
+                margin, so at this height its first letter lands 9px inside
+                the box. Pulled back by that much, the mark lines up with the
+                sentence and the sign-up heading above it. */}
+            <img src={logo} alt={BRAND.name} className="-ml-[9px] h-7 w-auto invert" />
             <span>{BRAND.tagline}</span>
           </div>
           <div className="flex flex-wrap gap-4">

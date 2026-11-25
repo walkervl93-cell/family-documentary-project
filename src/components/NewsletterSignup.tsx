@@ -56,9 +56,11 @@ export default function NewsletterSignup() {
         </div>
       ) : (
         <>
-          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          {/* Stacked rather than set across from each other: the sentence
+              explains the heading, so it belongs under it. */}
+          <div>
             <p className="font-serif text-xl">Sign up for the newsletter</p>
-            <p className="max-w-md text-sm text-cream/60">
+            <p className="mt-2 max-w-xl text-sm text-cream/60">
               Specials and deals, and tips on how to interview your grandparents yourself.
             </p>
           </div>

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Outlet, Navigate, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import Nav from './components/Nav'
 import ScrollManager from './components/ScrollManager'
@@ -14,13 +14,19 @@ import Admin from './pages/Admin'
 import PictureThis, { PICTURE_THIS_SLUG } from './pages/PictureThis'
 
 function SiteLayout() {
+  // Giving Back ends on its own sign-up card over a full-bleed slideshow. A
+  // second sign-up form immediately under it competes with the one the page
+  // exists for, so that page keeps the header and drops the footer.
+  const { pathname } = useLocation()
+  const hideFooter = pathname === '/giving-back'
+
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
         <Outlet />
       </main>
-      <Footer />
+      {!hideFooter && <Footer />}
     </div>
   )
 }

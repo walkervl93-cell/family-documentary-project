@@ -13,7 +13,9 @@ export default function Home() {
         eyebrow={BRAND.mission}
         title={BRAND.tagline}
         subtitle={BRAND.description}
-        videoSrc={MEDIA.homeHeroVideo}
+        // No background video: the reel sits directly below it, and a second
+        // moving image behind the headline only fought with it. Flat ink.
+        compact
       >
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <a href="#newsletter" className="btn-primary">
@@ -30,7 +32,7 @@ export default function Home() {
 
       {/* The hero reel, as a YouTube embed. Muted at the start because no
           browser will autoplay sound; the viewer unmutes from the player. */}
-      <section className="media-wide pt-10">
+      <section className="media-wide pt-4">
         <YouTubeEmbed
           id={YOUTUBE.homeHero}
           title="The Family Documentary Project"

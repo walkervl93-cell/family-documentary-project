@@ -6,12 +6,15 @@ export default function PageHero({
   title,
   subtitle,
   videoSrc,
+  compact = false,
   children,
 }: {
   eyebrow?: string
   title: string
   subtitle?: string
   videoSrc?: string
+  /** Tighter top and bottom, for a hero with something right underneath it. */
+  compact?: boolean
   children?: ReactNode
 }) {
   return (
@@ -22,7 +25,9 @@ export default function PageHero({
           src={videoSrc}
         />
       )}
-      <div className="relative mx-auto max-w-4xl px-6 py-28 text-center">
+      <div
+        className={`relative mx-auto max-w-4xl px-6 text-center ${compact ? 'py-16' : 'py-28'}`}
+      >
         {eyebrow && (
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-navy-soft">{eyebrow}</p>
         )}
