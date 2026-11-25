@@ -44,11 +44,17 @@ export default function OurWhy() {
           The senior thesis
         </p>
         <h2 className="mb-6 text-center font-serif text-3xl">A Fading Fraternity</h2>
-        <YouTubeEmbed
-          id={YOUTUBE.fadingFraternity}
-          title="A Fading Fraternity"
-          placeholder="A Fading Fraternity"
-        />
+        {/* A third of the column, centred. The footage is old and soft, and
+            blown up to full width the softness is all you see; at this size
+            it reads as footage rather than as a bad file. Still full width on
+            a phone, where a third would be a stamp. */}
+        <div className="mx-auto w-full sm:w-1/2 md:w-1/3">
+          <YouTubeEmbed
+            id={YOUTUBE.fadingFraternity}
+            title="A Fading Fraternity"
+            placeholder="A Fading Fraternity"
+          />
+        </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-10">
